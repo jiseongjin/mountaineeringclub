@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -58,9 +59,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 :root {
-    --main-color: ##163020;
+    --main-color: #163020;
     --sub-color1: #304D30;
     --sub-color2: #B6C4B6;
      --sub-color3: #EEF0E5
