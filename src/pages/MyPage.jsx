@@ -1,7 +1,17 @@
-import React from 'react';
+import React from 'react'
+import styled from 'styled-components'
 
-function MyPage() {
-  return <div>MyPage</div>;
+const StyledContainer = styled.div`
+  width: 500px;
+  background-color: green;
+`;
+const MyPage = () => {
+  return (
+    <>
+      <StyledContainer>MyPage</StyledContainer>
+      
+    </>
+  )
 }
 
-export default MyPage;
+export default MyPage
