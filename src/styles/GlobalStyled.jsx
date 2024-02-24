@@ -52,7 +52,9 @@ table {
     box-sizing: border-box;
 }
 body {
-  margin: 0;
+  margin: 0 auto;
+  height:100vh;
+  max-width: 1400px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -68,6 +70,9 @@ body {
 button {
 	cursor: pointer;
 }
-
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    color:black;
+}
 `;
 export default GlobalStyle;
