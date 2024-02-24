@@ -2,6 +2,7 @@ import { db } from '../firebase';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { formattedDate } from 'util/Date';
 
 function Comments() {
   // To-Do: 로그인 여부 가져오기 -> 로그인 된 사용자만 댓글 수정 & 삭제 가능
@@ -41,11 +42,14 @@ function Comments() {
     const checkCommentSubmit = window.confirm('댓글을 등록하시겠습니까?');
     if (checkCommentSubmit) {
       try {
+        const timestamp = new Date();
+
         // DB에 데이터 저장하기
         await addDoc(collection(db, 'comments'), {
-          comment: newComment
+          comment: newComment,
+          timestamp
         });
-        setComments([{ comment: newComment }, ...comments]);
+        setComments([{ comment: newComment, timestamp }, ...comments]);
         setNewComment('');
       } catch (error) {
         console.log('Error adding document: ', error);
@@ -113,7 +117,7 @@ function Comments() {
               <StCommentInfo>
                 {/* To-Do: 회원가입 시 설정한 닉네임 */}
                 <p>@@@님</p>
-                <p>댓글 단 시간</p>
+                <p>{formattedDate(comment.timestamp)}</p>
               </StCommentInfo>
               {editingCommentIndex === index ? (
                 <>
