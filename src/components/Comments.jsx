@@ -1,5 +1,6 @@
-import { addDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { db } from '../firebase';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 function Comments() {
@@ -8,6 +9,18 @@ function Comments() {
   const [newComment, setNewComment] = useState('');
   const [editingComment, setEditingComment] = useState('');
   const [editingCommentIndex, setEditingCommentIndex] = useState(null);
+
+  // DB에서 데이터 가져오기
+  useEffect(() => {
+    const loadComments = async () => {
+      const querySnapshot = await getDocs(query(collection(db, 'comments')));
+      const commentsList = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      setComments(commentsList);
+    };
+    loadComments();
+  }, []);
 
   const handleNewCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -18,7 +31,7 @@ function Comments() {
   };
 
   // 댓글 등록하기
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     if (!newComment.trim()) {
       alert('댓글을 입력해주세요.');
       return;
@@ -26,9 +39,16 @@ function Comments() {
 
     const checkCommentSubmit = window.confirm('댓글을 등록하시겠습니까?');
     if (checkCommentSubmit) {
-      setComments([newComment, ...comments]);
-      setNewComment('');
-      return;
+      try {
+        // DB에 데이터 저장하기
+        await addDoc(collection(db, 'comments'), {
+          comment: newComment
+        });
+        setComments([newComment, ...comments]);
+        setNewComment('');
+      } catch (error) {
+        console.log('Error adding document: ', error);
+      }
     }
   };
 
@@ -38,27 +58,38 @@ function Comments() {
   };
 
   // 댓글 수정 완료하기
-  const handleCommentEditCompleteButton = (index) => {
+  const handleCommentEditCompleteButton = async (index) => {
     if (!editingComment) {
       return alert('수정된 부분이 없습니다.');
     }
 
     const checkCommentEdit = window.confirm('댓글을 수정하시겠습니까?');
     if (checkCommentEdit) {
-      const updatedComments = [...comments];
-      updatedComments[index] = editingComment;
-      setComments(updatedComments);
-      setEditingCommentIndex(null);
+      try {
+        // DB에 데이터 업데이트하기
+        const commentRef = doc(collection(db, 'comments'), comments[index].id);
+        await setDoc(commentRef, { comment: editingComment });
+
+        setComments((prevComments) =>
+          prevComments.map((comment, i) => (i === index ? { ...comment, comment: editingComment } : comment))
+        );
+        setEditingCommentIndex(null);
+      } catch (error) {
+        console.error('Error updating document: ', error);
+      }
     }
   };
 
   // 댓글 삭제하기
-  const handleCommentDeleteButton = (index) => {
+  const handleCommentDeleteButton = async (index) => {
     const checkCommentDelete = window.confirm('댓글을 삭제하시겠습니까?');
     if (checkCommentDelete) {
-      const remainedComments = [...comments];
-      remainedComments.splice(index, 1);
-      setComments(remainedComments);
+      try {
+        await deleteDoc(doc(db, 'comments', comments[index].id));
+        setComments((prevComments) => prevComments.filter((comment, i) => i === index));
+      } catch (error) {
+        console.error('Error deleting document: ', error);
+      }
     }
   };
 
@@ -80,7 +111,7 @@ function Comments() {
             <StComment key={index}>
               {editingCommentIndex === index ? (
                 <>
-                  <textarea defaultValue={comment} onChange={handleEditingComment} autoFocus />
+                  <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
                   {isLoggedIn && (
                     <StCommentButtonWrapper>
                       <button onClick={() => handleCommentEditCompleteButton(index)}>완료</button>
@@ -96,7 +127,7 @@ function Comments() {
                 </>
               ) : (
                 <>
-                  <p>{comment}</p>
+                  <p>{comment.comment}</p>
                   {isLoggedIn && (
                     <StCommentButtonWrapper>
                       <button
