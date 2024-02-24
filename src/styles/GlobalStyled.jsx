@@ -54,7 +54,7 @@ table {
 body {
   margin: 0 auto;
   height:100vh;
-  max-width: 1400px;
+  max-width: 1280px;
   font-family: "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
