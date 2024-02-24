@@ -1,20 +1,28 @@
 import Logout from 'components/Logout';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <StNavContainer>
       <StLogo>
-        <Link>한사랑 산악회</Link>
+        <Link to="/main">한사랑 산악회</Link>
       </StLogo>
       <StRightNav>
-        <Link>로그인</Link>
-        <Link>회원가입</Link>
-
-        <Logout />
-        <Link>마이페이지</Link>
+        {isLoggedIn ? (
+          <>
+            <Link to="/">로그인</Link>
+            <Link to="/signup">회원가입</Link>
+          </>
+        ) : (
+          <>
+            <Logout />
+            <Link to="/mypage">마이페이지</Link>
+          </>
+        )}
       </StRightNav>
     </StNavContainer>
   );
