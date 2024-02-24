@@ -44,7 +44,7 @@ function Comments() {
         await addDoc(collection(db, 'comments'), {
           comment: newComment
         });
-        setComments([newComment, ...comments]);
+        setComments([{ comment: newComment }, ...comments]);
         setNewComment('');
       } catch (error) {
         console.log('Error adding document: ', error);
@@ -86,7 +86,7 @@ function Comments() {
     if (checkCommentDelete) {
       try {
         await deleteDoc(doc(db, 'comments', comments[index].id));
-        setComments((prevComments) => prevComments.filter((comment, i) => i === index));
+        setComments((prevComments) => prevComments.filter((comment, i) => i !== index));
       } catch (error) {
         console.error('Error deleting document: ', error);
       }
