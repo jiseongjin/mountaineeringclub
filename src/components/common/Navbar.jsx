@@ -1,5 +1,5 @@
 import Logout from 'components/Logout';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
