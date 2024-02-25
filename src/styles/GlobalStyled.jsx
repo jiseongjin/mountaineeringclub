@@ -60,10 +60,10 @@ body {
 }
 
 :root {
-    --main-color: ##163020;
+    --main-color: #163020;
     --sub-color1: #304D30;
     --sub-color2: #B6C4B6;
-     --sub-color3: #EEF0E5
+    --sub-color3: #EEF0E5
 }
 button {
 	cursor: pointer;
