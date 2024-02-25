@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -51,16 +52,15 @@ table {
     box-sizing: border-box;
 }
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  margin: 0 auto;
+  height:100vh;
+  max-width: 1280px;
+  font-family: "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 :root {
-    --main-color: ##163020;
+    --main-color: #163020;
     --sub-color1: #304D30;
     --sub-color2: #B6C4B6;
      --sub-color3: #EEF0E5
@@ -68,6 +68,9 @@ body {
 button {
 	cursor: pointer;
 }
-
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    color:black;
+}
 `;
 export default GlobalStyle;
