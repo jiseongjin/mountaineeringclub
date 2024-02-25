@@ -13,7 +13,7 @@ function HikingTrail() {
           method: 'GET',
           params: {
             key: 'C52BF50F-4E62-3A15-B415-2D05A786EA03',
-            attrFilter: 'mntn_nm:=:북한산|emdCd:=:41281107',
+            attrFilter: 'mntn_nm:=:삼성산|emdCd:=:41171102',
             data: 'LT_L_FRSTCLIMB',
             request: 'GetFeature',
             size: 1000
@@ -30,12 +30,7 @@ function HikingTrail() {
     <HikingTrailInformationBox>
       <InformationBox>
         <p>등산 코스</p>
-        <ImgBox id="map">
-          <script
-            type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0606dc1ed2ca19a8ebecb2f18a1c3435"
-          ></script>
-        </ImgBox>
+        <ImgBox id="map"></ImgBox>
         <CourseInformationBox>
           <p>난이도 : </p>
           <p>소요시간 : </p>
