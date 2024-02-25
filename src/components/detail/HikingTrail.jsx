@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function HikingTrail() {
+const HikingTrail = () => {
   const [data, SetData] = useState(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function HikingTrail() {
       </InformationBox>
     </HikingTrailInformationBox>
   );
-}
+};
 
 export default HikingTrail;
 
