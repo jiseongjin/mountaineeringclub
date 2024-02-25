@@ -1,12 +1,11 @@
-import { db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formattedDate } from 'util/Date';
 
 const Comments = () => {
-  // To-Do: 로그인 여부 가져오기 -> 로그인 된 사용자만 댓글 수정 & 삭제 가능
-  const [isLogin, setIsLogin] = useState(true);
+  const currentUser = auth.currentUser;
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [editingComment, setEditingComment] = useState('');
@@ -124,7 +123,7 @@ const Comments = () => {
                   <StCommentContent>
                     <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
                   </StCommentContent>
-                  {isLogin && (
+                  {currentUser && (
                     <StCommentButtonWrapper>
                       <button onClick={() => handleCommentEditCompleteButton(index)}>완료</button>
                       <button
@@ -142,7 +141,7 @@ const Comments = () => {
                   <StCommentContent>
                     <p>{comment.comment}</p>
                   </StCommentContent>
-                  {isLogin && (
+                  {currentUser && (
                     <StCommentButtonWrapper>
                       <button
                         onClick={() => {

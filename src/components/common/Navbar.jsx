@@ -1,11 +1,10 @@
 import Logout from 'components/Logout';
-import { useState } from 'react';
+import { auth } from '../../firebase';
 import { Link, Outlet } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
 const Navbar = () => {
-  // To-Do: 로그인 여부 가져오기
-  const [isLogin, setIsLogin] = useState(true);
+  const currentUser = auth.currentUser;
 
   return (
     <>
@@ -14,15 +13,15 @@ const Navbar = () => {
           <Link to="/main">한사랑 산악회</Link>
         </StLogo>
         <StRightNav>
-          {isLogin ? (
-            <>
-              <Link to="/login">로그인</Link>
-              <Link to="/signup">회원가입</Link>
-            </>
-          ) : (
+          {currentUser ? (
             <>
               <Logout />
               <Link to="/mypage">마이페이지</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">로그인</Link>
+              <Link to="/signup">회원가입</Link>
             </>
           )}
         </StRightNav>

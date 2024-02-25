@@ -1,11 +1,10 @@
 import Navbar from 'components/common/Navbar';
-import { useState } from 'react';
+import { auth } from '../../firebase';
 import { Navigate, Outlet } from 'react-router-dom/dist';
 
 const AuthLayout = () => {
-  // To-Do: 로그인 여부 가져오기
-  const [isLogin, setIsLogin] = useState(true);
-  if (!isLogin) {
+  const currentUser = auth.currentUser;
+  if (!currentUser) {
     alert('로그인이 필요한 페이지입니다.');
     return <Navigate to="/login" replace />;
   }
