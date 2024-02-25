@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
 const Navbar = () => {
+  // To-Do: 로그인 여부 가져오기
   const [isLogin, setIsLogin] = useState(true);
 
   return (
@@ -15,7 +16,7 @@ const Navbar = () => {
         <StRightNav>
           {isLogin ? (
             <>
-              <Link to="/">로그인</Link>
+              <Link to="/login">로그인</Link>
               <Link to="/signup">회원가입</Link>
             </>
           ) : (

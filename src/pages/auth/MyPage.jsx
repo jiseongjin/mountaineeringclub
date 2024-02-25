@@ -109,23 +109,29 @@ const MyPage = () => {
         </div>
         <p>{nickName}</p>
         <StyledButtons>
-          <StyledBtn active={activeButton === '내정보 수정'} onClick={() => setActiveButton('내정보 수정')}>
-            내정보 수정
+          <StyledBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
+            내 정보 수정
           </StyledBtn>
-          <StyledBtn active={activeButton === '스크랩'} onClick={() => setActiveButton('스크랩')}>
-            스크랩
+          <StyledBtn
+            active={activeButton === '북마크한 등산 코스'}
+            onClick={() => setActiveButton('북마크한 등산 코스')}
+          >
+            북마크한 등산 코스
           </StyledBtn>
-          <StyledBtn active={activeButton === '완주한 등산코스'} onClick={() => setActiveButton('완주한 등산코스')}>
-            완주한 등산코스
+          <StyledBtn active={activeButton === '완주한 등산 코스'} onClick={() => setActiveButton('완주한 등산 코스')}>
+            완주한 등산 코스
           </StyledBtn>
-          <StyledBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
-            작성한 댓글
+          <StyledBtn
+            active={activeButton === '댓글 작성한 등산 코스'}
+            onClick={() => setActiveButton('댓글 작성한 등산 코스')}
+          >
+            댓글 작성한 등산 코스
           </StyledBtn>
           <StyledBtn onClick={handleLogout}>로그아웃</StyledBtn> {/* 로그아웃 버튼을 추가합니다. */}
         </StyledButtons>
       </StyledMenu>
       <StyledContent>
-        {activeButton === '내정보 수정' ? (
+        {activeButton === '내 정보 수정' ? (
           <div>
             <StyledImage src={imageUrl} alt="프로필 사진" />
             <div>
@@ -137,12 +143,12 @@ const MyPage = () => {
             <input type="text" value={newNickName} onChange={(e) => setNewNickname(e.target.value)} />
             <button onClick={handleNicknameChange}>닉네임 변경</button>
           </div>
-        ) : activeButton === '스크랩' ? (
-          <div>{/* 스크랩 목록 */}</div>
-        ) : activeButton === '완주한 등산코스' ? (
-          <div>{/* 완주한 등산코스 */}</div>
-        ) : activeButton === '작성한 댓글' ? (
-          <div>{/* 작성한 댓글 */}</div>
+        ) : activeButton === '북마크한 등산 코스' ? (
+          <div>{/* 북마크한 등산 코스 목록 */}</div>
+        ) : activeButton === '완주한 등산 코스' ? (
+          <div>{/* 완주한 등산 코스 */}</div>
+        ) : activeButton === '댓글 작성한 등산 코스' ? (
+          <div>{/* 댓글 작성한 등산 코스 */}</div>
         ) : (
           <div>
             <StyledImage src={imageUrl} alt="프로필 사진" />
