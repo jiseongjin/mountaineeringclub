@@ -26,7 +26,7 @@ const MyPage = () => {
         if (userDocData.exists()) {
           console.log(userDocData.data());
           const userData = userDocData.data();
-          // profileImage가 없거나 빈 문자열인 경우 기본 이미지 URL을 설정합니다.
+          // profileImage가 없거나 빈 문자열인 경우 기본 이미지 URL을 설정
           setImageUrl(userData.profileImage || "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800");
           setNickname(userData.nickName);
           setIsLoading(false);
@@ -78,7 +78,8 @@ const MyPage = () => {
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
-      await updateDoc(userDoc, { nickName: newNickName }); // 닉네임 업데이트
+      // 닉네임 업데이트
+      await updateDoc(userDoc, { nickName: newNickName });
       setNickname(newNickName);
       setNewNickname("");
       alert('닉네임이 변경되었습니다.');
@@ -98,26 +99,26 @@ const MyPage = () => {
   };
 
   return (
-      <StyledContainer>
-        <StyledMenu>
+      <StContainer>
+        <StMenu>
           <div>
-          <StyledProfile src={imageUrl} alt="프로필 사진" />
+          <StProfile src={imageUrl} alt="프로필 사진" />
           </div>
           <p>{nickName}</p>
-          <StyledButtons>
-            <StyledBtn active={activeButton === '내정보 수정'} onClick={() => setActiveButton('내정보 수정')}>내정보 수정</StyledBtn>
-            <StyledBtn active={activeButton === '스크랩'} onClick={() => setActiveButton('스크랩')}>스크랩</StyledBtn>
-            <StyledBtn active={activeButton === '완주한 등산코스'} onClick={() => setActiveButton('완주한 등산코스')}>완주한 등산코스</StyledBtn>
-            <StyledBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>작성한 댓글</StyledBtn>
-            <StyledBtn onClick={handleLogout}>로그아웃</StyledBtn> {/* 로그아웃 버튼을 추가합니다. */}
-          </StyledButtons>
-        </StyledMenu>
-        <StyledContent>
+          <StButtons>
+            <StBtn active={activeButton === '내정보 수정'} onClick={() => setActiveButton('내정보 수정')}>내정보 수정</StBtn>
+            <StBtn active={activeButton === '스크랩'} onClick={() => setActiveButton('스크랩')}>스크랩</StBtn>
+            <StBtn active={activeButton === '완주한 등산코스'} onClick={() => setActiveButton('완주한 등산코스')}>완주한 등산코스</StBtn>
+            <StBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>작성한 댓글</StBtn>
+            <StBtn onClick={handleLogout}>로그아웃</StBtn> {/* 로그아웃 버튼을 추가합니다. */}
+          </StButtons>
+        </StMenu>
+        <StContent>
           {activeButton === '내정보 수정' ? (
             <div>
-              <StyledImage src={imageUrl} alt="프로필 사진" />
+              <StImage src={imageUrl} alt="프로필 사진" />
               <div>
-                <StyledFileInput type="file" id="file" onChange={handleProfileImageUpload} style={{display: 'none'}} />
+                <StFileInput type="file" id="file" onChange={handleProfileImageUpload} style={{display: 'none'}} />
                 <label htmlFor="file">파일 선택</label>
               </div>
               <p>닉네임</p>
@@ -139,20 +140,20 @@ const MyPage = () => {
             </div>
           ) : (
             <div>
-              <StyledImage src={imageUrl} alt="프로필 사진" />
-              <StyledNickName>{nickName}</StyledNickName>
+              <StImage src={imageUrl} alt="프로필 사진" />
+              <StNickName>{nickName}</StNickName>
             </div>
           )}
-        </StyledContent>
-      </StyledContainer>
+        </StContent>
+      </StContainer>
   )
 }
 
-const StyledContainer = styled.div`
+const StContainer = styled.div`
   display: flex;
 `;
 
-const StyledMenu = styled.div`
+const StMenu = styled.div`
   width: 20%;
   height: 500px;
   margin-left: 50px;
@@ -165,18 +166,18 @@ const StyledMenu = styled.div`
   border-color:var(--sub-color2);
 `;
 
-const StyledNickName = styled.p`
+const StNickName = styled.p`
   font-size: 25px;
 `;
 
-const StyledProfile = styled.img`
+const StProfile = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-top: 30px;
 `;
 
-const StyledButtons = styled.div`
+const StButtons = styled.div`
   display: flex ;
  /*위에서 아래로 수직 배치*/
   flex-direction: column;
@@ -185,12 +186,12 @@ const StyledButtons = styled.div`
   height: 200px;
 `;
 
-const StyledBtn = styled.button`
+const StBtn = styled.button`
   background-color: transparent;
   border-color: transparent;
 `;
 
-const StyledContent = styled.div`
+const StContent = styled.div`
   width: 70%;
   // background-color: var(--sub-color3);
   text-align: center;
@@ -201,14 +202,14 @@ const StyledContent = styled.div`
   border-color: var(--sub-color2);
 `;
 
-const StyledImage = styled.img`
+const StImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
   margin-top: 50px;
 `;
 
-const StyledFileInput = styled.input`
+const StFileInput = styled.input`
   ::file-selector-button {
     display: none;
   }
