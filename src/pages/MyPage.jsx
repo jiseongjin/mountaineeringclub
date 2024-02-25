@@ -98,8 +98,6 @@ const MyPage = () => {
   };
 
   return (
-    <>
-      <StyledHeader>header</StyledHeader>
       <StyledContainer>
         <StyledMenu>
           <div>
@@ -147,17 +145,11 @@ const MyPage = () => {
           )}
         </StyledContent>
       </StyledContainer>
-    </>
   )
 }
 
 const StyledContainer = styled.div`
   display: flex;
-`;
-
-const StyledHeader = styled.header`
-  height: 50px;
-  text-align: center;
 `;
 
 const StyledMenu = styled.div`
