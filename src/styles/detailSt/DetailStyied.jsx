@@ -19,8 +19,8 @@ export const ImgBox = styled.div`
   margin-top: 10px;
   background-color: green;
   /* background-image: url(''); */
-  height: 300px;
-  width: 1000px;
+  height: 400px;
+  width: 500px;
 `;
 
 export const CourseInformationBox = styled.div`
