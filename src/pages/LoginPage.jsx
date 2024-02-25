@@ -1,15 +1,31 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+
 
 export default function LoginPage() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+    }
+  };
+
   return (
     <StLoginContainer>
       <StP>한사랑 산악회</StP>
       <StForm>
         <StGoogle>구글 로그인</StGoogle>
         <StDivider />
-        <StInput type='text' placeholder='이메일'></StInput>
-        <StInput type='password' placeholder='비밀번호'></StInput>
-        <StLoginButton>로그인</StLoginButton>
+        <StInput type='text' placeholder='이메일' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <StInput type='password' placeholder='비밀번호' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
         <StSignupButton>회원가입</StSignupButton>
       </StForm>
     </StLoginContainer>

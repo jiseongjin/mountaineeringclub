@@ -1,23 +1,29 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import DetailPage from 'pages/DetailPage';
 import MainPage from 'pages/MainPage';
 import MyPage from 'pages/MyPage';
 import SignupPage from 'pages/SignupPage';
+import LoginPage from 'pages/LoginPage';
 
-const { default: LoginPage } = require('pages/LoginPage');
-const { BrowserRouter, Routes, Route } = require('react-router-dom');
 
-const Router = () => {
+export default function Router() {
+
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/main" element={<MainPage />} />
+
+
+        <Route path="/" element={<MainPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/detail" element={<DetailPage />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
+
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+
+
       </Routes>
     </BrowserRouter>
   );
 };
-
-export default Router;

@@ -1,17 +1,62 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default function SignupPage() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+
+  const auth = getAuth();
+
+  const handleEmailSignUp = () => {
+    // 이메일을 이용한 회원가입 로직 구현
+  };
+
+  const handleGoogleLogin = () => {
+    // 구글을 이용한 회원가입 로직 구현
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // 로그인 성공 후 로직
+      console.log("Success", result);
+    })
+    .catch((error) => {
+      // 로그인 실패 후 로직
+      console.log("Eorror", error);
+    });
+  };
+
   return (
     <StLoginContainer>
       <StP>한사랑 산악회</StP>
       <StForm>
-        <StGoogle>구글 회원가입</StGoogle>
+        <StGoogle onClick={handleGoogleLogin}>구글 회원가입</StGoogle>
         <StDivider />
-        <StInput type='text' placeholder='이메일을 입력하세요'></StInput>
-        <StInput type='password' placeholder='비밀번호를 입력하세요'></StInput>
-        <StInput type='text' placeholder='닉네임을 입력하세요'></StInput>
-        <StLoginButton>회원가입</StLoginButton>
-        <StSignupButton>로그인</StSignupButton>
+        <StInput
+          type='text'
+          placeholder='이메일'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <StInput
+          type='password'
+          placeholder='비밀번호'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <StInput
+          type='text'
+          placeholder='비밀번호 재입력'
+        />
+        <StInput
+          type='text'
+          placeholder='닉네임'
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
+        <StsignupButton>회원가입</StsignupButton>
       </StForm>
     </StLoginContainer>
 
@@ -43,7 +88,6 @@ const StGoogle = styled.button`
     cursor: pointer;
     transition: backgroud-color 2s;
     user-select: none;
-    margin: 10px;
 
     &:hover {
       background-color: #163020;
@@ -69,9 +113,8 @@ const StInput = styled.input`
     font-size: 15px;
     user-select: none;
     cursor: pointer;
-    margin: 7px;
 `;
-const StLoginButton = styled.button`
+const StsignupButton = styled.button`
     width: 100px;
     border-radius: 5px;
     border: none;
@@ -87,18 +130,6 @@ const StLoginButton = styled.button`
 
     &:hover {
       background-color: #163020;
-    }
-`;
-const StSignupButton = styled.button`
-    border: none;
-    background-color: #B6C4B6;
-    transition: backgroud-color 2s;
-    font-size: 15px;
-    user-select: none;
-
-    &:hover {
-      color: #EEF0E5;
-      
     }
 `;
 const StDivider = styled.div`
