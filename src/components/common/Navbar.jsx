@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
-function Navbar() {
+const Navbar = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
@@ -29,7 +29,7 @@ function Navbar() {
       <Outlet />
     </>
   );
-}
+};
 
 export default Navbar;
 

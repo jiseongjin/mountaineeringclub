@@ -8,7 +8,7 @@ import LoginPage from 'pages/LoginPage';
 import SignupPage from 'pages/SignupPage';
 import MyPage from 'pages/MyPage';
 
-function Router() {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -31,6 +31,6 @@ function Router() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default Router;

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formattedDate } from 'util/Date';
 
-function Comments() {
+const Comments = () => {
   // To-Do: 로그인 여부 가져오기 -> 로그인 된 사용자만 댓글 수정 & 삭제 가능
   const [isLogin, setIsLogin] = useState(true);
   const [comments, setComments] = useState([]);
@@ -162,7 +162,7 @@ function Comments() {
       </StCommentContainer>
     </>
   );
-}
+};
 
 export default Comments;
 
