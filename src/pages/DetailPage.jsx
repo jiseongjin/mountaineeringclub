@@ -1,12 +1,13 @@
+import Comments from 'components/Comments';
 import HikingTrail from 'components/detail/HikingTrail';
-import React from 'react';
 
-function DetailPage() {
+const DetailPage = () => {
   return (
     <>
       <HikingTrail />
+      <Comments />
     </>
   );
-}
+};
 
 export default DetailPage;
