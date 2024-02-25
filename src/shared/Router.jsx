@@ -29,6 +29,9 @@ const Router = () => {
         <Route element={<AuthLayout />}>
           <Route path="/mypage" element={<MyPage />} />
         </Route>
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
