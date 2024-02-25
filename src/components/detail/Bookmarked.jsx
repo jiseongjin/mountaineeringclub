@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../../firebase';
-import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom/dist';
 
 const Bookmarked = ({ postId }) => {
@@ -12,8 +12,8 @@ const Bookmarked = ({ postId }) => {
 
     // 로그인이 되어 있지 않은 경우
     if (!currentUser) {
-      const checkMovetoLogin = window.confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
-      if (checkMovetoLogin) {
+      const checkLogin = window.confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
+      if (checkLogin) {
         navigate('/login');
         return;
       }
@@ -21,6 +21,7 @@ const Bookmarked = ({ postId }) => {
     }
 
     // 로그인이 되어 있는 경우
+    const checkBookmark = window.confirm('등산 코스 북마크 목록에 추가하시겠습니까?');
     const userId = auth.currentUser.uid;
     try {
     } catch (error) {
