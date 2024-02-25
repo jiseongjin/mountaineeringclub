@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { CourseInformationBox, HikingTrailInformationBox, ImgBox, InformationBox } from 'styles/detailSt/DetailStyied';
+import styled from 'styled-components';
 
 function HikingTrail() {
   const [data, SetData] = useState(null);
@@ -43,3 +43,33 @@ function HikingTrail() {
 }
 
 export default HikingTrail;
+
+const HikingTrailInformationBox = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  p {
+    font-size: 25px;
+  }
+`;
+
+const InformationBox = styled.article`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ImgBox = styled.div`
+  margin-top: 10px;
+  background-color: green;
+  /* background-image: url(''); */
+  height: 400px;
+  width: 500px;
+`;
+
+const CourseInformationBox = styled.div`
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
