@@ -6,7 +6,7 @@ import { formattedDate } from 'util/Date';
 
 function Comments() {
   // To-Do: 로그인 여부 가져오기 -> 로그인 된 사용자만 댓글 수정 & 삭제 가능
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [editingComment, setEditingComment] = useState('');
@@ -124,7 +124,7 @@ function Comments() {
                   <StCommentContent>
                     <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
                   </StCommentContent>
-                  {isLoggedIn && (
+                  {isLogin && (
                     <StCommentButtonWrapper>
                       <button onClick={() => handleCommentEditCompleteButton(index)}>완료</button>
                       <button
@@ -142,7 +142,7 @@ function Comments() {
                   <StCommentContent>
                     <p>{comment.comment}</p>
                   </StCommentContent>
-                  {isLoggedIn && (
+                  {isLogin && (
                     <StCommentButtonWrapper>
                       <button
                         onClick={() => {
@@ -206,6 +206,11 @@ const StCommentItem = styled.li`
   padding: 20px 25px;
   border: 1px solid black;
   border-radius: 10px;
+
+  & textarea {
+    width: 100%;
+    resize: none;
+  }
 `;
 
 const StCommentInfo = styled.div`
