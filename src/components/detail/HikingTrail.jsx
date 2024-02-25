@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import KakaoMap from './KakaoMap';
 
-function HikingTrail() {
+const HikingTrail = () => {
   const [data, SetData] = useState(null);
 
   useEffect(() => {
@@ -26,11 +27,12 @@ function HikingTrail() {
     };
     fetchData();
   }, []);
+
   return (
     <HikingTrailInformationBox>
       <InformationBox>
         <p>등산 코스</p>
-        <ImgBox id="map"></ImgBox>
+        <KakaoMap />
         <CourseInformationBox>
           <p>난이도 : </p>
           <p>소요시간 : </p>
@@ -40,7 +42,7 @@ function HikingTrail() {
       </InformationBox>
     </HikingTrailInformationBox>
   );
-}
+};
 
 export default HikingTrail;
 
@@ -57,14 +59,6 @@ const HikingTrailInformationBox = styled.section`
 const InformationBox = styled.article`
   display: flex;
   flex-direction: column;
-`;
-
-const ImgBox = styled.div`
-  margin-top: 10px;
-  background-color: green;
-  /* background-image: url(''); */
-  height: 400px;
-  width: 500px;
 `;
 
 const CourseInformationBox = styled.div`
