@@ -1,7 +1,11 @@
-import React from 'react';
+import Comments from 'components/Comments';
 
-function DetailPage() {
-  return <div>DetailPage</div>;
-}
+const DetailPage = () => {
+  return (
+    <>
+      <Comments />
+    </>
+  );
+};
 
 export default DetailPage;
