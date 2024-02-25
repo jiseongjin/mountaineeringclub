@@ -110,7 +110,7 @@ const MyPage = () => {
             <StBtn active={activeButton === '스크랩'} onClick={() => setActiveButton('스크랩')}>스크랩</StBtn>
             <StBtn active={activeButton === '완주한 등산코스'} onClick={() => setActiveButton('완주한 등산코스')}>완주한 등산코스</StBtn>
             <StBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>작성한 댓글</StBtn>
-            <StBtn onClick={handleLogout}>로그아웃</StBtn> {/* 로그아웃 버튼을 추가합니다. */}
+            <StBtn onClick={handleLogout}>로그아웃</StBtn>
           </StButtons>
         </StMenu>
         <StContent>
