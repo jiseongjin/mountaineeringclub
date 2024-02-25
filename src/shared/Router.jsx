@@ -4,9 +4,10 @@ import NonAuthLayout from 'components/layout/NonAuthLayout';
 import Layout from 'components/layout/Layout';
 import MainPage from 'pages/MainPage';
 import DetailPage from 'pages/DetailPage';
-import LoginPage from 'pages/LoginPage';
-import SignupPage from 'pages/SignupPage';
-import MyPage from 'pages/MyPage';
+import LoginPage from 'pages/non-auth/LoginPage';
+import SignupPage from 'pages/non-auth/SignupPage';
+import MyPage from 'pages/auth/MyPage';
+import { Navigate } from 'react-router-dom/dist';
 
 const Router = () => {
   return (
@@ -28,6 +29,8 @@ const Router = () => {
         <Route element={<AuthLayout />}>
           <Route path="/mypage" element={<MyPage />} />
         </Route>
+
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </BrowserRouter>
   );
