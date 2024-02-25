@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 
-export default function LoginPage() {
+const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -122,3 +122,5 @@ const StDivider = styled.div`
     background-color: white;
     margin: 20px;
 `;
+
+export default LoginPage;

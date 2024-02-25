@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-export default function SignupPage() {
+const SignupPage = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -138,3 +138,5 @@ const StDivider = styled.div`
     background-color: white;
     margin: 20px;
 `;
+
+export default SignupPage;
