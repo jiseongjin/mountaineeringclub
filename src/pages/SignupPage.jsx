@@ -14,7 +14,8 @@ const SignupPage = () => {
     // 이메일을 이용한 회원가입 로직 구현
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
     // 구글을 이용한 회원가입 로직 구현
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
