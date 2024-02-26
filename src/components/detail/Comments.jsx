@@ -52,12 +52,13 @@ const Comments = ({ postId }) => {
         // DB에 데이터 저장하기
         await addDoc(collection(db, 'comments'), {
           postId: postId,
-          userId: currentUser.uid,
+          // userId: currentUser.uid,
           comment: newComment,
           timestamp
         });
         setComments([{ comment: newComment, timestamp }, ...comments]);
         setNewComment('');
+        console.log(timestamp);
       } catch (error) {
         console.log('Error adding document: ', error);
       }
@@ -67,25 +68,32 @@ const Comments = ({ postId }) => {
   return (
     <>
       <StCommentContainer>
+        <hr />
         <StCommentInputContainer>
-          <StCommentInput
+          <textarea
             type="text"
             value={newComment}
             onChange={handleNewCommentChange}
             placeholder="댓글을 입력해주세요."
             maxLength={200}
           />
-          <StCommentButton onClick={handleCommentSubmit}>등록</StCommentButton>
+          <StCommentInputButtonWrapper>
+            <button onClick={handleCommentSubmit}>등록</button>
+          </StCommentInputButtonWrapper>
         </StCommentInputContainer>
         <StCommentList>
           {comments.map((comment, index) => (
-            <CommentItem
-              currentUser={currentUser}
-              comments={comments}
-              setComments={setComments}
-              comment={comment}
-              index={index}
-            />
+            <>
+              <hr />
+              <CommentItem
+                key={comment.postId}
+                currentUser={currentUser}
+                comments={comments}
+                setComments={setComments}
+                comment={comment}
+                index={index}
+              />
+            </>
           ))}
         </StCommentList>
       </StCommentContainer>
@@ -100,29 +108,56 @@ const StCommentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 100px;
+
+  & hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid darkgray;
+  }
 `;
 
 const StCommentInputContainer = styled.div`
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px auto;
+  padding: 0px 10px;
   width: 100%;
+
+  & textarea {
+    padding: 15px;
+    width: 100%;
+    height: 100px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    resize: none;
+  }
 `;
 
-const StCommentInput = styled.textarea`
-  padding: 15px;
-  width: 100%;
-  height: 100px;
-  resize: none;
-`;
+const StCommentInputButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 
-const StCommentButton = styled.button`
-  width: 80px;
+  & button {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background-color: var(--main-color);
+    color: white;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      border-color: var(--sub-color2);
+      background-color: var(--sub-color3);
+      color: black;
+    }
+  }
 `;
 
 const StCommentList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 40px;
+  gap: 5px;
+  margin-top: 5px;
   width: 100%;
 `;

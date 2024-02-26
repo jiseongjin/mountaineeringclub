@@ -54,10 +54,10 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
   };
 
   return (
-    <StCommentItem key={index}>
+    <StCommentItem>
       <StCommentInfo>
         {/* To-Do: 회원가입 시 설정한 닉네임 */}
-        <p>@@@님</p>
+        <span>imjiyoung 님</span>
         <p>{formattedDate(comment.timestamp)}</p>
       </StCommentInfo>
       {editingCommentIndex === index ? (
@@ -67,14 +67,14 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
           </StCommentContent>
           {currentUser && (
             <StCommentButtonWrapper>
-              <button onClick={() => handleCommentEditCompleteButton(index)}>완료</button>
-              <button
+              <StCommentEditButton onClick={() => handleCommentEditCompleteButton(index)}>완료</StCommentEditButton>
+              <StCommentDeleteButton
                 onClick={() => {
                   setEditingCommentIndex(null);
                 }}
               >
                 취소
-              </button>
+              </StCommentDeleteButton>
             </StCommentButtonWrapper>
           )}
         </>
@@ -83,18 +83,17 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
           <StCommentContent>
             <p>{comment.comment}</p>
           </StCommentContent>
-          {currentUser && (
-            <StCommentButtonWrapper>
-              <button
-                onClick={() => {
-                  handleCommentEditButton(index);
-                }}
-              >
-                수정
-              </button>
-              <button onClick={() => handleCommentDeleteButton(index)}>삭제</button>
-            </StCommentButtonWrapper>
-          )}
+          {/* {currentUser && ( */}
+          <StCommentButtonWrapper>
+            <StCommentEditButton
+              onClick={() => {
+                handleCommentEditButton(index);
+              }}
+            >
+              수정
+            </StCommentEditButton>
+            <StCommentDeleteButton onClick={() => handleCommentDeleteButton(index)}>삭제</StCommentDeleteButton>
+          </StCommentButtonWrapper>
         </>
       )}
     </StCommentItem>
@@ -107,10 +106,9 @@ const StCommentItem = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 15px;
+  gap: 18px;
+  margin-top: 3px;
   padding: 20px 25px;
-  border: 1px solid black;
-  border-radius: 10px;
 
   & textarea {
     width: 100%;
@@ -122,11 +120,19 @@ const StCommentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & span {
+    font-weight: 600;
+  }
+
+  & p {
+    font-size: 14px;
+  }
 `;
 
 const StCommentContent = styled.div`
-  padding: 15px;
-  border: 1px solid black;
+  padding: 20px 15px;
+  border: 1px solid lightgray;
   border-radius: 8px;
 `;
 
@@ -134,8 +140,27 @@ const StCommentButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-top: -5px;
+`;
 
-  & button {
-    padding: 3px 7px;
+const StCommentEditButton = styled.button`
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--main-color);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const StCommentDeleteButton = styled.button`
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: red;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
   }
 `;
