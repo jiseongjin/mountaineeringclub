@@ -13,6 +13,7 @@ const SignupPage = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [nickname, setNickname] = useState('');
 
   const auth = getAuth();
@@ -21,8 +22,24 @@ const SignupPage = () => {
     event.preventDefault();
     // 이메일을 이용한 회원가입 로직 구현
     try {
+      // 입력 필드 확인
+      if (!email || !password || !passwordConfirm || !nickname) {
+        alert("빈 곳을 입력해주세요.")
+      }
+      // 이메일 확인
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!emailPattern.test(email)) {
+        alert("유효하지 않은 이메일 형식입니다.");
+        return;
+      }
+      // 비밀번호 글자수 확인
       if (password.length < 6) {
         alert("비밀번호는 6자 이상이어야 합니다.");
+        return;
+      }
+      // 비밀번호 재확인
+      if (password !== passwordConfirm) {
+        alert("비밀번호와 재입력 비밀번호가 일치하지 않습니다.");
         return;
       }
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -70,9 +87,12 @@ const SignupPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <StPasswordP>비밀번호를 6자 이상 입력해주세요.</StPasswordP>
         <StInput
           type='password'
           placeholder='비밀번호 재입력'
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <StInput
           type='text'
@@ -161,6 +181,11 @@ const StDivider = styled.div`
     height: 0.2px;
     background-color: white;
     margin: 20px;
+`;
+const StPasswordP = styled.p`
+    font-size: 10px;
+    text-align: left;
+    width: 75%;
 `;
 
 export default SignupPage;
