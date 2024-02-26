@@ -1,7 +1,11 @@
 export const formattedDate = (timestamp) => {
+  if (!timestamp) {
+    return 'Invalid Date';
+  }
+
   if (timestamp instanceof Date) {
-    // 이미 Date 객체인 경우 변환 필요 없음
-    return new Date(timestamp).toLocaleDateString('ko-KR', {
+    // timestamp가 JS의 'Date' 객체일 때
+    return timestamp.toLocaleDateString('ko-KR', {
       year: '2-digit',
       month: '2-digit',
       day: '2-digit',
@@ -10,9 +14,10 @@ export const formattedDate = (timestamp) => {
       minute: '2-digit',
       second: '2-digit'
     });
-  } else if (timestamp.toDate instanceof Function) {
-    // Firestore Timestamp 객체인 경우 toDate() 메서드 사용
-    return timestamp.toDate().toLocaleDateString('ko-KR', {
+  } else if (timestamp.toDate && typeof timestamp.toDate === 'function') {
+    // timestamp가 firestore의 timestamp 객체일 때
+    const dateObject = timestamp.toDate();
+    return new Date(dateObject).toLocaleDateString('ko-KR', {
       year: '2-digit',
       month: '2-digit',
       day: '2-digit',
@@ -22,8 +27,6 @@ export const formattedDate = (timestamp) => {
       second: '2-digit'
     });
   } else {
-    // 그 외의 경우 예외 처리 또는 기본값 반환
-    console.error('Invalid timestamp:', timestamp);
-    return '';
+    return 'Invalid Date';
   }
 };
