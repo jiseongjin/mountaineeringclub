@@ -7,7 +7,6 @@ import DetailPage from 'pages/DetailPage';
 import LoginPage from 'pages/LoginPage';
 import SignupPage from 'pages/SignupPage';
 import MyPage from 'pages/MyPage';
-import NotFound from 'pages/NotFound';
 
 const Router = () => {
   return (
@@ -30,8 +29,6 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
         </Route>
 
-        {/* 404 Not Found */}
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
