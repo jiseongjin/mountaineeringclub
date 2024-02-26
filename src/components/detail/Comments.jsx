@@ -50,15 +50,23 @@ const Comments = ({ postId }) => {
         const timestamp = new Date();
 
         // DB에 데이터 저장하기
-        await addDoc(collection(db, 'comments'), {
-          postId: postId,
+        const newCommentRef = await addDoc(collection(db, 'comments'), {
+          postId,
           userId: currentUser.uid,
           comment: newComment,
           timestamp
         });
-        setComments([{ comment: newComment, timestamp }, ...comments]);
+
+        // db에 새로운 댓글 추가 후 새로운 댓글로 로컬 상태 업데이트
+        const newCommentData = {
+          id: newCommentRef.id,
+          postId,
+          userId: currentUser.uid,
+          comment: newComment,
+          timestamp
+        };
+        setComments([newCommentData, ...comments]);
         setNewComment('');
-        console.log(timestamp);
       } catch (error) {
         console.log('Error adding document: ', error);
       }
