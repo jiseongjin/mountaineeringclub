@@ -52,7 +52,7 @@ const Comments = ({ postId }) => {
         // DB에 데이터 저장하기
         await addDoc(collection(db, 'comments'), {
           postId: postId,
-          // userId: currentUser.uid,
+          userId: currentUser.uid,
           comment: newComment,
           timestamp
         });

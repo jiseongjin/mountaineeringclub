@@ -1,12 +1,30 @@
 import { db } from '../../firebase';
-import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { collection, deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formattedDate } from 'util/Date';
 
 const CommentItem = ({ currentUser, comments, setComments, comment, index }) => {
   const [editingComment, setEditingComment] = useState('');
   const [editingCommentIndex, setEditingCommentIndex] = useState(null);
+  const [userNickname, setUserNickname] = useState('');
+
+  useEffect(() => {
+    const fetchNickname = async () => {
+      try {
+        if (comment.userId) {
+          const userDoc = await getDoc(doc(db, 'users', comment.userId));
+          if (userDoc.exists()) {
+            setUserNickname(userDoc.data().nickname);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user nickname: ', error);
+      }
+    };
+
+    fetchNickname();
+  }, [comment.userId]);
 
   const handleEditingComment = (event) => {
     setEditingComment(event.target.value);
@@ -56,8 +74,7 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
   return (
     <StCommentItem>
       <StCommentInfo>
-        {/* To-Do: 회원가입 시 설정한 닉네임 */}
-        <span>imjiyoung 님</span>
+        <span>{userNickname} 님</span>
         <p>{formattedDate(comment.timestamp)}</p>
       </StCommentInfo>
       {editingCommentIndex === index ? (
@@ -65,7 +82,7 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
           <StCommentContent>
             <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
           </StCommentContent>
-          {currentUser && (
+          {currentUser && currentUser.uid === comment.userId && (
             <StCommentButtonWrapper>
               <StCommentEditButton onClick={() => handleCommentEditCompleteButton(index)}>완료</StCommentEditButton>
               <StCommentDeleteButton
@@ -83,17 +100,18 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
           <StCommentContent>
             <p>{comment.comment}</p>
           </StCommentContent>
-          {/* {currentUser && ( */}
-          <StCommentButtonWrapper>
-            <StCommentEditButton
-              onClick={() => {
-                handleCommentEditButton(index);
-              }}
-            >
-              수정
-            </StCommentEditButton>
-            <StCommentDeleteButton onClick={() => handleCommentDeleteButton(index)}>삭제</StCommentDeleteButton>
-          </StCommentButtonWrapper>
+          {currentUser && currentUser.uid === comment.userId && (
+            <StCommentButtonWrapper>
+              <StCommentEditButton
+                onClick={() => {
+                  handleCommentEditButton(index);
+                }}
+              >
+                수정
+              </StCommentEditButton>
+              <StCommentDeleteButton onClick={() => handleCommentDeleteButton(index)}>삭제</StCommentDeleteButton>
+            </StCommentButtonWrapper>
+          )}
         </>
       )}
     </StCommentItem>
