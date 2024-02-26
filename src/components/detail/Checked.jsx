@@ -17,6 +17,7 @@ const Checked = ({ postId }) => {
         navigate('/login');
         return;
       }
+      return;
     }
 
     // 로그인이 되어 있는 경우
