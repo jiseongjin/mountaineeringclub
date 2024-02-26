@@ -1,6 +1,6 @@
 import Logout from 'components/Logout';
 import { auth } from '../../firebase';
-import { Link, Outlet } from 'react-router-dom/dist';
+import { Link } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
 const Navbar = () => {
@@ -26,7 +26,6 @@ const Navbar = () => {
           )}
         </StRightNav>
       </StNavContainer>
-      <Outlet />
     </>
   );
 };
