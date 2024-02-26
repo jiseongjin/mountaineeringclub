@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  getAuth, 
-  signInWithPopup, 
+import { useSelector } from "react-redux";
+import {
+  getAuth,
+  signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword
 } from "firebase/auth";
@@ -18,7 +19,10 @@ const SignupPage = () => {
   const [nickname, setNickname] = useState('');
 
   const auth = getAuth();
+
   const navigate = useNavigate();
+
+  const isLogin = useSelector((state) => state.auth.isLogin);
 
   const handleEmailSignUp = async (event) => {
     event.preventDefault();
@@ -65,30 +69,37 @@ const SignupPage = () => {
     // 구글을 이용한 회원가입 로직 구현
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-    .then(async (result) => {
-      const userRef = doc(db, "users", result.user.uid);
-      const docSnap = await getDoc(userRef);
-      if (docSnap.exists()) {
-        // 이미 구글로 회원이 있는 경우
-        alert("이미 가입된 구글 이메일입니다. 로그인 페이지로 넘어갑니다.");
-        navigate("/");
+      .then(async (result) => {
+        const userRef = doc(db, "users", result.user.uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          // 이미 구글로 회원이 있는 경우
+          alert("이미 가입된 구글 이메일입니다. 로그인 페이지로 넘어갑니다.");
+          navigate("/");
+          return;
+        } else {
+          // 회원가입 성공 후
+          await setDoc(userRef, {
+            nickname: result.user.displayName,
+          });
+        }
+        console.log("Success", result);
+        alert("구글 회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
         return;
-      } else {
-        // 회원가입 성공 후
-        await setDoc(userRef, {
-          nickname: result.user.displayName,
-        });
-      }
-      console.log("Success", result);
-      alert("구글 회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-      navigate("/login");
-      return;
-    })
-    .catch((error) => {
-      // 로그인 실패 후 로직
-      console.log("Eorror", error);
-    });
+      })
+      .catch((error) => {
+        // 로그인 실패 후 로직
+        console.log("Eorror", error);
+      });
   };
+
+  useEffect(() => {
+    if (isLogin) {
+      alert("이미 로그인되어 있습니다.");
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <StLoginContainer>

@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase";
+import { useSelector } from "react-redux";
 
 const LoginPage = () => {
 
@@ -11,6 +12,8 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
+  const isLogin = useSelector((state) => state.auth.isLogin);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -18,7 +21,7 @@ const LoginPage = () => {
       alert("로그인이 완료되었습니다. 홈페이지로 이동합니다.");
       navigate("/");
     } catch (error) {
-      console.error("회원가입 실패:", error);
+      console.error("로그인 실패:", error);
       alert("로그인 또는 비밀번호가 일치하지 않습니다.");
     }
   };
@@ -42,6 +45,13 @@ const LoginPage = () => {
     event.preventDefault();
     navigate("/signup");
   };
+
+  useEffect(() => {
+    if (isLogin) {
+      alert("이미 로그인되어 있습니다.");
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   // 로그인 후에 홈으로 갔을 때 : 회원가입/로그인 페이지 진입불가
   // 프로필 사진 가져오기
