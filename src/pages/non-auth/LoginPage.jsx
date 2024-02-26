@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
@@ -52,25 +52,24 @@ const LoginPage = () => {
     }
   }, [isLogin, navigate]);
 
-  // 로그인 후에 홈으로 갔을 때 : 회원가입/로그인 페이지 진입불가
-  // 프로필 사진 가져오기
-
   return (
     <StLoginContainer>
       <StP>한사랑 산악회</StP>
-      <StForm>
-        <StGoogle onClick={handleGoogleLogin}>구글 로그인</StGoogle>
-        <StDivider />
-        <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <StInput
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
-        <StSignupButton onClick={handleSignup}>회원가입</StSignupButton>
-      </StForm>
+      <StFormContainer>
+        <StForm>
+          <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <StInput
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
+          <StDivider />
+          <StGoogle onClick={handleGoogleLogin}>구글 로그인</StGoogle>
+          <StSignupButton onClick={handleSignup}>회원가입</StSignupButton>
+        </StForm>
+      </StFormContainer>
     </StLoginContainer>
   );
 };
@@ -110,6 +109,7 @@ const StInput = styled.input`
   user-select: none;
   cursor: pointer;
   margin: 10px;
+  box-shadow: 0px 0px 5px #163020;
 `;
 const StLoginButton = styled.button`
   width: 100px;
@@ -152,6 +152,7 @@ const StSignupButton = styled.button`
   transition: backgroud-color 2s;
   font-size: 15px;
   user-select: none;
+  margin-top: 40px;
 
   &:hover {
     color: #eef0e5;
@@ -160,8 +161,16 @@ const StSignupButton = styled.button`
 const StDivider = styled.div`
   width: 350px;
   height: 0.2px;
-  background-color: white;
-  margin: 20px;
+  background-color: rgb(255, 255, 255, 0.6);
+  margin: 10px;
+`;
+const StFormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 520px;
+  height: 520px;
+  border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
 `;
 
 export default LoginPage;
