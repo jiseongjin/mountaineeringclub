@@ -12,7 +12,7 @@ const KakaoMap = () => {
     };
     var map = new window.kakao.maps.Map(container, options);
     var ps = new window.kakao.maps.services.Places();
-    ps.keywordSearch('북한산 등산코스', placesSearchCB);
+    ps.keywordSearch('북한산국립공원 대동문코스', placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === window.kakao.maps.services.Status.OK) {
