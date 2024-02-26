@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import styled from 'styled-components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc, setDoc, getDocs, collection, where } from 'firebase/firestore';
 import CommentItem from 'components/detail/CommentItem';
 
@@ -170,13 +170,15 @@ const MyPage = () => {
           <StCommentContainer>
             <StCommentList>
               {userComments.map((userComment, index) => (
-                <CommentItem
-                  currentUser={currentUser}
-                  comments={userComments}
-                  setComments={setUserComments}
-                  comment={userComment}
-                  index={index}
-                />
+                <Link to={`/detail/${userComment.postId}`}>
+                  <CommentItem
+                    currentUser={currentUser}
+                    comments={userComments}
+                    setComments={setUserComments}
+                    comment={userComment}
+                    index={index}
+                  />
+                </Link>
               ))}
             </StCommentList>
           </StCommentContainer>
