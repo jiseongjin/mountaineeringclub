@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, getDocs, collection, where } from 'firebase/firestore';
+import CommentItem from 'components/detail/CommentItem';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -14,6 +15,27 @@ const MyPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [activeButton, setActiveButton] = useState();
+
+  // 작성한 댓글 코드 추가
+  const currentUser = auth.currentUser;
+  const [userComments, setUserComments] = useState([]);
+
+  useEffect(() => {
+    const loadUserComments = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'comments'), where('userId', '==', auth.currentUser.uid));
+        const userCommentsList = await querySnapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+
+        setUserComments(userCommentsList);
+      } catch (error) {
+        console.error('Error fetching user comments: ', error);
+      }
+    };
+
+    loadUserComments();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -121,11 +143,8 @@ const MyPage = () => {
           <StyledBtn active={activeButton === '완주한 등산 코스'} onClick={() => setActiveButton('완주한 등산 코스')}>
             완주한 등산 코스
           </StyledBtn>
-          <StyledBtn
-            active={activeButton === '댓글 작성한 등산 코스'}
-            onClick={() => setActiveButton('댓글 작성한 등산 코스')}
-          >
-            댓글 작성한 등산 코스
+          <StyledBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
+            작성한 댓글
           </StyledBtn>
           <StyledBtn onClick={handleLogout}>로그아웃</StyledBtn> {/* 로그아웃 버튼을 추가합니다. */}
         </StyledButtons>
@@ -147,8 +166,20 @@ const MyPage = () => {
           <div>{/* 북마크한 등산 코스 목록 */}</div>
         ) : activeButton === '완주한 등산 코스' ? (
           <div>{/* 완주한 등산 코스 */}</div>
-        ) : activeButton === '댓글 작성한 등산 코스' ? (
-          <div>{/* 댓글 작성한 등산 코스 */}</div>
+        ) : activeButton === '작성한 댓글' ? (
+          <StCommentContainer>
+            <StCommentList>
+              {userComments.map((userComment, index) => (
+                <CommentItem
+                  currentUser={currentUser}
+                  comments={userComments}
+                  setComments={setUserComments}
+                  comment={userComment}
+                  index={index}
+                />
+              ))}
+            </StCommentList>
+          </StCommentContainer>
         ) : (
           <div>
             <StyledImage src={imageUrl} alt="프로필 사진" />
@@ -159,6 +190,8 @@ const MyPage = () => {
     </StyledContainer>
   );
 };
+
+export default MyPage;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -226,4 +259,18 @@ const StyledFileInput = styled.input`
   }
 `;
 
-export default MyPage;
+// 작성한 댓글 스타일 컴포넌트
+const StCommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 100px;
+`;
+
+const StCommentList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  width: 100%;
+`;
