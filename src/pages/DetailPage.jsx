@@ -5,13 +5,13 @@ import Bookmarked from 'components/detail/Bookmarked';
 import Checked from 'components/detail/Checked';
 
 const DetailPage = () => {
-  const id = useParams().id;
+  const { postId } = useParams();
 
   return (
     <>
-      <Bookmarked postId={id} />
-      <Checked postId={id} />
-      <Comments postId={id} />
+      <Bookmarked postId={postId} />
+      <Checked postId={postId} />
+      <Comments postId={postId} />
     </>
   );
 };
