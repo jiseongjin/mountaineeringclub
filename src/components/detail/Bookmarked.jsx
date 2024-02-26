@@ -22,10 +22,13 @@ const Bookmarked = ({ postId }) => {
 
     // 로그인이 되어 있는 경우
     const checkBookmark = window.confirm('등산 코스 북마크 목록에 추가하시겠습니까?');
-    const userId = auth.currentUser.uid;
-    try {
-    } catch (error) {
-      console.error('Error updating scrap document: ', error);
+    if (checkBookmark) {
+      const userId = auth.currentUser.uid;
+      try {
+        // 북마크 기능
+      } catch (error) {
+        console.error('Error updating scrap document: ', error);
+      }
     }
   };
 

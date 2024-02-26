@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formattedDate } from 'util/Date';
 
-const Comments = () => {
+const Comments = ({ postId }) => {
   const currentUser = auth.currentUser;
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
@@ -45,6 +45,7 @@ const Comments = () => {
 
         // DB에 데이터 저장하기
         await addDoc(collection(db, 'comments'), {
+          postId: postId,
           comment: newComment,
           timestamp
         });

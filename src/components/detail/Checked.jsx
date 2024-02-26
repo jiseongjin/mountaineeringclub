@@ -3,9 +3,9 @@ import { auth } from '../../firebase';
 import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/dist';
 
-const Completed = ({ postId }) => {
+const Checked = ({ postId }) => {
   const navigate = useNavigate();
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleCompletion = async () => {
     const currentUser = auth.currentUser;
@@ -24,15 +24,14 @@ const Completed = ({ postId }) => {
     if (checkCompletion) {
       const userId = auth.currentUser.uid;
       try {
+        // 완주한 코스 체크 기능
       } catch (error) {
         console.error('Error updating scrap document: ', error);
       }
     }
   };
 
-  return (
-    <div onClick={handleCompletion}>{isCompleted ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}</div>
-  );
+  return <div onClick={handleCompletion}>{isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}</div>;
 };
 
-export default Completed;
+export default Checked;
