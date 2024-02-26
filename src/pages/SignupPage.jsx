@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { 
+  getAuth, 
+  signInWithPopup, 
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const SignupPage = () => {
 
@@ -10,8 +17,24 @@ const SignupPage = () => {
 
   const auth = getAuth();
 
-  const handleEmailSignUp = () => {
+  const handleEmailSignUp = async (event) => {
+    event.preventDefault();
     // 이메일을 이용한 회원가입 로직 구현
+    try {
+      if (password.length < 6) {
+        alert("비밀번호는 6자 이상이어야 합니다.");
+        return;
+      }
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // firestore에 닉네임 저장
+      await setDoc(doc(db, "users", user.uid), {
+        nickname,
+      });
+      console.log("Success");
+    } catch (error) {
+      console.log("Eorror", error);
+    }
   };
 
   const handleGoogleLogin = (event) => {
@@ -48,7 +71,7 @@ const SignupPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <StInput
-          type='text'
+          type='password'
           placeholder='비밀번호 재입력'
         />
         <StInput
@@ -57,7 +80,7 @@ const SignupPage = () => {
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
         />
-        <StsignupButton>회원가입</StsignupButton>
+        <StsignupButton onClick={handleEmailSignUp}>회원가입</StsignupButton>
       </StForm>
     </StLoginContainer>
 
