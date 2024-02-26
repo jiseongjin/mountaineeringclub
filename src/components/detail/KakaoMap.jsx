@@ -22,7 +22,6 @@ const KakaoMap = () => {
           displayMarker(data[i]);
           bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
         }
-        console.log(bounds);
         map.setBounds(bounds);
       }
     }

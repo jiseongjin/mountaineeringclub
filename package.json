@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@types/aria-query": "^5.0.4"
+    "@types/aria-query": "^5.0.4",
+    "@types/navermaps": "^3.7.4"
   }
 }

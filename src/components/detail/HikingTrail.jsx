@@ -1,62 +1,62 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
+import { isArray } from 'lodash';
 
 const HikingTrail = () => {
+  // useParams 이용하기
+  const params = '관악산';
+  // 산 데이터
+  const [mountainData, setMountainData] = useState(null);
+  const [mountatnJpg, setMountatnJpg] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          'http://api.forest.go.kr/openapi/service/trailInfoService/getforeststoryservice',
+        const { data } = await axios.get(
+          'https://apis.data.go.kr/1400000/service/cultureInfoService2/mntInfoOpenAPI2',
           {
             params: {
               ServiceKey: '0wHFN3EE7v+jLjujPukh2tGtJj/yCRpvhr5reMlXtjDkWobuC62OIZ+c9fLJ3VbRN3ocF9r3hWOj3r/LaWtf3w==',
-              mntnNm: '지리산'
+              searchWrd: params
             }
           }
         );
-        console.log(response);
+        const mountainDatas = data.response.body.items.item;
+        isArray(mountainDatas)
+          ? setMountainData(...mountainDatas.filter((item) => item.mntiname === params))
+          : setMountainData(mountainDatas);
+
+        const mountainImgs = await axios.get(
+          'https://apis.data.go.kr/1400000/service/cultureInfoService2/mntInfoImgOpenAPI2',
+          {
+            params: {
+              // 산코드를 가져올 수있는 방법은?
+              mntiListNo: 116200201,
+              ServiceKey: '0wHFN3EE7v+jLjujPukh2tGtJj/yCRpvhr5reMlXtjDkWobuC62OIZ+c9fLJ3VbRN3ocF9r3hWOj3r/LaWtf3w=='
+            }
+          }
+        );
+        const mutiImg = mountainImgs.data.response.body.items.item;
+        console.log(mutiImg);
+        setMountatnJpg(mountainImgs.data.response.body.items.item.imgfilename);
       } catch (error) {
         console.error('Error:', error);
       }
     };
     fetchData();
   }, []);
-  //등산로 api
-  // cors 에러 있음 chrome 확장프로그램(CORS Unblock) 이용.
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await axios.get('https://apis.vworld.kr/2ddata/frstclimb/data', {
-  //           params: {
-  //             apiKey: 'C52BF50F-4E62-3A15-B415-2D05A786EA03',
-  //             domain: 'http://localhost:3000',
-  //             emdCd: '41281107',
-  //             output: 'json',
-  //             srsName: 'EPSG:4326',
-  //             id: 'LT_L_FRSTCLIMB.61379'
-  //           }
-  //         });
-  //         // setData(data.featureCollection.features);
-  //         console.log(response);
-  //       } catch (error) {
-  //         console.error('Error:', error);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
-
   return (
     <HikingTrailInformationBox>
       <InformationBox>
-        <p>등산 코스</p>
         <KakaoMap />
+        <ImgBox />
+        <MntinName>{params}</MntinName>
         <CourseInformationBox>
-          <p>난이도 : </p>
-          <p>소요시간 : </p>
-          <p>코스길이 : </p>
-          <p>고도 : </p>
+          <MntiDetail>{mountainData?.mntidetails}</MntiDetail>
+          {/* <p>소요시간 : </p>
+          <p>코스길이 : </p> */}
+          <p>높이 : {mountainData?.mntihigh}M</p>
         </CourseInformationBox>
       </InformationBox>
     </HikingTrailInformationBox>
@@ -71,7 +71,7 @@ const HikingTrailInformationBox = styled.section`
   align-items: center;
   align-content: center;
   p {
-    font-size: 25px;
+    font-size: 20px;
   }
 `;
 
@@ -83,6 +83,21 @@ const InformationBox = styled.article`
 const CourseInformationBox = styled.div`
   width: 1000px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-top: 10px;
+  gap: 10px;
+`;
+
+const ImgBox = styled.img`
+  margin-top: 10px;
+  height: 400px;
+  width: 1000px;
+`;
+
+const MntinName = styled.h2`
+  font-size: 40px;
+`;
+
+const MntiDetail = styled.h5`
+  font-size: 18px;
 `;
