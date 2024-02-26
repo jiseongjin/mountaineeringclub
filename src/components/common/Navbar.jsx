@@ -10,7 +10,7 @@ const Navbar = () => {
     <>
       <StNavContainer>
         <StLogo>
-          <Link to="/main">한사랑 산악회</Link>
+          <Link to="/">한사랑 산악회</Link>
         </StLogo>
         <StRightNav>
           {isLogin ? (

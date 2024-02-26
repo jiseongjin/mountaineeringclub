@@ -1,17 +1,48 @@
+import React, { useState } from 'react';
 import styled from "styled-components";
-import { useState } from "react";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from '../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const auth = getAuth();
 
-  const handleEmailSignUp = () => {
-    // 이메일을 이용한 회원가입 로직 구현
+  const handleEmailSignUp = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Check if the email already exists
+      const userDoc = doc(db, 'users', email);
+      const docSnap = await getDoc(userDoc);
+
+      if (docSnap.exists()) {
+        setErrorMessage('이미 존재하는 이메일입니다.');
+        return;
+      }
+
+      // If email doesn't exist, create new user
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = {
+        email: userCredential.user.email,
+        nickname: nickname,
+      };
+
+      // Save user data to Firestore
+      await setDoc(userDoc, newUser);
+
+      // Navigate to MyPage after successful signup
+      navigate('/mypage');
+    } catch (error) {
+      setErrorMessage(error.message);
+      console.error('Error signing up: ', error);
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -31,7 +62,7 @@ const SignupPage = () => {
   return (
     <StLoginContainer>
       <StP>한사랑 산악회</StP>
-      <StForm>
+      <StyledForm onSubmit={handleEmailSignUp}>
         <StGoogle onClick={handleGoogleLogin}>구글 회원가입</StGoogle>
         <StDivider />
         <StInput
@@ -56,8 +87,9 @@ const SignupPage = () => {
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
         />
-        <StsignupButton>회원가입</StsignupButton>
-      </StForm>
+        <StsignupButton type="submit">회원가입</StsignupButton>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      </StyledForm>
     </StLoginContainer>
 
   );
@@ -93,17 +125,17 @@ const StGoogle = styled.button`
       background-color: #163020;
     }
 `;
-const StForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-    height: 500px;
-    padding: 20px;
-    border-radius: 5px;
-    gap: 1rem;
-    background-color: #B6C4B6;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  padding: 20px;
+  border-radius: 5px;
+  gap: 1rem;
+  background-color: #B6C4B6;
 `;
 const StInput = styled.input`
     width: 350px;
