@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
