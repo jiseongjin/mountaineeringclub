@@ -12,7 +12,7 @@ const KakaoMap = () => {
     };
     var map = new window.kakao.maps.Map(container, options);
     var ps = new window.kakao.maps.services.Places();
-    ps.keywordSearch('북한산국립공원 대동문코스', placesSearchCB);
+    ps.keywordSearch(`북한산국립공원 북한산성코스`, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === window.kakao.maps.services.Status.OK) {
@@ -22,7 +22,7 @@ const KakaoMap = () => {
           displayMarker(data[i]);
           bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
         }
-
+        console.log(bounds);
         map.setBounds(bounds);
       }
     }
