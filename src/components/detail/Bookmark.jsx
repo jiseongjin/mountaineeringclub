@@ -3,7 +3,7 @@ import { auth } from '../../firebase';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom/dist';
 
-const Bookmarked = ({ postId }) => {
+const Bookmark = ({ postId }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -35,4 +35,4 @@ const Bookmarked = ({ postId }) => {
   return <div onClick={handleBookmark}>{isBookmarked ? <FaBookmark /> : <FaRegBookmark />}</div>;
 };
 
-export default Bookmarked;
+export default Bookmark;

@@ -3,11 +3,11 @@ import { auth } from '../../firebase';
 import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/dist';
 
-const Checked = ({ postId }) => {
+const CheckCompletion = ({ postId }) => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleCompletion = async () => {
+  const handleCheckCompletion = async () => {
     const currentUser = auth.currentUser;
 
     // 로그인이 되어 있지 않은 경우
@@ -32,7 +32,9 @@ const Checked = ({ postId }) => {
     }
   };
 
-  return <div onClick={handleCompletion}>{isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}</div>;
+  return (
+    <div onClick={handleCheckCompletion}>{isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}</div>
+  );
 };
 
-export default Checked;
+export default CheckCompletion;
