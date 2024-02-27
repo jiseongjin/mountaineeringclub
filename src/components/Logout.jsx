@@ -36,4 +36,8 @@ const StLogout = styled.span`
   font-weight: 600;
   color: gray;
   cursor: pointer;
+
+  &:hover {
+    color: black !important;
+  }
 `;

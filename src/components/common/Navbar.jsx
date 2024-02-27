@@ -35,7 +35,7 @@ const Navbar = () => {
     <>
       <StNavContainer>
         <StLogo>
-          <Link to="/main">한사랑 산악회</Link>
+          <Link to="/">한사랑 산악회</Link>
         </StLogo>
         <StRightNav>
           {isLoggedIn && !isLoggedOut ? (
@@ -80,5 +80,10 @@ const StRightNav = styled.div`
     font-weight: 600;
     font-size: 17px;
     color: gray !important;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: black !important;
+    }
   }
 `;

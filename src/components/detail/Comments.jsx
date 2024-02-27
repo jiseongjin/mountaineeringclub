@@ -94,7 +94,6 @@ const Comments = ({ postId }) => {
             <>
               <hr />
               <CommentItem
-                key={comment.postId}
                 currentUser={currentUser}
                 comments={comments}
                 setComments={setComments}
@@ -120,7 +119,7 @@ const StCommentContainer = styled.div`
   & hr {
     width: 100%;
     border: none;
-    border-top: 1px solid darkgray;
+    border-top: 1px solid var(--sub-color2);
   }
 `;
 

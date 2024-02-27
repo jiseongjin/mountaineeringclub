@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { doc, getDoc, updateDoc, setDoc, getDocs, collection, where } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, getDocs, collection, where, query } from 'firebase/firestore';
 import CommentItem from 'components/detail/CommentItem';
+import { LiaMountainSolid } from 'react-icons/lia';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -16,15 +17,16 @@ const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeButton, setActiveButton] = useState();
 
-  // 작성한 댓글 코드 추가
+  // 작성한 댓글 목록 코드 추가
   const currentUser = auth.currentUser;
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
     const loadUserComments = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'comments'), where('userId', '==', auth.currentUser.uid));
-        const userCommentsList = await querySnapshot.docs.map((doc) => {
+        const userIdQuery = query(collection(db, 'comments'), where('userId', '==', currentUser.uid));
+        const userIdSnapshot = await getDocs(userIdQuery);
+        const userCommentsList = await userIdSnapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
 
@@ -35,12 +37,11 @@ const MyPage = () => {
     };
 
     loadUserComments();
-  }, []);
+  }, [currentUser.uid]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log('user.uid: ', user.uid);
         const userDoc = doc(db, 'users', user.uid);
         console.log('Before getDoc');
         const userDocData = await getDoc(userDoc);
@@ -170,7 +171,11 @@ const MyPage = () => {
           <StCommentContainer>
             <StCommentList>
               {userComments.map((userComment, index) => (
-                <Link to={`/detail/${userComment.postId}`}>
+                <>
+                  <StCommentLink to={`/detail/${userComment.postId}`}>
+                    <LiaMountainSolid />
+                    <p>산 이름</p>
+                  </StCommentLink>
                   <CommentItem
                     currentUser={currentUser}
                     comments={userComments}
@@ -178,7 +183,8 @@ const MyPage = () => {
                     comment={userComment}
                     index={index}
                   />
-                </Link>
+                  <hr />
+                </>
               ))}
             </StCommentList>
           </StCommentContainer>
@@ -266,7 +272,7 @@ const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 100px;
+  padding: 20px 40px;
 `;
 
 const StCommentList = styled.ul`
@@ -275,4 +281,25 @@ const StCommentList = styled.ul`
   gap: 20px;
   margin-top: 40px;
   width: 100%;
+
+  & hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--sub-color2);
+    margin-top: -5px;
+  }
+`;
+
+const StCommentLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 20px;
+  margin: 10px 0px -25px 0px;
+  font-size: 22px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;
