@@ -15,7 +15,7 @@ const Navbar = () => {
         <StRightNav>
           {isLogin ? (
             <>
-              <Link to="/">로그인</Link>
+              <Link to="/login">로그인</Link>
               <Link to="/signup">회원가입</Link>
             </>
           ) : (
@@ -26,7 +26,6 @@ const Navbar = () => {
           )}
         </StRightNav>
       </StNavContainer>
-      <Outlet />
     </>
   );
 };
