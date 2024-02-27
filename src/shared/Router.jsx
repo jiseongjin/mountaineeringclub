@@ -16,7 +16,7 @@ const Router = () => {
         {/* 로그인 여부 상관없는 라우터 */}
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
-          <Route path="/detail" element={<DetailPage />} />
+          <Route path="/detail/:postId" element={<DetailPage />} />
         </Route>
 
         {/* 로그인 상태가 반드시 아니어야 하는 라우터 */}
