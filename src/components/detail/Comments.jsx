@@ -101,8 +101,14 @@ const Comments = ({ postId }) => {
 
         <StCommentCount>
           <p>댓글</p>
-          <StCommentCountNumbr>{comments.length}</StCommentCountNumbr>
+          <StCommentCountNumber>{comments.length}</StCommentCountNumber>
         </StCommentCount>
+
+        <select onClick={() => {}}>
+          <option value={''}>정렬 기준</option>
+          <option value="asc">오래된 순</option>
+          <option value="desc">최신 순</option>
+        </select>
 
         <StCommentList>
           {comments.map((comment, index) => (
@@ -189,7 +195,7 @@ const StCommentCount = styled.div`
   }
 `;
 
-const StCommentCountNumbr = styled.p`
+const StCommentCountNumber = styled.p`
   color: var(--sub-color2);
 `;
 
