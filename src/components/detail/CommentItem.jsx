@@ -75,7 +75,10 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
   return (
     <StCommentItem>
       <StCommentInfo>
-        <span>{userNickname} 님</span>
+        <div>
+          <StCommentInfoNickname>{userNickname}</StCommentInfoNickname>
+          <span> 님</span>
+        </div>
         <p>{formattedDate(comment.timestamp)}</p>
       </StCommentInfo>
       {editingCommentIndex === index ? (
@@ -144,13 +147,13 @@ const StCommentInfo = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  & span {
-    font-weight: 600;
-  }
-
   & p {
     font-size: 14px;
   }
+`;
+
+const StCommentInfoNickname = styled.span`
+  font-weight: 600;
 `;
 
 const StCommentContent = styled.div`
