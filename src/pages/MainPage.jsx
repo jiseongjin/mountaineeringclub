@@ -1,5 +1,7 @@
+import MountainImage from "MountainImage";
+
 const MainPage = () => {
-  return <div>MainPage</div>;
+  return <MountainImage></MountainImage>;
 };
 
 export default MainPage;
