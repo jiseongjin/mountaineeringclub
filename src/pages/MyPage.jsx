@@ -19,7 +19,7 @@ const MyPage = () => {
         if (userDocData.exists()) {
           const userData = userDocData.data();
           // profileImage가 없는 경우 기본 이미지 설정
-          setImageUrl(userData.profileImage || "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800");
+          setImageUrl(userData.profileImage || "https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png");
           setNickname(userData.nickName);
         }
       } else {
@@ -133,31 +133,14 @@ const StContainer = styled.div`
   background-color: white;
 `;
 
-const StProfilebox = styled.div`
-  margin-top: 70px;
-`;
-
-const StImage = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin-top: 30px;
-  margin-bottom: 20px;
-`;
-
-const StNickName = styled.p`
-  font-size: 25px;
-  color: #7e7057;
-  font-weight: bold;
-`;
-
 // Menu
 const StMenu = styled.div`
   width: 20%;
-  height: 500px;
+  height: 480px;
   text-align: center;
   justify-content: center;
-  margin-left: 20px;
+  margin-top: 20px;
+  margin-left: 50px;
 `;
 
 // Menu : 프로필 이미지
@@ -165,7 +148,7 @@ const StProfile = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 10px;
 `;
 
@@ -192,7 +175,10 @@ const StBtn = styled.button`
   border: none;
   position: relative;
   border-radius: 5px; 
-  
+  font-weight: bold;
+  color: #6d5f52;
+  font-size: 15px;
+
   & span {
     position: relative;
     &:after {
@@ -202,10 +188,11 @@ const StBtn = styled.button`
       left: 50%;
       width: ${props => props.active ? '100%' : '0'};
       transform: ${props => props.active ? 'translateX(-50%)' : 'translateX(0)'};
-      border-bottom: 3px solid ${props => props.active ? 'var(--sub-color1)' : 'var(--sub-color2)'};
+      border-bottom: 3px solid ${props => props.active ? 'var(--sub-color2)' : 'var(--sub-color3)'};
       transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     }
   }
+
   &:hover span::after {
     width: 100%;
     transform: translateX(-50%);
@@ -222,6 +209,25 @@ const StContent = styled.div`
   border-radius: 10px;
   border: solid 2px;
   border-color: transparent;
+`;
+
+// content- mypage css
+const StProfilebox = styled.div`
+  margin-top: 70px;
+`;
+
+const StImage = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+`;
+
+const StNickName = styled.p`
+  font-size: 25px;
+  color: #7e7057;
+  font-weight: bold;
 `;
 
 const StEditBox = styled.div`
@@ -274,7 +280,7 @@ const StFileInputLabel = styled.label`
   box-shadow: 1.5px 1.5px 1px #5d645c;
   cursor: pointer;
   &:hover {
-    background-color: #b7d1b2;
+    background-color: var(--sub-color3);
   }
 `;
 const StFileInput = styled.input`
@@ -305,10 +311,10 @@ const StInputButton = styled.button`
   height: 40px;
   margin-left: 5px;
   border-radius: 10px;
-  border-color: #b7d1b2;
+  border-color: #b8c9b56c;
   background-color:#b8c9b56c;
   &:hover {
-    background-color: #b7d1b2;
+    background-color: var(--sub-color3);
   }
 `;
 

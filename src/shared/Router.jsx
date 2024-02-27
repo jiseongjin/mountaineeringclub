@@ -7,6 +7,9 @@ import DetailPage from 'pages/DetailPage';
 import LoginPage from 'pages/non-auth/LoginPage';
 import SignupPage from 'pages/non-auth/SignupPage';
 import MyPage from 'pages/auth/MyPage';
+
+import MyPage2 from 'pages/MyPage'
+
 import { Navigate } from 'react-router-dom/dist';
 
 const Router = () => {
@@ -28,6 +31,7 @@ const Router = () => {
         {/* 로그인이 필요한 라우터 */}
         <Route element={<AuthLayout />}>
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage2" element={<MyPage2 />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
