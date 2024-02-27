@@ -18,7 +18,7 @@ const MyPage = () => {
         const userDocData = await getDoc(userDoc);
         if (userDocData.exists()) {
           const userData = userDocData.data();
-          // profileImage가 없거나 빈 문자열인 경우 기본 이미지 URL을 설정
+          // profileImage가 없는 경우 기본 이미지 설정
           setImageUrl(userData.profileImage || "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800");
           setNickname(userData.nickName);
         }
@@ -52,7 +52,7 @@ const MyPage = () => {
         event.target.value = null;
       });
     }).catch(error => {
-      console.error('Upload failed:', error);
+      console.error(error);
     });
   };
   
@@ -74,7 +74,7 @@ const MyPage = () => {
       <StContainer>
         <StMenu>
           <StProfile src={imageUrl} alt="프로필 사진" />
-          <StprofileNickName><strong>{nickName}</strong>님</StprofileNickName>
+          <StprofileNickName>{nickName}님</StprofileNickName>
           <StButtons>
             <StBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}><span>내 정보 수정</span></StBtn>
             <StBtn active={activeButton === '스크랩'} onClick={() => setActiveButton('스크랩')}><span>스크랩</span></StBtn>
@@ -156,7 +156,6 @@ const StMenu = styled.div`
   text-align: center;
   justify-content: center;
   margin-left: 20px;
-  //background-color: var(--sub-color2);
 `;
 
 // Menu : 프로필 이미지
@@ -173,7 +172,7 @@ const StprofileNickName = styled.p`
   font-weight: bold;
 `;
 
-// Menu
+// Menu buttons
 const StButtons = styled.div`
   display: flex ;
   flex-direction: column;
@@ -205,7 +204,6 @@ const StBtn = styled.button`
       transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     }
   }
-
   &:hover span::after {
     width: 100%;
     transform: translateX(-50%);
@@ -224,6 +222,10 @@ const StContent = styled.div`
   border-color: transparent;
 `;
 
+const StEditBox = styled.div`
+  display: flex;
+`;
+
 // content-내 정보 수정 : 타이틀
 const StTitle = styled.p`
   font-size: 30px;
@@ -232,19 +234,17 @@ const StTitle = styled.p`
   color: #476442;
 `;
 
-const StEditBox = styled.div`
-  display: flex;
-`;
-
-const StProfileNickNameEditBox = styled.div`
-  margin: auto auto;
-`;
-
 // content- 내 정보 수정 : profile 이미지
 const StProfileBox = styled.div`
   margin: 50px auto;
 `;
 
+// content- 내 정보 수정 : 이미지, 닉네임 변경 위치
+const StProfileNickNameEditBox = styled.div`
+  margin: auto auto;
+`;
+
+// content- 세부 타이틀 css
 const StContext = styled.p`
   color: #5f4d3e;
   font-size: 20px;
