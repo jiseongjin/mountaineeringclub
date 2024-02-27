@@ -10,6 +10,11 @@ const KakaoMap = ({ foundMountain }) => {
     };
     // 지도 생성
     var map = new window.kakao.maps.Map(mapContainer, mapOption);
+    // 지형 정보
+    map.addOverlayMapTypeId(window.kakao.maps.MapTypeId.TERRAIN);
+    //확대 축소 컨트롤
+    var zoomControl = new window.kakao.maps.ZoomControl();
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
     // 마커를 표시할 위치
     var markerPosition = new window.kakao.maps.LatLng(foundMountain.X좌표, foundMountain.Y좌표);
     // 마커 생성
@@ -44,5 +49,5 @@ export default KakaoMap;
 const ImgBox = styled.div`
   margin-top: 10px;
   height: 400px;
-  width: 1000px;
+  width: 100%;
 `;
