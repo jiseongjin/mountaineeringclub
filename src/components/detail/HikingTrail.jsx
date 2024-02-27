@@ -13,7 +13,6 @@ const HikingTrail = () => {
     alert('정보가 없습니다!');
     navigate('/');
   }
-
   return (
     <>
       <StMntinName>{params}</StMntinName>
@@ -47,12 +46,10 @@ const StHikingTrailInformationBox = styled.section`
     font-size: 25px;
   }
 `;
-
 const StInformationBox = styled.article`
   display: flex;
   flex-direction: column;
 `;
-
 const StCourseInformationBox = styled.div`
   width: 1200px;
   display: flex;
@@ -62,16 +59,13 @@ const StCourseInformationBox = styled.div`
   background-color: #b6c4b6;
   padding: 5px;
 `;
-
 const StMntinName = styled.h2`
   font-size: 40px;
   margin-left: 100px;
 `;
-
 const StMntiDetail = styled.h5`
   font-size: 18px;
 `;
-
 const StLowBox = styled.div`
   display: flex;
   gap: 10px;
