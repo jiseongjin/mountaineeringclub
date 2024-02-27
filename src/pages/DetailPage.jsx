@@ -9,6 +9,7 @@ const DetailPage = () => {
 
   return (
     <>
+      <HikingTrail />
       <Bookmark postId={postId} />
       <CheckCompletion postId={postId} />
       <Comments postId={postId} />
