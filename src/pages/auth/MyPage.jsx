@@ -174,6 +174,7 @@ const MyPage = () => {
                 <>
                   <StCommentLink to={`/detail/${userComment.postId}`}>
                     <LiaMountainSolid />
+                    {/* To-do: 산 이름 가져오기 */}
                     <p>산 이름</p>
                   </StCommentLink>
                   <CommentItem
@@ -295,7 +296,7 @@ const StCommentLink = styled(Link)`
   align-items: center;
   gap: 10px;
   padding: 0px 20px;
-  margin: 10px 0px -25px 0px;
+  margin: 10px 0px -30px 0px;
   font-size: 22px;
 
   & p {

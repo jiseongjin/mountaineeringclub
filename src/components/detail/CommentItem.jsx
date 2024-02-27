@@ -125,8 +125,8 @@ const StCommentItem = styled.li`
   flex-direction: column;
   justify-content: center;
   gap: 18px;
-  margin-top: 3px;
-  padding: 20px 25px;
+  margin-top: 10px;
+  padding: 20px 40px;
 
   & textarea {
     width: 100%;
@@ -158,7 +158,7 @@ const StCommentButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: -5px;
+  margin-bottom: -5px;
 `;
 
 const StCommentEditButton = styled.button`

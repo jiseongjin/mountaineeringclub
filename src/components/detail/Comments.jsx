@@ -127,8 +127,8 @@ const StCommentInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 20px auto;
-  padding: 0px 10px;
+  margin: 30px auto 20px auto;
+  padding: 0px 30px;
   width: 100%;
 
   & textarea {
