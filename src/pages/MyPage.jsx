@@ -213,7 +213,7 @@ const StBtn = styled.button`
 // content
 const StContent = styled.div`
   width: 80%;
-  background-color: #ffffff9d;
+  background-color: var(--sub-color3);
   text-align: center;
   margin: 20px 50px 0px 50px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) ;
@@ -231,22 +231,28 @@ const StTitle = styled.p`
   font-size: 30px;
   margin-top: 40px;
   font-weight: bold;
-  color: #476442;
+  color: #000000; //#476442
 `;
 
 // content- 내 정보 수정 : profile 이미지
 const StProfileBox = styled.div`
   margin: 50px auto;
+  width: 33%;
 `;
 
 // content- 내 정보 수정 : 이미지, 닉네임 변경 위치
 const StProfileNickNameEditBox = styled.div`
   margin: auto auto;
+  width: 50%;
+  height: 300px;
+  padding-top: 40px;
+  background-color: #ffffff6f;
+  border-radius: 10px;
 `;
 
 // content- 세부 타이틀 css
 const StContext = styled.p`
-  color: #5f4d3e;
+  color: #645e52;
   font-size: 20px;
   font-weight: bold;
 `;
@@ -258,14 +264,15 @@ const StFileInputLabel = styled.label`
   margin-top: 10px;
   margin-bottom: 30px;
   color: #000000;
-  background-color: var(--sub-color3);
-  border-color: #d5e6d26c;
+  background-color: #b8c9b56c;
+  border-color: #c9bfb56c;
   border-radius: 10px;
   text-align: center;
   transition: background-color 0.2s ease;
+  box-shadow: 1.5px 1.5px 1px #5d645c;
   cursor: pointer;
   &:hover {
-    background-color: #b8c9b56c;
+    background-color: #b7d1b2;
   }
 `;
 const StFileInput = styled.input`
@@ -285,7 +292,7 @@ const StInputNickName = styled.input`
   height: 40px;
   border-color: #ffffff6d;
   border-radius: 10px;
-  background-color: #e2e2e26e;
+  background-color: #e2e2e2f4;
 `;
 
 // content-내 정보 수정 : 닉네임 변경 버튼
@@ -294,10 +301,10 @@ const StInputButton = styled.button`
   height: 40px;
   margin-left: 5px;
   border-radius: 10px;
-  border-color: #d5e6d26c;
-  background-color: var(--sub-color3);
+  border-color: #b7d1b2;
+  background-color:#b8c9b56c;
   &:hover {
-    background-color: #b8c9b56c;
+    background-color: #b7d1b2;
   }
 `;
 
