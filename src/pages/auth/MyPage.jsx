@@ -278,6 +278,19 @@ const StCommentContainer = styled.div`
   align-items: center;
   padding: 20px 40px;
 `;
+const StCommentLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 20px;
+  margin: 10px 0px -30px 0px;
+  font-size: 22px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
 
 const StCommentList = styled.ul`
   display: flex;
@@ -291,19 +304,5 @@ const StCommentList = styled.ul`
     border: none;
     border-top: 1px solid var(--sub-color2);
     margin-top: -5px;
-  }
-`;
-
-const StCommentLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0px 20px;
-  margin: 10px 0px -30px 0px;
-  font-size: 22px;
-
-  & p {
-    font-size: 20px;
-    font-weight: 600;
   }
 `;

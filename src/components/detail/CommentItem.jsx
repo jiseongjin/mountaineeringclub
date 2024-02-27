@@ -46,11 +46,12 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
       try {
         // DB에 데이터 업데이트하기
         const commentRef = doc(collection(db, 'comments'), comments[index].id);
-        await setDoc(commentRef, { comment: editingComment });
+        await setDoc(commentRef, { ...comment, comment: editingComment });
 
         setComments((prevComments) =>
           prevComments.map((comment, i) => (i === index ? { ...comment, comment: editingComment } : comment))
         );
+
         setEditingCommentIndex(null);
       } catch (error) {
         console.error('Error updating document: ', error);
