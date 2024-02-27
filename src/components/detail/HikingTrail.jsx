@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
 import mountainData from 'mountainData.json';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const HikingTrail = () => {
   const navigate = useNavigate();
   // useParams 이용하기
-  const params = '설악산';
+  const { Id } = useParams();
+  const params = Id;
   // 산 데이터
   const mountainDb = mountainData.data;
   const foundMountain = [...mountainDb].find((item) => item.명산_이름 === params);
@@ -19,7 +20,6 @@ const HikingTrail = () => {
       <StHikingTrailInformationBox>
         <StInformationBox>
           <KakaoMap foundMountain={foundMountain} />
-          {/* <ImgBox /> */}
           <p>소재지 : {foundMountain.명산_소재지}</p>
           <StCourseInformationBox>
             <StMntiDetail>개요 : {foundMountain.산_개요}</StMntiDetail>
