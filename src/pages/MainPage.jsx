@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import SearchLists from 'components/SearchLists';
 import styled from 'styled-components';
@@ -95,7 +96,7 @@ const MainPage = () => {
   //   setSearchResults(response.items);
   //   console.log('response', response.items);
   // };
-
+}
   return (
     <StMapContainer>
       <StMap id="map" style={{ width: '100%', height: '100vh' }}></StMap>
@@ -132,7 +133,7 @@ const MainPage = () => {
       </StList>
     </StMapContainer>
   );
-};
+
 
 export default MainPage;
 
@@ -187,4 +188,4 @@ const StPotionTep = styled.li`
   cursor: pointer;
 `;
 
-// const St
+

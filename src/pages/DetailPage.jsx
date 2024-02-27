@@ -1,7 +1,13 @@
-import React from 'react';
+import Comments from 'components/Comments';
+import HikingTrail from 'components/detail/HikingTrail';
 
-function DetailPage() {
-  return <div>DetailPage</div>;
-}
+const DetailPage = () => {
+  return (
+    <>
+      <HikingTrail />
+      <Comments />
+    </>
+  );
+};
 
 export default DetailPage;
