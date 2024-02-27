@@ -3,18 +3,15 @@ import { auth, db, storage } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import styled from 'styled-components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { signOut } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { doc, getDoc, updateDoc, setDoc, getDocs, collection, where, query } from 'firebase/firestore';
-import CommentItem from 'components/detail/CommentItem';
+import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
+import CommentItem from 'components/detail/CommentItem';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [nickName, setNickname] = useState('');
   const [newNickName, setNewNickname] = useState('');
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [activeButton, setActiveButton] = useState();
 
   // 작성한 댓글 목록
@@ -46,24 +43,18 @@ const MyPage = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDoc = doc(db, 'users', user.uid);
-        console.log('Before getDoc');
         const userDocData = await getDoc(userDoc);
-        console.log('After getDoc');
         if (userDocData.exists()) {
-          console.log(userDocData.data());
           const userData = userDocData.data();
-          // profileImage가 없거나 빈 문자열인 경우 기본 이미지 URL을 설정합니다.
+          // profileImage가 없는 경우 기본 이미지 설정
           setImageUrl(
             userData.profileImage ||
-              'https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800'
+              'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
           );
           setNickname(userData.nickName);
-          setIsLoading(false);
-        } else {
-          console.log('No such document!');
         }
       } else {
-        console.log('No user is signed in');
+        console.log('로그인한 계정 없음.');
       }
     });
     return () => {
@@ -71,105 +62,96 @@ const MyPage = () => {
     };
   }, []);
 
+  // 프로필 이미지 업로드
   const handleProfileImageUpload = async (event) => {
-    setIsLoading(true);
     const file = event.target.files[0];
     const storageRef = ref(storage, `profileImages/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask
       .then((snapshot) => {
-        console.log('Upload completed');
         getDownloadURL(snapshot.ref).then(async (downloadURL) => {
           setImageUrl(downloadURL);
-          console.log(imageUrl);
-
           const user = auth.currentUser;
           const userDoc = doc(db, 'users', user.uid);
           const docSnap = await getDoc(userDoc);
-
           if (!docSnap.exists()) {
             await setDoc(userDoc, { profileImage: downloadURL });
           } else {
             await updateDoc(userDoc, { profileImage: downloadURL });
           }
-          setIsLoading(false);
           alert('이미지가 변경되었습니다.');
           event.target.value = null;
         });
       })
       .catch((error) => {
-        console.error('Upload failed:', error);
+        console.error(error);
       });
   };
 
-  // 닉네임 업데이트 하는 함수
+  // 닉네임 업데이트
   const handleNicknameChange = async () => {
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
-      await updateDoc(userDoc, { nickName: newNickName }); // 닉네임 업데이트
+      await updateDoc(userDoc, { nickName: newNickName });
       setNickname(newNickName);
       setNewNickname('');
       alert('닉네임이 변경되었습니다.');
     } catch (error) {
-      console.error('Error updating user: ', error);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      alert('로그아웃 되었습니다.');
-      navigate('/login');
-    } catch (error) {
-      console.error('Error signing out: ', error);
+      console.error(error);
     }
   };
 
   return (
-    <StyledContainer>
-      <StyledMenu>
-        <div>
-          <StyledProfile src={imageUrl} alt="프로필 사진" />
-        </div>
-        <p>{nickName}</p>
-        <StyledButtons>
-          <StyledBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
-            내 정보 수정
-          </StyledBtn>
-          <StyledBtn
-            active={activeButton === '북마크한 등산 코스'}
-            onClick={() => setActiveButton('북마크한 등산 코스')}
-          >
-            북마크한 등산 코스
-          </StyledBtn>
-          <StyledBtn active={activeButton === '완주한 등산 코스'} onClick={() => setActiveButton('완주한 등산 코스')}>
-            완주한 등산 코스
-          </StyledBtn>
-          <StyledBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
-            작성한 댓글
-          </StyledBtn>
-          <StyledBtn onClick={handleLogout}>로그아웃</StyledBtn> {/* 로그아웃 버튼을 추가합니다. */}
-        </StyledButtons>
-      </StyledMenu>
-      <StyledContent>
+    <StContainer>
+      <StMenu>
+        <StProfile src={imageUrl} alt="프로필 사진" />
+        <StprofileNickName>{nickName}님</StprofileNickName>
+        <StButtons>
+          <StBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
+            <span>내 정보 수정</span>
+          </StBtn>
+          <StBtn active={activeButton === '북마크한 명산'} onClick={() => setActiveButton('북마크한 명산')}>
+            <span>북마크한 명산</span>
+          </StBtn>
+          <StBtn active={activeButton === '완주한 명산'} onClick={() => setActiveButton('완주한 명산')}>
+            <span>완주한 명산</span>
+          </StBtn>
+          <StBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
+            <span>작성한 댓글</span>
+          </StBtn>
+        </StButtons>
+      </StMenu>
+      <StContent>
         {activeButton === '내 정보 수정' ? (
-          <div>
-            <StyledImage src={imageUrl} alt="프로필 사진" />
-            <div>
-              <StyledFileInput type="file" id="file" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
-              <label htmlFor="file">파일 선택</label>
-            </div>
-            <p>닉네임</p>
-            <p>{nickName}</p>
-            <input type="text" value={newNickName} onChange={(e) => setNewNickname(e.target.value)} />
-            <button onClick={handleNicknameChange}>닉네임 변경</button>
-          </div>
-        ) : activeButton === '북마크한 등산 코스' ? (
-          <div>{/* 북마크한 등산 코스 목록 */}</div>
-        ) : activeButton === '완주한 등산 코스' ? (
-          <div>{/* 완주한 등산 코스 */}</div>
+          <>
+            <StTitle>PROFILE</StTitle>
+            <StEditBox>
+              <StProfileBox>
+                <StImage src={imageUrl} alt="프로필 사진" />
+              </StProfileBox>
+              <StProfileNickNameEditBox>
+                <StContext>프로필 이미지 변경</StContext>
+                <StFileInput type="file" id="file" onChange={handleProfileImageUpload} style={{ display: 'none' }} />
+                <StFileInputLabel htmlFor="file">파일 선택</StFileInputLabel>
+
+                <StContext>닉네임 변경</StContext>
+                <StEditNickName>{nickName}</StEditNickName>
+                <StInputNickName
+                  type="text"
+                  value={newNickName}
+                  onChange={(e) => setNewNickname(e.target.value)}
+                  placeholder="변경할 닉네임을 입력해주세요"
+                />
+                <StInputButton onClick={handleNicknameChange}>변경</StInputButton>
+              </StProfileNickNameEditBox>
+            </StEditBox>
+          </>
+        ) : activeButton === '북마크한 명산' ? (
+          <div>{/* 북마크한 명산 목록 */}</div>
+        ) : activeButton === '완주한 명산' ? (
+          <div>{/* 완주한 명산 */}</div>
         ) : activeButton === '작성한 댓글' ? (
           <StCommentContainer>
             <StCommentList>
@@ -193,81 +175,206 @@ const MyPage = () => {
             </StCommentList>
           </StCommentContainer>
         ) : (
-          <div>
-            <StyledImage src={imageUrl} alt="프로필 사진" />
-            <StyledNickName>{nickName}</StyledNickName>
-          </div>
+          <StProfilebox>
+            <StTitle>MYPAGE</StTitle>
+            <StImage src={imageUrl} alt="프로필 사진" />
+            <StNickName>{nickName}</StNickName>
+          </StProfilebox>
         )}
-      </StyledContent>
-    </StyledContainer>
+      </StContent>
+    </StContainer>
   );
 };
 
-export default MyPage;
-
-const StyledContainer = styled.div`
+const StContainer = styled.div`
   display: flex;
-`;
-
-const StyledMenu = styled.div`
-  width: 20%;
   height: 500px;
-  margin-left: 50px;
+  margin-top: 30px;
+  background-color: white;
+`;
+
+// Menu
+const StMenu = styled.div`
+  width: 20%;
+  height: 480px;
   text-align: center;
-
-  /*중앙정렬*/
   justify-content: center;
-  border-radius: 10px;
-  border: solid 2px;
-  border-color: var(--sub-color2);
+  margin-top: 20px;
+  margin-left: 50px;
 `;
 
-const StyledNickName = styled.p`
-  font-size: 25px;
-`;
-
-const StyledProfile = styled.img`
+// Menu : 프로필 이미지
+const StProfile = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-bottom: 10px;
 `;
 
-const StyledButtons = styled.div`
+// Menu : 현재 로그인한 계정의 닉네임
+const StprofileNickName = styled.p`
+  font-weight: bold;
+`;
+
+// Menu buttons
+const StButtons = styled.div`
   display: flex;
-  /*위에서 아래로 수직 배치*/
   flex-direction: column;
-  /*중앙정렬*/
   justify-content: center;
-  height: 200px;
+  height: 250px;
+  margin-top: 20px;
 `;
 
-const StyledBtn = styled.button`
+// Menu : 각 버튼 css
+const StBtn = styled.button`
+  width: 130px;
+  height: 40px;
+  margin: 0px auto;
   background-color: transparent;
+  border: none;
+  position: relative;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #6d5f52;
+  font-size: 15px;
+
+  & span {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: ${(props) => (props.active ? '100%' : '0')};
+      transform: ${(props) => (props.active ? 'translateX(-50%)' : 'translateX(0)')};
+      border-bottom: 3px solid ${(props) => (props.active ? 'var(--sub-color2)' : 'var(--sub-color3)')};
+      transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+  }
+
+  &:hover span::after {
+    width: 100%;
+    transform: translateX(-50%);
+  }
+`;
+
+// content
+const StContent = styled.div`
+  width: 80%;
+  background-color: var(--sub-color2);
+  text-align: center;
+  margin: 20px 50px 0px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: solid 2px;
   border-color: transparent;
 `;
 
-const StyledContent = styled.div`
-  width: 70%;
-  // background-color: var(--sub-color3);
-  text-align: center;
-  margin: 0px 50px 0px 50px;
-
-  border-radius: 10px;
-  border: solid 2px;
-  border-color: var(--sub-color2);
+// content- mypage css
+const StProfilebox = styled.div`
+  margin-top: 70px;
 `;
 
-const StyledImage = styled.img`
+const StImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 `;
 
-const StyledFileInput = styled.input`
-  ::file-selector-button {
-    display: none;
+const StNickName = styled.p`
+  font-size: 25px;
+  color: #7e7057;
+  font-weight: bold;
+`;
+
+const StEditBox = styled.div`
+  display: flex;
+`;
+
+// content-내 정보 수정 : 타이틀
+const StTitle = styled.p`
+  font-size: 30px;
+  margin-top: 40px;
+  font-weight: bold;
+  color: #476442; //#476442
+`;
+
+// content- 내 정보 수정 : profile 이미지
+const StProfileBox = styled.div`
+  margin: 50px auto;
+  width: 33%;
+`;
+
+// content- 내 정보 수정 : 이미지, 닉네임 변경 위치
+const StProfileNickNameEditBox = styled.div`
+  margin: auto auto;
+  width: 50%;
+  height: 300px;
+  padding-top: 40px;
+  background-color: #ffffff6f;
+  border-radius: 10px;
+`;
+
+// content- 세부 타이틀 css
+const StContext = styled.p`
+  color: #3a3a3a;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+// content-내 정보 수정 : 파일 선택
+const StFileInputLabel = styled.label`
+  display: inline-block;
+  padding: 0.5em 1.5em;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  color: #000000;
+  background-color: #b8c9b56c;
+  border-color: #c9bfb56c;
+  border-radius: 10px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  box-shadow: 1.5px 1.5px 1px #5d645c;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--sub-color3);
+  }
+`;
+const StFileInput = styled.input`
+  display: none;
+`;
+
+// content-내 정보 수정 : 닉네임
+const StEditNickName = styled.p`
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #7e7057;
+  font-weight: bold;
+`;
+
+// content-내 정보 수정 : 닉네임 변경 input 창
+const StInputNickName = styled.input`
+  width: 200px;
+  height: 40px;
+  border-color: #ffffff6d;
+  border-radius: 10px;
+  background-color: #e2e2e2f4;
+`;
+
+// content-내 정보 수정 : 닉네임 변경 버튼
+const StInputButton = styled.button`
+  width: 100px;
+  height: 40px;
+  margin-left: 5px;
+  border-radius: 10px;
+  border-color: #b8c9b56c;
+  background-color: #b8c9b56c;
+  &:hover {
+    background-color: var(--sub-color3);
   }
 `;
 
@@ -277,6 +384,19 @@ const StCommentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 40px;
+`;
+const StCommentLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 20px;
+  margin: 10px 0px -30px 0px;
+  font-size: 22px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;
 
 const StCommentList = styled.ul`
@@ -294,16 +414,4 @@ const StCommentList = styled.ul`
   }
 `;
 
-const StCommentLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0px 20px;
-  margin: 10px 0px -30px 0px;
-  font-size: 22px;
-
-  & p {
-    font-size: 20px;
-    font-weight: 600;
-  }
-`;
+export default MyPage;

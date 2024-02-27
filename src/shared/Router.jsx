@@ -4,10 +4,12 @@ import NonAuthLayout from 'components/layout/NonAuthLayout';
 import Layout from 'components/layout/Layout';
 import MainPage from 'pages/MainPage';
 import DetailPage from 'pages/DetailPage';
-import LoginPage from 'pages/LoginPage';
-import SignupPage from 'pages/SignupPage';
-import MyPage from 'pages/MyPage';
-import NotFound from 'pages/NotFound';
+import LoginPage from 'pages/non-auth/LoginPage';
+import SignupPage from 'pages/non-auth/SignupPage';
+import MyPage from 'pages/auth/MyPage';
+import { Navigate } from 'react-router-dom/dist';
+
+import MyPage2 from 'pages/auth/MyPage';
 
 const Router = () => {
   return (
@@ -30,8 +32,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
         </Route>
 
-        {/* 404 Not Found */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

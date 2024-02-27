@@ -46,11 +46,12 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
       try {
         // DB에 데이터 업데이트하기
         const commentRef = doc(collection(db, 'comments'), comments[index].id);
-        await setDoc(commentRef, { comment: editingComment });
+        await setDoc(commentRef, { ...comment, comment: editingComment });
 
         setComments((prevComments) =>
           prevComments.map((comment, i) => (i === index ? { ...comment, comment: editingComment } : comment))
         );
+
         setEditingCommentIndex(null);
       } catch (error) {
         console.error('Error updating document: ', error);
@@ -74,7 +75,10 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
   return (
     <StCommentItem>
       <StCommentInfo>
-        <span>{userNickname} 님</span>
+        <div>
+          <StCommentInfoNickname>{userNickname}</StCommentInfoNickname>
+          <span> 님</span>
+        </div>
         <p>{formattedDate(comment.timestamp)}</p>
       </StCommentInfo>
       {editingCommentIndex === index ? (
@@ -143,13 +147,13 @@ const StCommentInfo = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  & span {
-    font-weight: 600;
-  }
-
   & p {
     font-size: 14px;
   }
+`;
+
+const StCommentInfoNickname = styled.span`
+  font-weight: 600;
 `;
 
 const StCommentContent = styled.div`
