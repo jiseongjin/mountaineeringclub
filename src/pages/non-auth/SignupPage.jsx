@@ -99,9 +99,14 @@ const SignupPage = () => {
     }
   }, [isLogin, navigate]);
 
+  const handleGoLogin = (event) => {
+    event.preventDefault();
+    navigate('/login');
+  };
+
   return (
     <StLoginContainer>
-      <StP>한사랑 산악회</StP>
+      <StP>회원가입</StP>
       <StFormContainer>
         <StForm>
           <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -122,6 +127,7 @@ const SignupPage = () => {
           <StsignupButton onClick={handleEmailSignUp}>회원가입</StsignupButton>
           <StDivider />
           <StGoogle onClick={handleGoogleLogin}>구글 회원가입</StGoogle>
+          <StSignupButton onClick={handleGoLogin}>로그인</StSignupButton>
         </StForm>
       </StFormContainer>
     </StLoginContainer>
@@ -203,7 +209,7 @@ const StDivider = styled.div`
   height: 0.2px;
   background-color: white;
   background-color: rgb(255, 255, 255, 0.6);
-  margin: 20px;
+  margin: 10px;
 `;
 const StPasswordP = styled.p`
   font-size: 10px;
@@ -217,6 +223,18 @@ const StFormContainer = styled.div`
   width: 520px;
   height: 520px;
   border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
+`;
+const StSignupButton = styled.button`
+  border: none;
+  background-color: #b6c4b6;
+  transition: backgroud-color 2s;
+  font-size: 15px;
+  user-select: none;
+  margin-top: 10px;
+
+  &:hover {
+    color: #eef0e5;
+  }
 `;
 
 export default SignupPage;

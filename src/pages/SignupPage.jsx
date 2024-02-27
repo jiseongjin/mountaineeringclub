@@ -53,7 +53,9 @@ const SignupPage = () => {
       const user = userCredential.user;
       // firestore에 닉네임 저장
       await setDoc(doc(db, "users", user.uid), {
-        nickName:nickname,
+        uid: user.uid,
+        email: user.email,
+        nickname,
       });
       console.log("Success");
       // 회원가입 성공 후 로그인 페이지 이동
@@ -80,7 +82,9 @@ const SignupPage = () => {
         } else {
           // 회원가입 성공 후
           await setDoc(userRef, {
-            nickName: result.user.displayName,
+            uid: result.user.uid,
+            email: result.user.email,
+            nickname: result.user.displayName,
           });
         }
         console.log("Success", result);
@@ -104,9 +108,8 @@ const SignupPage = () => {
   return (
     <StLoginContainer>
       <StP>한사랑 산악회</StP>
+      <StFormContainer>
       <StForm>
-        <StGoogle onClick={handleGoogleLogin}>구글 회원가입</StGoogle>
-        <StDivider />
         <StInput
           type='text'
           placeholder='이메일'
@@ -133,7 +136,10 @@ const SignupPage = () => {
           onChange={(e) => setNickname(e.target.value)}
         />
         <StsignupButton onClick={handleEmailSignUp}>회원가입</StsignupButton>
+        <StDivider />
+        <StGoogle onClick={handleGoogleLogin}>구글 회원가입</StGoogle>
       </StForm>
+      </StFormContainer>
     </StLoginContainer>
 
   );
@@ -189,6 +195,7 @@ const StInput = styled.input`
     font-size: 15px;
     user-select: none;
     cursor: pointer;
+    box-shadow: 0px 0px 5px #163020;
 `;
 const StsignupButton = styled.button`
     width: 100px;
@@ -212,12 +219,21 @@ const StDivider = styled.div`
     width: 350px;
     height: 0.2px;
     background-color: white;
+    background-color: rgb(255, 255, 255, 0.6);
     margin: 20px;
 `;
 const StPasswordP = styled.p`
     font-size: 10px;
     text-align: left;
     width: 75%;
+`;
+const StFormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 520px;
+  height: 520px;
+  border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
 `;
 
 export default SignupPage;

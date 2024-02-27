@@ -25,7 +25,7 @@ const CheckCompletion = ({ postId }) => {
     if (checkCompletion) {
       const userId = auth.currentUser.uid;
       try {
-        // 완주한 코스 체크 기능
+        // 완주한 코스 체크 기능 (지은)
       } catch (error) {
         console.error('Error updating scrap document: ', error);
       }
