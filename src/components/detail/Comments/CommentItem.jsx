@@ -157,10 +157,20 @@ const StCommentInfoNickname = styled.span`
 `;
 
 const StCommentContent = styled.div`
+  display: flex;
   padding: 20px 15px;
   border: 1px solid lightgray;
   border-radius: 8px;
-  font-size: 14px;
+
+  & p {
+    padding-left: 5px;
+    font-size: 14px;
+  }
+
+  & textarea {
+    font-size: 14px;
+    border-radius: 5px;
+  }
 `;
 
 const StCommentButtonWrapper = styled.div`

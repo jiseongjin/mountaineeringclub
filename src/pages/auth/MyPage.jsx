@@ -156,7 +156,7 @@ const MyPage = () => {
           <StCommentContainer>
             <StCommentList>
               {userComments.map((userComment, index) => (
-                <>
+                <React.Fragment key={userComment.id}>
                   <StCommentLink to={`/detail/${userComment.postId}`}>
                     <LiaMountainSolid />
                     {/* To-do: 산 이름 가져오기 */}
@@ -170,7 +170,7 @@ const MyPage = () => {
                     index={index}
                   />
                   <hr />
-                </>
+                </React.Fragment>
               ))}
             </StCommentList>
           </StCommentContainer>
@@ -382,7 +382,6 @@ const StInputButton = styled.button`
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 20px 40px;
   user-select: none;
 `;
@@ -411,7 +410,7 @@ const StCommentList = styled.ul`
   & hr {
     width: 100%;
     border: none;
-    border-top: 1px solid var(--sub-color2);
+    border-top: 1px solid darkgray;
     margin-top: -5px;
   }
 `;
