@@ -14,11 +14,19 @@ const Comments = ({ postId }) => {
   // DB에서 데이터 가져오기
   useEffect(() => {
     const loadComments = async () => {
-      const querySnapshot = await getDocs(query(collection(db, 'comments')));
-      const commentsList = querySnapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      });
-      setComments(commentsList);
+      try {
+        const querySnapshot = await getDocs(query(collection(db, 'comments')));
+        const commentsList = querySnapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+
+        // 댓글 내림차순 정렬
+        const sortedComments = commentsList.sort((a, b) => b.timestamp - a.timestamp);
+
+        setComments(sortedComments);
+      } catch (error) {
+        console.error('Error loading comments: ', error);
+      }
     };
     loadComments();
   }, []);
@@ -57,7 +65,7 @@ const Comments = ({ postId }) => {
           timestamp
         });
 
-        // db에 새로운 댓글 추가 후 새로운 댓글로 로컬 상태 업데이트
+        // DB에 새로운 댓글 추가 후 새로운 댓글로 로컬 상태 업데이트
         const newCommentData = {
           id: newCommentRef.id,
           postId,
