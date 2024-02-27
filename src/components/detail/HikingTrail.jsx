@@ -1,26 +1,37 @@
 import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
-import mountainData from '';
+import mountainData from '../../assets/mutData.json';
+import { useNavigate } from 'react-router-dom';
 
 const HikingTrail = () => {
+  const navigate = useNavigate();
   // useParams 이용하기
   const params = '북한산';
   // 산 데이터
-  const mountainDb = mountainData;
-
-  console.log(mountainDb);
+  const mountainDb = mountainData.data;
+  const foundMountain = [...mountainDb].find((item) => item.명산_이름 === params);
+  if (!foundMountain) {
+    alert('정보가 없습니다!');
+    navigate('/');
+  }
+  console.log(foundMountain);
 
   return (
     <HikingTrailInformationBox>
       <InformationBox>
-        <KakaoMap params={params} />
+        <KakaoMap foundMountain={foundMountain} />
         {/* <ImgBox /> */}
-        <MntinName>산이름</MntinName>
+        <MntinName>
+          {params}
+          <p>{foundMountain.명산_소재지}</p>
+        </MntinName>
         <CourseInformationBox>
-          <MntiDetail>내용</MntiDetail>
-          {/* <p>소요시간 : </p>
-          <p>코스길이 : </p> */}
-          <p>높이 : ?? M</p>
+          <MntiDetail>{foundMountain.산_개요}</MntiDetail>
+          <LowBox>
+            <p>{foundMountain.난이도}</p>
+            <p>높이 : {foundMountain.명산_높이} M</p>
+          </LowBox>
+          <MntiDetail>산행포인트 : {foundMountain.산행포인트}</MntiDetail>
         </CourseInformationBox>
       </InformationBox>
     </HikingTrailInformationBox>
@@ -58,4 +69,9 @@ const MntinName = styled.h2`
 
 const MntiDetail = styled.h5`
   font-size: 18px;
+`;
+
+const LowBox = styled.div`
+  display: flex;
+  gap: 10px;
 `;

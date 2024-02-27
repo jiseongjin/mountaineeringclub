@@ -1,41 +1,40 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-const KakaoMap = ({ params }) => {
+const KakaoMap = ({ foundMountain }) => {
   useEffect(() => {
-    var infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
-
-    var container = document.getElementById('map');
-    var options = {
-      center: new window.kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
+    var mapContainer = document.getElementById('map');
+    var mapOption = {
+      center: new window.kakao.maps.LatLng(foundMountain.X좌표, foundMountain.Y좌표),
       level: 3
     };
-    var map = new window.kakao.maps.Map(container, options);
-    var ps = new window.kakao.maps.services.Places();
-    ps.keywordSearch(params, placesSearchCB);
-
-    function placesSearchCB(data, status, pagination) {
-      if (status === window.kakao.maps.services.Status.OK) {
-        var bounds = new window.kakao.maps.LatLngBounds();
-
-        for (var i = 0; i < data.length; i++) {
-          displayMarker(data[i]);
-          bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
-        }
-        map.setBounds(bounds);
-      }
-    }
-    function displayMarker(place) {
-      var marker = new window.kakao.maps.Marker({
-        map: map,
-        position: new window.kakao.maps.LatLng(place.y, place.x)
-      });
-      window.kakao.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-        infowindow.open(map, marker);
-      });
-    }
-  }, [params]);
+    // 지도 생성
+    var map = new window.kakao.maps.Map(mapContainer, mapOption);
+    // 마커를 표시할 위치
+    var markerPosition = new window.kakao.maps.LatLng(foundMountain.X좌표, foundMountain.Y좌표);
+    // 마커 생성
+    var marker = new window.kakao.maps.Marker({
+      position: markerPosition
+    });
+    // 마커를 지도위에 표시
+    marker.setMap(map);
+    // 마커 커서오버시 인포 윈도우 생성
+    var iwContent = `<div style="padding:5px;">${foundMountain.명산_이름}</div>`;
+    // 인포 윈도우 생성
+    var infowindow = new window.kakao.maps.InfoWindow({
+      content: iwContent
+    });
+    // 마커에 커서이벤트 등록
+    window.kakao.maps.event.addListener(marker, 'mouseover', function () {
+      // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시
+      infowindow.open(map, marker);
+    });
+    // 마커에 마우스아웃 이벤트를 등록
+    window.kakao.maps.event.addListener(marker, 'mouseout', function () {
+      // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거
+      infowindow.close();
+    });
+  }, [foundMountain.X좌표, foundMountain.Y좌표, foundMountain.명산_이름]);
 
   return <ImgBox id="map"></ImgBox>;
 };
