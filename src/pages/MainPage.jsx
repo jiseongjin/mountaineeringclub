@@ -16,8 +16,8 @@ const MainPage = () => {
     setActiveTab('');
   };
 
-  const onClickActiveTabHandler = (tabName) => {
-    setActiveTab(tabName);
+  const onClickActiveTabHandler = (tabs) => {
+    setActiveTab(tabs);
   };
 
   const tabsOption = {
@@ -37,7 +37,7 @@ const MainPage = () => {
   };
 
   const filteredTabs = tabsOption[optionSelect] || [];
-  // console.log(filteredTabs);
+  console.log(filteredTabs);
 
   const onChangeSearchHandler = (e) => {
     setInputSearch(e.target.value);
@@ -49,7 +49,7 @@ const MainPage = () => {
       alert('검색어를 입력해주세요');
     }
     const filteredData = mountainLists.data.filter((item) =>
-      item.명산_이름.toLowerCase().includes(InputSearch.toLowerCase())
+      item.name.toLowerCase().includes(InputSearch.toLowerCase())
     );
     setMountainLists(filteredData);
   };
@@ -77,43 +77,43 @@ const MainPage = () => {
             //   (data) =>
             //     (activeTab === '난이도' && data.난이도 === true) || (activeTab === '지역' && data.명산_소재지 === true)
             // )
-            .map((tab) => (
-              <StActiveTabs key={tab} onClick={() => onClickActiveTabHandler(tab)} $activeTab={activeTab} />
+            .map((tabs) => (
+              <StActiveTabList key={tabs} onClick={() => onClickActiveTabHandler(tabs)} $activeTab={activeTab} />
             ))}
-          {/* {optionSelect === '전체' && ''}
-          {optionSelect === '난이도' && (
-            <> */}
-          {/* <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+          {/* {optionSelect === '전체' && ''} */}
+          {/* {optionSelect === '난이도' && (
+            <>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 중급
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 고급
-              </StActiveTabs> */}
-          {/* </>
+              </StActiveTabList>
+            </>
           )} */}
           {/* {optionSelect === '지역' && (
             <>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 서울
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 경기도
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 충청북도
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 충청남도
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 전라남도
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 경상북도
-              </StActiveTabs>
-              <StActiveTabs onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 경상남도
-              </StActiveTabs>
+              </StActiveTabList>
             </>
           )} */}
         </StActiveTab>
@@ -180,11 +180,14 @@ const StActiveTab = styled.ul`
   gap: 5px;
 `;
 
-const StActiveTabs = styled.li`
+const StActiveTabList = styled.li`
   margin-top: 10px;
   padding: 1rem;
   font-size: 14px;
   border-radius: 8px;
-  ${(props) => (props.$activeItem === props.children ? 'border:1px solid #929292' : 'none')};
+  ${(props) => (props.$activeTab === props.children ? 'border-bottom: 3px solid blue;' : 'none')};
+  /* ${(props) => (props.$activeTab === props.children ? 'color:black' : 'none')}; */
   cursor: pointer;
+  /* border: 1px solid red; */
+  /* ${(props) => (props.$activeItem === props.children ? 'border:1px solid #929292' : 'none')}; */
 `;
