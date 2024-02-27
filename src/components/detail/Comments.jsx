@@ -1,6 +1,6 @@
 import { auth, db } from '../../firebase';
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
@@ -98,9 +98,21 @@ const Comments = ({ postId }) => {
             <button onClick={handleCommentSubmit}>등록</button>
           </StCommentInputButtonWrapper>
         </StCommentInputContainer>
+
+        <StCommentCount>
+          <p>댓글</p>
+          <StCommentCountNumber>{comments.length}</StCommentCountNumber>
+        </StCommentCount>
+
+        <select onClick={() => {}}>
+          <option value={''}>정렬 기준</option>
+          <option value="asc">오래된 순</option>
+          <option value="desc">최신 순</option>
+        </select>
+
         <StCommentList>
           {comments.map((comment, index) => (
-            <>
+            <React.Fragment key={comment.id}>
               <hr />
               <CommentItem
                 currentUser={currentUser}
@@ -109,7 +121,7 @@ const Comments = ({ postId }) => {
                 comment={comment}
                 index={index}
               />
-            </>
+            </React.Fragment>
           ))}
         </StCommentList>
       </StCommentContainer>
@@ -122,8 +134,8 @@ export default Comments;
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 20px 100px;
+  user-select: none;
 
   & hr {
     width: 100%;
@@ -170,10 +182,26 @@ const StCommentInputButtonWrapper = styled.div`
   }
 `;
 
+const StCommentCount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  & p {
+    margin: 20px 0px 10px 0px;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
+
+const StCommentCountNumber = styled.p`
+  color: var(--sub-color2);
+`;
+
 const StCommentList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-top: 5px;
-  width: 100%;
 `;

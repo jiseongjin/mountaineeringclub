@@ -34,9 +34,7 @@ const HikingTrail = () => {
     </>
   );
 };
-
 export default HikingTrail;
-
 const StHikingTrailInformationBox = styled.section`
   display: flex;
   justify-content: center;
