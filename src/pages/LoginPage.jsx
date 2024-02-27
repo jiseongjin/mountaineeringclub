@@ -58,7 +58,7 @@ const LoginPage = () => {
 
   return (
     <StLoginContainer>
-      <StP>한사랑 산악회</StP>
+      <StP>로그인</StP>
       <StFormContainer>
       <StForm>
         <StInput type='text' placeholder='이메일' value={email} onChange={(e) => setEmail(e.target.value)} />
