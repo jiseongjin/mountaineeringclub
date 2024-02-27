@@ -8732,6 +8732,17 @@ react-kakao-maps-sdk@^1.1.26:
     "@babel/runtime" "^7.22.15"
     kakao.maps.d.ts "^0.1.39"
 
+<<<<<<< HEAD
+react-loader-spinner@^6.1.6:
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-6.1.6.tgz#744d84a9763e963b565054f4f281dadfbd17e9e9"
+  integrity sha512-x5h1Jcit7Qn03MuKlrWcMG9o12cp9SNDVHVJTNRi9TgtGPKcjKiXkou4NRfLAtXaFB3+Z8yZsVzONmPzhv2ErA==
+  dependencies:
+    react-is "^18.2.0"
+    styled-components "^6.1.2"
+
+=======
+>>>>>>> cc586ba75596075dc43cb8ef7dce3933b9799b16
 react-redux@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-9.1.0.tgz#46a46d4cfed4e534ce5452bb39ba18e1d98a8197"
