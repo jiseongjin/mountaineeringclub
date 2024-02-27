@@ -62,13 +62,14 @@ const StNavContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 30px auto;
+  user-select: none;
 `;
 
 const StLogo = styled.div`
   & a {
     font-family: 'Dokdo', cursive;
     font-size: 48px;
-    color: var(--main-color) !important;
+    color: var(--sub-color1) !important;
   }
 `;
 
