@@ -119,7 +119,7 @@ const StCommentContainer = styled.div`
   & hr {
     width: 100%;
     border: none;
-    border-top: 1px solid var(--sub-color2);
+    border-top: 1px solid darkgray;
   }
 `;
 

@@ -131,6 +131,10 @@ const StCommentItem = styled.li`
   & textarea {
     width: 100%;
     resize: none;
+    outline: none;
+    border: 1px solid darkgray;
+    font-size: 16px;
+    padding: 5px;
   }
 `;
 
