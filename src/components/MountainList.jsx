@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MountainList = ({ mountainLists }) => {
@@ -11,7 +12,7 @@ const MountainList = ({ mountainLists }) => {
   return (
     <>
       <StCardContainer>
-        {mountainLists.data.length === 0 ? <p>검색 결과가 없습니다 ㅠㅠ</p> : null}
+        {/* {mountainLists.data.length === 0 ? <p>검색 결과가 없습니다 ㅠㅠ</p> : null} */}
         {mountainLists.data.slice(0, pageAdd).map((data) => (
           <StCard key={data.id} data={data}>
             <img src="" alt="이미지" />
@@ -20,7 +21,9 @@ const MountainList = ({ mountainLists }) => {
               <li>산높이: {data.명산_높이}m</li>
               <li>{data.난이도}</li>
             </StCardText>
-            <button>자세히 보기</button>
+            <Link to={'/detail'}>
+              <button>자세히 보기</button>
+            </Link>
           </StCard>
         ))}
       </StCardContainer>
