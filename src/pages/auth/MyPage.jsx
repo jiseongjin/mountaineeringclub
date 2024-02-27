@@ -7,6 +7,7 @@ import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } fro
 import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
 import CommentItem from 'components/detail/CommentItem';
+import profileImg from '../../assets/profileImg.png';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -48,10 +49,9 @@ const MyPage = () => {
           const userData = userDocData.data();
           // profileImage가 없는 경우 기본 이미지 설정
           setImageUrl(
-            userData.profileImage ||
-              'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
+            userData.profileImage || profileImg
           );
-          setNickname(userData.nickName);
+          setNickname(userData.nickname);
         }
       } else {
         console.log('로그인한 계정 없음.');
@@ -94,7 +94,7 @@ const MyPage = () => {
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
-      await updateDoc(userDoc, { nickName: newNickName });
+      await updateDoc(userDoc, { nickname: newNickName });
       setNickname(newNickName);
       setNewNickname('');
       alert('닉네임이 변경되었습니다.');
