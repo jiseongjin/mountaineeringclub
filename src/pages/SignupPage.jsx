@@ -239,7 +239,7 @@ const StFormContainer = styled.div`
   align-items: center;
   width: 520px;
   height: 520px;
-  border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
+  border: 2px solid rgba(48, 77, 48, 0.3);
 `;
 const StSignupButton = styled.button`
     border: none;

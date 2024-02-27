@@ -53,9 +53,6 @@ const LoginPage = () => {
     }
   }, [isLogin, navigate]);
 
-  // 로그인 후에 홈으로 갔을 때 : 회원가입/로그인 페이지 진입불가
-  // 프로필 사진 가져오기
-
   return (
     <StLoginContainer>
       <StP>로그인</StP>
