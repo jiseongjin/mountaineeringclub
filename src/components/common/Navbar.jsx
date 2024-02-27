@@ -1,6 +1,6 @@
 import Logout from 'components/Logout';
 import { auth } from '../../firebase';
-import { Link } from 'react-router-dom/dist';
+import { Link, NavLink } from 'react-router-dom/dist';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
@@ -41,12 +41,18 @@ const Navbar = () => {
           {isLoggedIn && !isLoggedOut ? (
             <>
               <Logout onLogout={handleLogout} />
-              <Link to="/mypage">마이페이지</Link>
+              <NavLink to="/mypage" activetabname="active">
+                마이페이지
+              </NavLink>
             </>
           ) : (
             <>
-              <Link to="/login">로그인</Link>
-              <Link to="/signup">회원가입</Link>
+              <NavLink to="/login" activetabname="active">
+                로그인
+              </NavLink>
+              <NavLink to="/signup" activetabname="active">
+                회원가입
+              </NavLink>
             </>
           )}
         </StRightNav>
@@ -86,5 +92,9 @@ const StRightNav = styled.div`
     &:hover {
       color: black !important;
     }
+  }
+
+  .active {
+    color: black !important;
   }
 `;
