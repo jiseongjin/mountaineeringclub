@@ -85,7 +85,7 @@ const MyPage = () => {
         <StContent>
           {activeButton === '내 정보 수정' ? (
             <>
-              <StTitle>내 정보 수정</StTitle>
+              <StTitle>PROFILE</StTitle>
               <StEditBox>
                 <StProfileBox>
                   <StImage src={imageUrl} alt="프로필 사진" />
@@ -116,7 +116,7 @@ const MyPage = () => {
             </div>
           ) : (
             <StProfilebox>
-              <StTitle>마이페이지</StTitle>
+              <StTitle>MYPAGE</StTitle>
               <StImage src={imageUrl} alt="프로필 사진" />
               <StNickName>{nickName}</StNickName>
             </StProfilebox>
@@ -147,6 +147,8 @@ const StImage = styled.img`
 
 const StNickName = styled.p`
   font-size: 25px;
+  color: #7e7057;
+  font-weight: bold;
 `;
 
 // Menu
@@ -213,7 +215,7 @@ const StBtn = styled.button`
 // content
 const StContent = styled.div`
   width: 80%;
-  background-color: var(--sub-color3);
+  background-color: var(--sub-color2);
   text-align: center;
   margin: 20px 50px 0px 50px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) ;
@@ -231,7 +233,7 @@ const StTitle = styled.p`
   font-size: 30px;
   margin-top: 40px;
   font-weight: bold;
-  color: #000000; //#476442
+  color: #476442; //#476442
 `;
 
 // content- 내 정보 수정 : profile 이미지
@@ -252,7 +254,7 @@ const StProfileNickNameEditBox = styled.div`
 
 // content- 세부 타이틀 css
 const StContext = styled.p`
-  color: #645e52;
+  color: #3a3a3a;
   font-size: 20px;
   font-weight: bold;
 `;
@@ -284,6 +286,8 @@ const StEditNickName = styled.p`
   font-size: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: #7e7057;
+  font-weight: bold;
 `;
 
 // content-내 정보 수정 : 닉네임 변경 input 창
