@@ -23,7 +23,7 @@ const MyPage = () => {
           setNickname(userData.nickName);
         }
       } else {
-        console.log('로그인한 계정 없음');
+        console.log('로그인한 계정 없음.');
       }
     });
     return () => {
