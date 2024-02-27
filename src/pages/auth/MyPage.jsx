@@ -138,13 +138,18 @@ const MyPage = () => {
 
                 <StContext>닉네임 변경</StContext>
                 <StEditNickName>{nickName}</StEditNickName>
-                <StInputNickName
-                  type="text"
-                  value={newNickName}
-                  onChange={(e) => setNewNickname(e.target.value)}
-                  placeholder="변경할 닉네임을 입력해주세요"
-                />
-                <StInputButton onClick={handleNicknameChange}>변경</StInputButton>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleNicknameChange();
+                }}>
+                  <StInputNickName
+                    type="text"
+                    value={newNickName}
+                    onChange={(e) => setNewNickname(e.target.value)}
+                    placeholder="변경할 닉네임을 입력해주세요"
+                  />
+                  <StInputButton type="submit">변경</StInputButton>
+                </form>
               </StProfileNickNameEditBox>
             </StEditBox>
           </>
@@ -188,7 +193,6 @@ const MyPage = () => {
 
 const StContainer = styled.div`
   display: flex;
-  height: 500px;
   margin-top: 30px;
   background-color: white;
 `;
@@ -200,7 +204,7 @@ const StMenu = styled.div`
   text-align: center;
   justify-content: center;
   margin-top: 20px;
-  margin-left: 50px;
+  margin-left: 20px;
 `;
 
 // Menu : 프로필 이미지
@@ -262,7 +266,7 @@ const StBtn = styled.button`
 // content
 const StContent = styled.div`
   width: 80%;
-  background-color: var(--sub-color2);
+  background-color: var(--sub-color3);
   text-align: center;
   margin: 20px 50px 0px 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
