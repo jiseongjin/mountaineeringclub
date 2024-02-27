@@ -6,10 +6,9 @@ import { isArray } from 'lodash';
 
 const HikingTrail = () => {
   // useParams 이용하기
-  const params = '관악산';
+  const params = '북한산';
   // 산 데이터
   const [mountainData, setMountainData] = useState(null);
-  const [mountatnJpg, setMountatnJpg] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,23 +22,10 @@ const HikingTrail = () => {
           }
         );
         const mountainDatas = data.response.body.items.item;
+        console.log(mountainDatas);
         isArray(mountainDatas)
-          ? setMountainData(...mountainDatas.filter((item) => item.mntiname === params))
+          ? setMountainData(...mountainDatas.filter((item) => item.mntihigh > 100))
           : setMountainData(mountainDatas);
-
-        const mountainImgs = await axios.get(
-          'https://apis.data.go.kr/1400000/service/cultureInfoService2/mntInfoImgOpenAPI2',
-          {
-            params: {
-              // 산코드를 가져올 수있는 방법은?
-              mntiListNo: 116200201,
-              ServiceKey: '0wHFN3EE7v+jLjujPukh2tGtJj/yCRpvhr5reMlXtjDkWobuC62OIZ+c9fLJ3VbRN3ocF9r3hWOj3r/LaWtf3w=='
-            }
-          }
-        );
-        const mutiImg = mountainImgs.data.response.body.items.item;
-        console.log(mutiImg);
-        setMountatnJpg(mountainImgs.data.response.body.items.item.imgfilename);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -49,8 +35,8 @@ const HikingTrail = () => {
   return (
     <HikingTrailInformationBox>
       <InformationBox>
-        <KakaoMap />
-        <ImgBox />
+        <KakaoMap params={params} />
+        {/* <ImgBox /> */}
         <MntinName>{params}</MntinName>
         <CourseInformationBox>
           <MntiDetail>{mountainData?.mntidetails}</MntiDetail>

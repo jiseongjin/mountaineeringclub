@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-const KakaoMap = () => {
+const KakaoMap = ({ params }) => {
   useEffect(() => {
     var infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -12,7 +12,7 @@ const KakaoMap = () => {
     };
     var map = new window.kakao.maps.Map(container, options);
     var ps = new window.kakao.maps.services.Places();
-    ps.keywordSearch(`북한산국립공원 북한산성코스`, placesSearchCB);
+    ps.keywordSearch(params, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === window.kakao.maps.services.Status.OK) {
@@ -35,7 +35,7 @@ const KakaoMap = () => {
         infowindow.open(map, marker);
       });
     }
-  }, []);
+  }, [params]);
 
   return <ImgBox id="map"></ImgBox>;
 };
