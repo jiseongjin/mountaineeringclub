@@ -3,11 +3,19 @@ import { auth, db } from '../../firebase';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom/dist';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { onAuthStateChanged } from '@firebase/auth';
 
 const Bookmark = ({ postId }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserId(user ? user.uid : null);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleBookmark = async () => {
     if (!userId) {
