@@ -16,29 +16,29 @@ const HikingTrail = () => {
 
   return (
     <>
-      <MntinName>{params}</MntinName>
-      <HikingTrailInformationBox>
-        <InformationBox>
+      <StMntinName>{params}</StMntinName>
+      <StHikingTrailInformationBox>
+        <StInformationBox>
           <KakaoMap foundMountain={foundMountain} />
           {/* <ImgBox /> */}
           <p>소재지 : {foundMountain.명산_소재지}</p>
-          <CourseInformationBox>
-            <MntiDetail>개요 : {foundMountain.산_개요}</MntiDetail>
-            <LowBox>
+          <StCourseInformationBox>
+            <StMntiDetail>개요 : {foundMountain.산_개요}</StMntiDetail>
+            <StLowBox>
               <p>{foundMountain.난이도}</p>
               <p>높이 : {foundMountain.명산_높이} M</p>
-            </LowBox>
-            <MntiDetail>산행포인트 : {foundMountain.산행포인트}</MntiDetail>
-          </CourseInformationBox>
-        </InformationBox>
-      </HikingTrailInformationBox>
+            </StLowBox>
+            <StMntiDetail>산행포인트 : {foundMountain.산행포인트}</StMntiDetail>
+          </StCourseInformationBox>
+        </StInformationBox>
+      </StHikingTrailInformationBox>
     </>
   );
 };
 
 export default HikingTrail;
 
-const HikingTrailInformationBox = styled.section`
+const StHikingTrailInformationBox = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,12 +48,12 @@ const HikingTrailInformationBox = styled.section`
   }
 `;
 
-const InformationBox = styled.article`
+const StInformationBox = styled.article`
   display: flex;
   flex-direction: column;
 `;
 
-const CourseInformationBox = styled.div`
+const StCourseInformationBox = styled.div`
   width: 1200px;
   display: flex;
   flex-direction: column;
@@ -63,16 +63,16 @@ const CourseInformationBox = styled.div`
   padding: 5px;
 `;
 
-const MntinName = styled.h2`
+const StMntinName = styled.h2`
   font-size: 40px;
   margin-left: 100px;
 `;
 
-const MntiDetail = styled.h5`
+const StMntiDetail = styled.h5`
   font-size: 18px;
 `;
 
-const LowBox = styled.div`
+const StLowBox = styled.div`
   display: flex;
   gap: 10px;
 `;
