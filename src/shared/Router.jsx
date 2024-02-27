@@ -9,8 +9,6 @@ import SignupPage from 'pages/non-auth/SignupPage';
 import MyPage from 'pages/auth/MyPage';
 import { Navigate } from 'react-router-dom/dist';
 
-import MyPage2 from 'pages/auth/MyPage';
-
 const Router = () => {
   return (
     <BrowserRouter>
