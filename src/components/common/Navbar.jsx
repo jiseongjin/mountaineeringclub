@@ -26,7 +26,6 @@ const Navbar = () => {
           )}
         </StRightNav>
       </StNavContainer>
-      <Outlet />
     </>
   );
 };

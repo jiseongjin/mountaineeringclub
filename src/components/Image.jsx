@@ -8,7 +8,7 @@ const Image = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const query = encodeURIComponent('관악산');
+        const query = encodeURIComponent('가리산');
         const { data } = await axios.get(`https://dapi.kakao.com/v2/search/image?query=${query}`, {
           headers: {
             Authorization: `KakaoAK ${REST_API_KEY}`
