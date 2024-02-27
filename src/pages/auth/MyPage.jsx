@@ -17,7 +17,7 @@ const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeButton, setActiveButton] = useState();
 
-  // 작성한 댓글 목록 코드 추가
+  // 작성한 댓글 목록
   const currentUser = auth.currentUser;
   const [userComments, setUserComments] = useState([]);
 
@@ -30,7 +30,10 @@ const MyPage = () => {
           return { id: doc.id, ...doc.data() };
         });
 
-        setUserComments(userCommentsList);
+        // 댓글 내림차순 정렬
+        const sortedUserComments = userCommentsList.sort((a, b) => b.timestamp - a.timestamp);
+
+        setUserComments(sortedUserComments);
       } catch (error) {
         console.error('Error fetching user comments: ', error);
       }

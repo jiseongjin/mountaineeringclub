@@ -15,8 +15,8 @@ const Comments = ({ postId }) => {
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const querySnapshot = await getDocs(query(collection(db, 'comments')));
-        const commentsList = querySnapshot.docs.map((doc) => {
+        const commentsSnapshot = await getDocs(query(collection(db, 'comments')));
+        const commentsList = commentsSnapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
 
@@ -28,6 +28,7 @@ const Comments = ({ postId }) => {
         console.error('Error loading comments: ', error);
       }
     };
+
     loadComments();
   }, []);
 
