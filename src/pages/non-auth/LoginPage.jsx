@@ -40,7 +40,7 @@ const LoginPage = () => {
       });
   };
 
-  const handleSignup = (event) => {
+  const handleGoSignup = (event) => {
     event.preventDefault();
     navigate('/signup');
   };
@@ -54,7 +54,7 @@ const LoginPage = () => {
 
   return (
     <StLoginContainer>
-      <StP>한사랑 산악회</StP>
+      <StP>로그인</StP>
       <StFormContainer>
         <StForm>
           <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -67,7 +67,7 @@ const LoginPage = () => {
           <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
           <StDivider />
           <StGoogle onClick={handleGoogleLogin}>구글 로그인</StGoogle>
-          <StSignupButton onClick={handleSignup}>회원가입</StSignupButton>
+          <StSignupButton onClick={handleGoSignup}>회원가입</StSignupButton>
         </StForm>
       </StFormContainer>
     </StLoginContainer>
