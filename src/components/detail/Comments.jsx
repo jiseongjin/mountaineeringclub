@@ -1,6 +1,6 @@
 import { auth, db } from '../../firebase';
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
@@ -100,7 +100,7 @@ const Comments = ({ postId }) => {
         </StCommentInputContainer>
         <StCommentList>
           {comments.map((comment, index) => (
-            <>
+            <React.Fragment key={comment.id}>
               <hr />
               <CommentItem
                 currentUser={currentUser}
@@ -109,7 +109,7 @@ const Comments = ({ postId }) => {
                 comment={comment}
                 index={index}
               />
-            </>
+            </React.Fragment>
           ))}
         </StCommentList>
       </StCommentContainer>
