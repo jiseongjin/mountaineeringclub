@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
-import mountainData from '../../assets/mutData.json';
+import mountainData from 'mountainData.json';
 import { useNavigate } from 'react-router-dom';
-
 const HikingTrail = () => {
   const navigate = useNavigate();
   // useParams 이용하기
