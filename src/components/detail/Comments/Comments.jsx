@@ -1,4 +1,4 @@
-import { auth, db } from '../../firebase';
+import { auth, db } from '../../../firebase';
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,15 @@ const Comments = ({ postId }) => {
   const currentUser = auth.currentUser;
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
+
+  const handleNewCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+  };
 
   // DB에서 데이터 가져오기
   useEffect(() => {
@@ -20,8 +29,11 @@ const Comments = ({ postId }) => {
           return { id: doc.id, ...doc.data() };
         });
 
-        // 댓글 내림차순 정렬
-        const sortedComments = commentsList.sort((a, b) => b.timestamp - a.timestamp);
+        // 댓글 정렬
+        const sortedComments =
+          sortOrder === 'asc'
+            ? commentsList.sort((a, b) => a.timestamp - b.timestamp)
+            : commentsList.sort((a, b) => b.timestamp - a.timestamp);
 
         setComments(sortedComments);
       } catch (error) {
@@ -30,11 +42,7 @@ const Comments = ({ postId }) => {
     };
 
     loadComments();
-  }, []);
-
-  const handleNewCommentChange = (event) => {
-    setNewComment(event.target.value);
-  };
+  }, [sortOrder]);
 
   // 댓글 등록하기
   const handleCommentSubmit = async () => {
@@ -74,7 +82,13 @@ const Comments = ({ postId }) => {
           comment: newComment,
           timestamp
         };
-        setComments([newCommentData, ...comments]);
+
+        if (sortOrder === 'asc') {
+          setComments([...comments, newCommentData]);
+        } else {
+          setComments([newCommentData, ...comments]);
+        }
+
         setNewComment('');
       } catch (error) {
         console.log('Error adding document: ', error);
@@ -99,16 +113,18 @@ const Comments = ({ postId }) => {
           </StCommentInputButtonWrapper>
         </StCommentInputContainer>
 
-        <StCommentCount>
-          <p>댓글</p>
-          <StCommentCountNumber>{comments.length}</StCommentCountNumber>
-        </StCommentCount>
+        <StCommentListHeader>
+          <StCommentCount>
+            <p>댓글</p>
+            <StCommentCountNumber>{comments.length}</StCommentCountNumber>
+          </StCommentCount>
 
-        <select onClick={() => {}}>
-          <option value={''}>정렬 기준</option>
-          <option value="asc">오래된 순</option>
-          <option value="desc">최신 순</option>
-        </select>
+          <select value={sortOrder} onChange={handleSortOrderChange}>
+            <option value={''}>정렬 기준</option>
+            <option value="asc">오래된 순</option>
+            <option value="desc">최신 순</option>
+          </select>
+        </StCommentListHeader>
 
         <StCommentList>
           {comments.map((comment, index) => (
@@ -165,6 +181,7 @@ const StCommentInputContainer = styled.div`
 const StCommentInputButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 3px;
 
   & button {
     padding: 5px 10px;
@@ -182,14 +199,27 @@ const StCommentInputButtonWrapper = styled.div`
   }
 `;
 
+const StCommentListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0px 3px 0px;
+  padding: 0px 15px;
+
+  & select {
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 13px;
+  }
+`;
+
 const StCommentCount = styled.div`
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 10px;
 
   & p {
-    margin: 20px 0px 10px 0px;
-    padding-left: 10px;
     font-size: 20px;
     font-weight: 600;
   }

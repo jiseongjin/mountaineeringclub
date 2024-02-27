@@ -1,4 +1,4 @@
-import Comments from 'components/detail/Comments';
+import Comments from 'components/detail/Comments/Comments';
 import { useParams } from 'react-router-dom/dist';
 import HikingTrail from 'components/detail/HikingTrail';
 import Bookmark from 'components/detail/Bookmark';

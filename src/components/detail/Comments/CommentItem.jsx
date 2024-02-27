@@ -1,4 +1,4 @@
-import { db } from '../../firebase';
+import { db } from '../../../firebase';
 import { collection, deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -160,6 +160,7 @@ const StCommentContent = styled.div`
   padding: 20px 15px;
   border: 1px solid lightgray;
   border-radius: 8px;
+  font-size: 14px;
 `;
 
 const StCommentButtonWrapper = styled.div`
@@ -172,7 +173,7 @@ const StCommentButtonWrapper = styled.div`
 const StCommentEditButton = styled.button`
   border: 1px solid transparent;
   background-color: transparent;
-  color: var(--main-color);
+  color: var(--sub-color1);
   transition: background-color 0.3s ease;
 
   &:hover {

@@ -6,7 +6,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
-import CommentItem from 'components/detail/CommentItem';
+import CommentItem from 'components/detail/Comments/CommentItem';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -384,7 +384,9 @@ const StCommentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 40px;
+  user-select: none;
 `;
+
 const StCommentLink = styled(Link)`
   display: flex;
   align-items: center;
