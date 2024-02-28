@@ -157,10 +157,9 @@ const MyPage = () => {
             <StCommentList>
               {userComments.map((userComment, index) => (
                 <React.Fragment key={userComment.id}>
-                  <StCommentLink to={`/detail/${userComment.postId}`}>
+                  <StCommentLink to={`/detail/${userComment.mountainName}`}>
                     <LiaMountainSolid />
-                    {/* To-do: 산 이름 가져오기 */}
-                    <p>산 이름</p>
+                    <p>{userComment.mountainName}</p>
                   </StCommentLink>
                   <CommentItem
                     currentUser={currentUser}
