@@ -1,18 +1,19 @@
-import Comments from 'components/detail/Comments';
+import Comments from 'components/detail/Comments/Comments';
 import { useParams } from 'react-router-dom/dist';
 import HikingTrail from 'components/detail/HikingTrail';
 import Bookmark from 'components/detail/Bookmark';
 import CheckCompletion from 'components/detail/CheckCompletion';
 
 const DetailPage = () => {
-  const { Id } = useParams();
+  // useParams 이용하기
+  const { id } = useParams();
 
   return (
     <>
-      <HikingTrail />
-      <Bookmark postId={Id} />
-      <CheckCompletion postId={Id} />
-      <Comments postId={Id} />
+      <HikingTrail mountainName={id} />
+      <Bookmark mountainName={id} />
+      <CheckCompletion mountainName={id} />
+      <Comments mountainName={id} />
     </>
   );
 };

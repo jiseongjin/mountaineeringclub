@@ -6,7 +6,7 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebas
 import { onAuthStateChanged } from '@firebase/auth';
 import styled from 'styled-components';
 
-const CheckCompletion = ({ postId }) => {
+const CheckCompletion = ({ mountainName }) => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -37,18 +37,18 @@ const CheckCompletion = ({ postId }) => {
       let completedPosts;
       if (userCompletionDoc.exists()) {
         completedPosts = userCompletionDoc.data().posts;
-        if (completedPosts.includes(postId)) {
+        if (completedPosts.includes(mountainName)) {
           // 체크박스 해제
           const checkUnCompletions = window.confirm('가보았던 산 목록에 해제하시겠습니까?');
           if (checkUnCompletions) {
-            await updateDoc(userCompletionRef, { posts: arrayRemove(postId) });
+            await updateDoc(userCompletionRef, { posts: arrayRemove(mountainName) });
             setIsChecked(false);
           }
         } else {
           // 체크박스 표시
           const checkCompletions = window.confirm('가보았던 산 목록에 추가하시겠습니까?');
           if (checkCompletions) {
-            await updateDoc(userCompletionRef, { posts: arrayUnion(postId) });
+            await updateDoc(userCompletionRef, { posts: arrayUnion(mountainName) });
             setIsChecked(true);
           }
         }
@@ -56,7 +56,7 @@ const CheckCompletion = ({ postId }) => {
         // 처음 체크할 때 문서생성
         const checkCompletions = window.confirm('가보았던 산 목록에 추가하시겠습니까?');
         if (checkCompletions) {
-          await setDoc(userCompletionRef, { posts: [postId] });
+          await setDoc(userCompletionRef, { posts: [mountainName] });
           setIsChecked(true);
         }
       }
@@ -71,15 +71,18 @@ const CheckCompletion = ({ postId }) => {
         const userCompletionRef = doc(db, 'completed', userId);
         const userCompletionDoc = await getDoc(userCompletionRef);
         if (userCompletionDoc.exists()) {
-          setIsChecked(userCompletionDoc.data().posts.includes(postId));
+          setIsChecked(userCompletionDoc.data().posts.includes(mountainName));
         }
       }
     };
     fetchCompletions();
-  }, [postId, userId]);
+  }, [mountainName, userId]);
 
-  return <CheckBoxContainer onClick={handleCheckCompletion}>
-    {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />} </CheckBoxContainer>;
+  return (
+    <CheckBoxContainer onClick={handleCheckCompletion}>
+      {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}{' '}
+    </CheckBoxContainer>
+  );
 };
 
 const CheckBoxContainer = styled.div`

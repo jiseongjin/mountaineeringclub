@@ -6,7 +6,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
-import CommentItem from 'components/detail/CommentItem';
+import CommentItem from 'components/detail/Comments/CommentItem';
 import profileImg from '../../assets/profileImg.png';
 
 const MyPage = () => {
@@ -80,9 +80,7 @@ const MyPage = () => {
         if (userDocData.exists()) {
           const userData = userDocData.data();
           // profileImage가 없는 경우 기본 이미지 설정
-          setImageUrl(
-            userData.profileImage || profileImg
-          );
+          setImageUrl(userData.profileImage || profileImg);
           setNickname(userData.nickname);
         }
       } else {
@@ -123,8 +121,8 @@ const MyPage = () => {
 
   // 닉네임 업데이트
   const handleNicknameChange = async () => {
-    if(!newNickName.trim()) {
-      alert("변경할 닉네임을 입력해주세요");
+    if (!newNickName.trim()) {
+      alert('변경할 닉네임을 입력해주세요');
       return;
     }
 
@@ -149,9 +147,7 @@ const MyPage = () => {
           <StBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
             <span>내 정보 수정</span>
           </StBtn>
-          <StBtn
-            active={activeButton === '북마크한 명산'}
-            onClick={() => setActiveButton('북마크한 명산')}>
+          <StBtn active={activeButton === '북마크한 명산'} onClick={() => setActiveButton('북마크한 명산')}>
             <span>북마크한 명산</span>
           </StBtn>
           <StBtn active={activeButton === '가보았던 명산'} onClick={() => setActiveButton('가보았던 명산')}>
@@ -177,10 +173,12 @@ const MyPage = () => {
 
                 <StContext>닉네임 변경</StContext>
                 <StEditNickName>{nickName}</StEditNickName>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  handleNicknameChange();
-                }}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleNicknameChange();
+                  }}
+                >
                   <StInputNickName
                     type="text"
                     value={newNickName}
@@ -196,7 +194,7 @@ const MyPage = () => {
           <div>
             {activeButton === '북마크한 명산' && (
               <div>
-                {bookmarkedPosts.map(postId => (
+                {bookmarkedPosts.map((postId) => (
                   <div key={postId}>{postId}</div>
                 ))}
               </div>
@@ -206,7 +204,7 @@ const MyPage = () => {
           <div>
             {activeButton === '가보았던 명산' && (
               <div>
-                {checkBox.map(postId => (
+                {checkBox.map((postId) => (
                   <div key={postId}>{postId}</div>
                 ))}
               </div>
@@ -216,11 +214,10 @@ const MyPage = () => {
           <StCommentContainer>
             <StCommentList>
               {userComments.map((userComment, index) => (
-                <>
-                  <StCommentLink to={`/detail/${userComment.postId}`}>
+                <React.Fragment key={userComment.id}>
+                  <StCommentLink to={`/detail/${userComment.mountainName}`}>
                     <LiaMountainSolid />
-                    {/* To-do: 산 이름 가져오기 */}
-                    <p>산 이름</p>
+                    <p>{userComment.mountainName}</p>
                   </StCommentLink>
                   <CommentItem
                     currentUser={currentUser}
@@ -230,7 +227,7 @@ const MyPage = () => {
                     index={index}
                   />
                   <hr />
-                </>
+                </React.Fragment>
               ))}
             </StCommentList>
           </StCommentContainer>
@@ -441,9 +438,10 @@ const StInputButton = styled.button`
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 20px 40px;
+  user-select: none;
 `;
+
 const StCommentLink = styled(Link)`
   display: flex;
   align-items: center;
@@ -468,7 +466,7 @@ const StCommentList = styled.ul`
   & hr {
     width: 100%;
     border: none;
-    border-top: 1px solid var(--sub-color2);
+    border-top: 1px solid darkgray;
     margin-top: -5px;
   }
 `;

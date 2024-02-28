@@ -7,7 +7,6 @@ import DetailPage from 'pages/DetailPage';
 import LoginPage from 'pages/non-auth/LoginPage';
 import SignupPage from 'pages/non-auth/SignupPage';
 import MyPage from 'pages/auth/MyPage';
-import { Navigate } from 'react-router-dom/dist';
 import NotFound from 'pages/NotFound';
 
 const Router = () => {
@@ -17,7 +16,7 @@ const Router = () => {
         {/* 로그인 여부 상관없는 라우터 */}
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
-          <Route path="/detail/:Id" element={<DetailPage />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
         </Route>
 
         {/* 로그인 상태가 반드시 아니어야 하는 라우터 */}
