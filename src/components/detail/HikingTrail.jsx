@@ -34,12 +34,13 @@ const HikingTrail = ({ mountainName }) => {
 };
 export default HikingTrail;
 const StHikingTrailInformationBox = styled.section`
-  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  background-color: #eef0e5;
+  background-color: var(--sub-color3);
+  padding: 10px;
+  border-radius: 10px;
   p {
     font-size: 25px;
   }
@@ -49,7 +50,6 @@ const StInformationBox = styled.article`
   flex-direction: column;
 `;
 const StCourseInformationBox = styled.div`
-  width: 1200px;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -60,7 +60,7 @@ const StMntinName = styled.h2`
 `;
 const StMntiDetail = styled.h5`
   font-size: 18px;
-  background-color: #b6c4b6;
+  background-color: var(--sub-color2);
   padding: 5px;
   border-radius: 10px;
 `;
