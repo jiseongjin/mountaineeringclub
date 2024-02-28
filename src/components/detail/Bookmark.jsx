@@ -88,4 +88,3 @@ const BookmarkContainer = styled.div`
 `;
 
 export default Bookmark;
-
