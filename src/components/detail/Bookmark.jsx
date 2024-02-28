@@ -4,12 +4,13 @@ import { FaBookmark, FaRegBookmark } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom/dist';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { onAuthStateChanged } from '@firebase/auth';
+import styled from 'styled-components';
 
 const Bookmark = ({ postId }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [userId, setUserId] = useState(null);
-  
+
   // 현재 로그인한 사용자의 상태를 실시간으로 확인
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -77,8 +78,20 @@ const Bookmark = ({ postId }) => {
     fetchBookmarks();
   }, [postId, userId]);
 
-  return <div onClick={handleBookmark}>
-    {isBookmarked ? <FaBookmark /> : <FaRegBookmark />} </div>;
+  return <BookmarkContainer onClick={handleBookmark}>
+    {isBookmarked ? <StFaBookmark /> : <StFaRegBookmark />} </BookmarkContainer>;
 };
+
+const BookmarkContainer = styled.div`
+  display: inline-block;
+`;
+const StFaBookmark = styled(FaBookmark)`
+  width: 1rem;
+  height: 1rem;
+`;
+const StFaRegBookmark = styled(FaRegBookmark)`
+  width: 1rem;
+  height: 1rem;
+`;
 
 export default Bookmark;

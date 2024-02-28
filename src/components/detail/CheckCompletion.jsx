@@ -4,6 +4,7 @@ import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md
 import { useNavigate } from 'react-router-dom/dist';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { onAuthStateChanged } from '@firebase/auth';
+import styled from 'styled-components';
 
 const CheckCompletion = ({ postId }) => {
   const navigate = useNavigate();
@@ -77,9 +78,21 @@ const CheckCompletion = ({ postId }) => {
     fetchCompletions();
   }, [postId, userId]);
 
-  return <div onClick={handleCheckCompletion}>
-    {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />} </div>;
-
+  return <ConfletionContainer onClick={handleCheckCompletion}>
+    {isChecked ? <StMdOutlineCheckBox /> : <StMdOutlineCheckBoxOutlineBlank />} </ConfletionContainer>;
 };
+
+const ConfletionContainer = styled.div`
+  display: inline-block;
+`;
+const StMdOutlineCheckBox = styled(MdOutlineCheckBox)`
+  width: 1rem;
+  height: 1rem;
+`;
+const StMdOutlineCheckBoxOutlineBlank = styled(MdOutlineCheckBoxOutlineBlank)`
+  width: 1rem;
+  height: 1rem;
+`;
+
 
 export default CheckCompletion;
