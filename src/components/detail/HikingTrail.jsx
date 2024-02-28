@@ -22,8 +22,9 @@ const HikingTrail = ({ mountainName }) => {
           <StCourseInformationBox>
             <StMntiDetail>개요 : {foundMountain.산_개요}</StMntiDetail>
             <StLowBox>
-              <p>{foundMountain.난이도}</p>
               <p>높이 : {foundMountain.명산_높이} M</p>
+              <p>난이도 : {foundMountain.난이도}</p>
+              <p>산행시간 : {foundMountain.산행시간}</p>
             </StLowBox>
             <StMntiDetail>산행포인트 : {foundMountain.산행포인트}</StMntiDetail>
           </StCourseInformationBox>
@@ -68,5 +69,9 @@ const StMntiDetail = styled.h5`
 `;
 const StLowBox = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 10px;
+  p {
+    font-size: 20px;
+  }
 `;
