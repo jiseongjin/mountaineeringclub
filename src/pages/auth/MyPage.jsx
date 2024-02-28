@@ -7,6 +7,7 @@ import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } fro
 import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
 import CommentItem from 'components/detail/CommentItem';
+import profileImg from '../../assets/profileImg.png';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -80,10 +81,9 @@ const MyPage = () => {
           const userData = userDocData.data();
           // profileImage가 없는 경우 기본 이미지 설정
           setImageUrl(
-            userData.profileImage ||
-            'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
+            userData.profileImage || profileImg
           );
-          setNickname(userData.nickName);
+          setNickname(userData.nickname);
         }
       } else {
         console.log('로그인한 계정 없음.');
@@ -123,10 +123,15 @@ const MyPage = () => {
 
   // 닉네임 업데이트
   const handleNicknameChange = async () => {
+    if(!newNickName.trim()) {
+      alert("변경할 닉네임을 입력해주세요");
+      return;
+    }
+
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
-      await updateDoc(userDoc, { nickName: newNickName });
+      await updateDoc(userDoc, { nickname: newNickName });
       setNickname(newNickName);
       setNewNickname('');
       alert('닉네임이 변경되었습니다.');
@@ -172,13 +177,18 @@ const MyPage = () => {
 
                 <StContext>닉네임 변경</StContext>
                 <StEditNickName>{nickName}</StEditNickName>
-                <StInputNickName
-                  type="text"
-                  value={newNickName}
-                  onChange={(e) => setNewNickname(e.target.value)}
-                  placeholder="변경할 닉네임을 입력해주세요"
-                />
-                <StInputButton onClick={handleNicknameChange}>변경</StInputButton>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleNicknameChange();
+                }}>
+                  <StInputNickName
+                    type="text"
+                    value={newNickName}
+                    onChange={(e) => setNewNickname(e.target.value)}
+                    placeholder="변경할 닉네임을 입력해주세요"
+                  />
+                  <StInputButton type="submit">변경</StInputButton>
+                </form>
               </StProfileNickNameEditBox>
             </StEditBox>
           </>
@@ -238,7 +248,6 @@ const MyPage = () => {
 
 const StContainer = styled.div`
   display: flex;
-  height: 500px;
   margin-top: 30px;
   background-color: white;
 `;
@@ -250,7 +259,7 @@ const StMenu = styled.div`
   text-align: center;
   justify-content: center;
   margin-top: 20px;
-  margin-left: 50px;
+  margin-left: 20px;
 `;
 
 // Menu : 프로필 이미지
@@ -273,7 +282,7 @@ const StButtons = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 250px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 // Menu : 각 버튼 css
@@ -312,7 +321,7 @@ const StBtn = styled.button`
 // content
 const StContent = styled.div`
   width: 80%;
-  background-color: var(--sub-color2);
+  background-color: var(--sub-color3);
   text-align: center;
   margin: 20px 50px 0px 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

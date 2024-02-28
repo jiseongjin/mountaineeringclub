@@ -8,8 +8,7 @@ import LoginPage from 'pages/non-auth/LoginPage';
 import SignupPage from 'pages/non-auth/SignupPage';
 import MyPage from 'pages/auth/MyPage';
 import { Navigate } from 'react-router-dom/dist';
-
-import MyPage2 from 'pages/auth/MyPage';
+import NotFound from 'pages/NotFound';
 
 const Router = () => {
   return (
@@ -32,7 +31,8 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* 404 NotFound */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
