@@ -10,14 +10,14 @@ const mountainsSlice = createSlice({
     },
     addMountain: (state, action) => {
       state.mountains.push(action.payload);
-    },
-    updateMountain(state, action) {
-      const { id, newData } = action.payload;
-      const index = state.mountains.findIndex((mountain) => mountain.id === id);
-      if (index !== -1) {
-        state.mountains[index] = { ...state.mountains[index], ...newData };
-      }
     }
+    // updateMountain(state, action) {
+    //   const { id, newData } = action.payload;
+    //   const index = state.mountains.findIndex((mountain) => mountain.id === id);
+    //   if (index !== -1) {
+    //     state.mountains[index] = { ...state.mountains[index], ...newData };
+    //   }
+    // }
   }
 });
 

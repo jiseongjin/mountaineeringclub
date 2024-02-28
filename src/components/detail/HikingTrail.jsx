@@ -7,7 +7,7 @@ const HikingTrail = () => {
   // useParams 이용하기
   const params = '설악산';
   // 산 데이터
-  const mountainDb = mountainData.data;
+  const mountainDb = mountainData;
   const foundMountain = [...mountainDb].find((item) => item.명산_이름 === params);
   if (!foundMountain) {
     alert('정보가 없습니다!');
@@ -54,7 +54,7 @@ const CourseInformationBox = styled.div`
   flex-direction: column;
   margin-top: 10px;
   gap: 10px;
-  background-color: #B6C4B6;
+  background-color: #b6c4b6;
   padding: 5px;
 `;
 const MntinName = styled.h2`
