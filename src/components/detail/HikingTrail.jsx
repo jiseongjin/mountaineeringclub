@@ -57,12 +57,14 @@ const StCourseInformationBox = styled.div`
 `;
 const StMntinName = styled.h2`
   font-size: 35px;
+  color: var(--main-color);
 `;
 const StMntiDetail = styled.h5`
   font-size: 18px;
   background-color: var(--sub-color2);
   padding: 5px;
   border-radius: 10px;
+  line-height: 1.5;
 `;
 const StLowBox = styled.div`
   display: flex;
