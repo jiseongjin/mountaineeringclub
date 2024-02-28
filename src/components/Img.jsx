@@ -48,7 +48,7 @@ function Img({ data }) {
   //   fetchImages();
   // }, []);
 
-  const REST_API_KEY = '4b5d15ef584fc69216b3bce213e701d9';
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 
   useEffect(() => {
     const fetchImages = async () => {
