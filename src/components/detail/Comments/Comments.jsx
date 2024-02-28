@@ -155,6 +155,8 @@ const StCommentContainer = styled.div`
   margin-bottom: 30px;
   padding: 20px 100px;
   user-select: none;
+  background-color: var(--sub-color3);
+  border-radius: 10px;
 
   & hr {
     width: 100%;
@@ -167,9 +169,12 @@ const StCommentInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 30px auto 20px auto;
+  margin: 20px auto 20px auto;
   padding: 0px 30px;
   width: 100%;
+  background-color: var(--sub-color2);
+  padding: 10px;
+  border-radius: 10px;
 
   & textarea {
     padding: 15px;
