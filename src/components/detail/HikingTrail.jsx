@@ -1,22 +1,20 @@
 import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
 import mountainData from 'mountainData.json';
-import { useNavigate, useParams } from 'react-router-dom';
-const HikingTrail = () => {
+import { useNavigate } from 'react-router-dom';
+const HikingTrail = ({ mountainName }) => {
   const navigate = useNavigate();
-  // useParams 이용하기
-  const { Id } = useParams();
-  const params = Id;
+
   // 산 데이터
   const mountainDb = mountainData.data;
-  const foundMountain = [...mountainDb].find((item) => item.명산_이름 === params);
+  const foundMountain = [...mountainDb].find((item) => item.명산_이름 === mountainName);
   if (!foundMountain) {
     alert('정보가 없습니다!');
     navigate('/');
   }
   return (
     <>
-      <StMntinName>{params}</StMntinName>
+      <StMntinName>{mountainName}</StMntinName>
       <StHikingTrailInformationBox>
         <StInformationBox>
           <KakaoMap foundMountain={foundMountain} />
