@@ -16,33 +16,58 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
 
   return (
     <>
-      {optionSelect === '난이도' || optionSelect === '지역' ? (
+      {optionSelect === '난이도' ? (
         <StCardContainer>
-          {
-            (filteredMountains,
-            localFilterMountain
-              .filter((item) => {
-                if (!inputSearch) {
-                  return true;
-                }
-                return item.명산_이름.includes(inputSearch);
-              })
-              .slice(0, pageAdd)
-              .map((data) => (
-                <StCard key={data.id}>
-                  <Img data={data} />
-                  <StCardText>
-                    <h2>{data.명산_이름}</h2>
-                    <li>산높이: {data.명산_높이}m</li>
-                    <li>{data.난이도}</li>
-                    <li>지역: {data.명산_소재지}</li>
-                  </StCardText>
-                  <Link to={`/detail/${data.명산_이름}`}>
-                    <button>자세히 보기</button>
-                  </Link>
-                </StCard>
-              )))
-          }
+          {filteredMountains
+            .filter((item) => {
+              if (!inputSearch) {
+                return true;
+              }
+              return item.명산_이름.includes(inputSearch);
+            })
+            .slice(0, pageAdd)
+            .map((data) => (
+              <StCard key={data.id}>
+                <Img data={data} />
+                <StCardText>
+                  <h2>{data.명산_이름}</h2>
+                  <li>고도: {data.명산_높이}m</li>
+                  <li>산행 시간:{data.산행시간}</li>
+                  <li>난이도: {data.난이도}</li>
+                  <li>위치: {data.명산_소재지}</li>
+                </StCardText>
+                <Link to={`/detail/${data.명산_이름}`}>
+                  <button>자세히 보기</button>
+                </Link>
+              </StCard>
+            ))}
+          {mountains.length === 0 ? <p>검색 결과가 없습니다</p> : null}
+        </StCardContainer>
+      ) : optionSelect === '지역' ? (
+        <StCardContainer>
+          {localFilterMountain
+            .filter((item) => {
+              if (!inputSearch) {
+                return true;
+              }
+              return item.명산_이름.includes(inputSearch);
+            })
+            .slice(0, pageAdd)
+            .map((data) => (
+              <StCard key={data.id}>
+                <Img data={data} />
+                <StCardText>
+                  <h2>{data.명산_이름}</h2>
+                  <li>고도: {data.명산_높이}m</li>
+                  <li>산행 시간:{data.산행시간}</li>
+                  <li>난이도: {data.난이도}</li>
+                  <li>위치: {data.명산_소재지}</li>
+                </StCardText>
+                <Link to={`/detail/${data.명산_이름}`}>
+                  <button>자세히 보기</button>
+                </Link>
+              </StCard>
+            ))}
           {mountains.length === 0 ? <p>검색 결과가 없습니다</p> : null}
         </StCardContainer>
       ) : (
@@ -60,9 +85,10 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
                 <Img data={data} />
                 <StCardText>
                   <h2>{data.명산_이름}</h2>
-                  <li>산높이: {data.명산_높이}m</li>
-                  <li>{data.난이도}</li>
-                  <li>지역: {data.명산_소재지}</li>
+                  <li>고도: {data.명산_높이}m</li>
+                  <li>산행 시간:{data.산행시간}</li>
+                  <li>난이도: {data.난이도}</li>
+                  <li>위치: {data.명산_소재지}</li>
                 </StCardText>
                 <Link to={`/detail/${data.명산_이름}`}>
                   <button>자세히 보기</button>
