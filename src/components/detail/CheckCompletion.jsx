@@ -80,13 +80,21 @@ const CheckCompletion = ({ mountainName }) => {
 
   return (
     <CheckBoxContainer onClick={handleCheckCompletion}>
-      {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}{' '}
+      {isChecked ? <StMdOutlineCheckBox /> : <StMdOutlineCheckBoxOutlineBlank />}{' '}
     </CheckBoxContainer>
   );
 };
 
 const CheckBoxContainer = styled.div`
   display: inline-block;
+`;
+const StMdOutlineCheckBox = styled(MdOutlineCheckBox)`
+  width: 33px;
+  height: 33px;
+`;
+const StMdOutlineCheckBoxOutlineBlank = styled(MdOutlineCheckBoxOutlineBlank)`
+  width: 33px;
+  height: 33px;
 `;
 
 export default CheckCompletion;

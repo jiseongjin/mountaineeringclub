@@ -79,12 +79,20 @@ const Bookmark = ({ mountainName }) => {
   }, [mountainName, userId]);
 
   return (
-    <BookmarkContainer onClick={handleBookmark}>{isBookmarked ? <FaBookmark /> : <FaRegBookmark />} </BookmarkContainer>
+    <BookmarkContainer onClick={handleBookmark}>{isBookmarked ? <StFaBookmark /> : <StFaRegBookmark />} </BookmarkContainer>
   );
 };
 
 const BookmarkContainer = styled.div`
   display: inline-block;
+`;
+const StFaBookmark = styled(FaBookmark)`
+  width: 30px;
+  height: 30px;
+`;
+const StFaRegBookmark = styled(FaRegBookmark)`
+  width: 30px;
+  height: 30px;
 `;
 
 export default Bookmark;

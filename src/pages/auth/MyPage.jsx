@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
 import CommentItem from 'components/detail/Comments/CommentItem';
 import profileImg from '../../assets/profileImg.png';
+import { useSelector } from 'react-redux';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -56,6 +57,8 @@ const MyPage = () => {
     };
     loadBookmarks();
   }, [currentUser.uid]);
+
+  const mountains = useSelector((state) => state.mountains);
 
   useEffect(() => {
     const loadCompleted = async () => {
@@ -199,21 +202,43 @@ const MyPage = () => {
         ) : activeButton === '북마크한 명산' ? (
           <div>
             {activeButton === '북마크한 명산' && (
-              <div>
-                {bookmarkedPosts.map((postId) => (
-                  <div key={postId}>{postId}</div>
-                ))}
-              </div>
+              <StBookmarkContainer>
+                {bookmarkedPosts.map((postId) => {
+                  const mountain = mountains.find((mountain) => mountain.명산_이름 === postId);
+                  if (!mountain) {
+                    return null;
+                  }
+                  return (
+                    <StBookmarkBox key={postId}>
+                      <StMountain>⛰️{postId}<Link to={`/detail/${postId}`}><StMountainBotton>상세정보</StMountainBotton></Link></StMountain>
+                      <StMountainInformation>- 산높이 : {mountain.명산_높이}m</StMountainInformation>
+                      <StMountainInformation>- 난이도 : {mountain.난이도}</StMountainInformation>
+                      <StMountainInformation>- 소재지 : {mountain.명산_소재지}</StMountainInformation>
+                    </StBookmarkBox>
+                  );
+                })}
+              </StBookmarkContainer>
             )}
           </div>
         ) : activeButton === '가보았던 명산' ? (
           <div>
             {activeButton === '가보았던 명산' && (
-              <div>
-                {checkBox.map((postId) => (
-                  <div key={postId}>{postId}</div>
-                ))}
-              </div>
+              <StBookmarkContainer>
+                {checkBox.map((postId) => {
+                  const mountain = mountains.find((mountain) => mountain.명산_이름 === postId);
+                  if (!mountain) {
+                    return null;
+                  }
+                  return (
+                    <StBookmarkBox key={postId}>
+                      <StMountain>⛰️{postId}<StMountainBotton>상세정보</StMountainBotton></StMountain>
+                      <StMountainInformation>- 산높이: {mountain.명산_높이}m</StMountainInformation>
+                      <StMountainInformation>- 난이도: {mountain.난이도}</StMountainInformation>
+                      <StMountainInformation>- 소재지: {mountain.명산_소재지}</StMountainInformation>
+                    </StBookmarkBox>
+                  );
+                })}
+              </StBookmarkContainer>
             )}
           </div>
         ) : activeButton === '작성한 댓글' ? (
@@ -476,5 +501,43 @@ const StCommentList = styled.ul`
     margin-top: -5px;
   }
 `;
-
+const StBookmarkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+`;
+const StBookmarkBox = styled.div`
+  background-color: #dce7db;
+  justify-content: center;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 80%;
+  height: 100px;
+  margin: 20px;
+  border-radius: 10px;
+  user-select: none;
+  box-shadow: 0px 0px 3px #163020;
+`;
+const StMountain = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-top: 5px;
+`;
+const StMountainInformation = styled.p`
+  margin-left: 40px;
+  margin-bottom: 3px;
+`;
+const StMountainBotton = styled.button`
+  border: none;
+  user-select: none;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 20px;
+  box-shadow: 0.5px 0.5px 2px black;
+`;
 export default MyPage;

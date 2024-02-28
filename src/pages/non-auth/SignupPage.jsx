@@ -157,7 +157,7 @@ const StGoogle = styled.button`
   background-color: #304d30;
   color: white;
   cursor: pointer;
-  transition: background-color 2s;
+  transition: background-color 0.3s;
   user-select: none;
 
   &:hover {
@@ -197,7 +197,7 @@ const StsignupButton = styled.button`
   background-color: #304d30;
   color: white;
   cursor: pointer;
-  transition: background-color 2s;
+  transition: background-color 0.3s;
   user-select: none;
 
   &:hover {
