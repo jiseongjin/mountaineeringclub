@@ -6,7 +6,6 @@ const HikingTrail = ({ mountainName }) => {
   const navigate = useNavigate();
 
   // 산 데이터
-
   const mountainDb = mountainData;
   const foundMountain = [...mountainDb].find((item) => item.명산_이름 === mountainName);
   if (!foundMountain) {
