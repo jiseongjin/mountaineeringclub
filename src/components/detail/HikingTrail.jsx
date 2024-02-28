@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
 import mountainData from 'mountainData.json';
 import { useNavigate } from 'react-router-dom';
+import Bookmark from './Bookmark';
+import CheckCompletion from './CheckCompletion';
+
 const HikingTrail = ({ mountainName }) => {
   const navigate = useNavigate();
 
@@ -13,65 +16,135 @@ const HikingTrail = ({ mountainName }) => {
     navigate('/');
   }
   return (
-    <>
-      <StMntinName>{mountainName}</StMntinName>
-      <StHikingTrailInformationBox>
-        <StInformationBox>
-          <KakaoMap foundMountain={foundMountain} />
-          <p>소재지 : {foundMountain.명산_소재지}</p>
-          <StCourseInformationBox>
-            <StMntiDetail>개요 : {foundMountain.산_개요}</StMntiDetail>
-            <StLowBox>
-              <p>높이 : {foundMountain.명산_높이} M</p>
-              <p>난이도 : {foundMountain.난이도}</p>
-              <p>산행시간 : {foundMountain.산행시간}</p>
-            </StLowBox>
-            <StMntiDetail>산행포인트 : {foundMountain.산행포인트}</StMntiDetail>
-          </StCourseInformationBox>
-        </StInformationBox>
-      </StHikingTrailInformationBox>
-    </>
+    <StMountainContainer>
+      <article>
+        <KakaoMap foundMountain={foundMountain} />
+        <StMountainInfoBox>
+          <StMountainIntro>
+            <h1>{mountainName}</h1>
+            <Bookmark mountainName={mountainName} />
+          </StMountainIntro>
+          <StMountainContent>
+            <StMountaunLocation>{foundMountain.명산_소재지}</StMountaunLocation>
+            <StMountainDetail>
+              <StMountainInfo>
+                <StBold>📌 고도</StBold>
+                <p>{foundMountain.명산_높이} M</p>
+              </StMountainInfo>
+              <StMountainInfo>
+                <StBold>📍 난이도</StBold>
+                <p>{foundMountain.난이도}</p>
+              </StMountainInfo>
+              <StMountainInfo>
+                <StBold>⏰ 산행 시간</StBold>
+                <p>{foundMountain.산행시간}</p>
+              </StMountainInfo>
+            </StMountainDetail>
+            <StMountainOutline>&nbsp;&nbsp;{foundMountain.산_개요}</StMountainOutline>
+          </StMountainContent>
+        </StMountainInfoBox>
+      </article>
+      <StMountainPoint>
+        <p>🔍 산행 POINT !</p>
+        &nbsp;
+        {foundMountain.산행포인트}
+      </StMountainPoint>
+      <StCompleted>
+        <p>혹시 가보셨다면? &nbsp;</p>
+        <CheckCompletion mountainName={mountainName} />
+      </StCompleted>
+    </StMountainContainer>
   );
 };
 export default HikingTrail;
-const StHikingTrailInformationBox = styled.section`
+
+const StMountainContainer = styled.section`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  background-color: var(--sub-color3);
-  padding: 10px;
-  border-radius: 10px;
-  p {
-    font-size: 25px;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 50px;
+  width: 1280px;
+  user-select: none;
+
+  & article {
+    display: flex;
+    gap: 40px;
+    margin: 50px auto 20px auto;
   }
 `;
-const StInformationBox = styled.article`
+
+const StMountainInfoBox = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 `;
-const StCourseInformationBox = styled.div`
+
+const StMountainIntro = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 25px;
+
+  & h1 {
+    font-size: 36px;
+    font-weight: 600;
+  }
+`;
+
+const StMountainContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  gap: 10px;
+  gap: 20px;
+  margin-left: 10px;
 `;
-const StMntinName = styled.h2`
-  font-size: 35px;
-  color: var(--main-color);
-`;
-const StMntiDetail = styled.h5`
+
+const StMountaunLocation = styled.p`
+  color: gray;
   font-size: 18px;
-  background-color: var(--sub-color2);
-  padding: 5px;
-  border-radius: 10px;
-  line-height: 1.5;
+  margin-bottom: 5px;
 `;
-const StLowBox = styled.div`
+
+const StMountainDetail = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   p {
     font-size: 20px;
+  }
+`;
+
+const StMountainInfo = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+const StBold = styled.p`
+  font-weight: 600;
+`;
+
+const StMountainOutline = styled.p`
+  line-height: 1.6;
+`;
+
+const StMountainPoint = styled.div`
+  line-height: 1.6;
+  margin-bottom: 30px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+`;
+
+const StCompleted = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
   }
 `;
