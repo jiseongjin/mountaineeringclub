@@ -6,13 +6,16 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { LiaMountainSolid } from 'react-icons/lia';
-import CommentItem from 'components/detail/CommentItem';
+import CommentItem from 'components/detail/Comments/CommentItem';
+import profileImg from '../../assets/profileImg.png';
 
 const MyPage = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [nickName, setNickname] = useState('');
   const [newNickName, setNewNickname] = useState('');
   const [activeButton, setActiveButton] = useState();
+  const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
+  const [checkBox, setCheckBox] = useState([]);
 
   // 작성한 댓글 목록
   const currentUser = auth.currentUser;
@@ -40,6 +43,36 @@ const MyPage = () => {
   }, [currentUser.uid]);
 
   useEffect(() => {
+    const loadBookmarks = async () => {
+      try {
+        const userBookmarkRef = doc(db, 'bookmarks', currentUser.uid);
+        const userBookmarkDoc = await getDoc(userBookmarkRef);
+        if (userBookmarkDoc.exists()) {
+          setBookmarkedPosts(userBookmarkDoc.data().posts);
+        }
+      } catch (error) {
+        console.error('Error fetching bookmarks: ', error);
+      }
+    };
+    loadBookmarks();
+  }, [currentUser.uid]);
+
+  useEffect(() => {
+    const loadCompleted = async () => {
+      try {
+        const userCheckBoxkRef = doc(db, 'completed', currentUser.uid);
+        const userCheckBoxDoc = await getDoc(userCheckBoxkRef);
+        if (userCheckBoxDoc.exists()) {
+          setCheckBox(userCheckBoxDoc.data().posts);
+        }
+      } catch (error) {
+        console.error('Error fetching bookmarks: ', error);
+      }
+    };
+    loadCompleted();
+  }, [currentUser.uid]);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDoc = doc(db, 'users', user.uid);
@@ -47,11 +80,8 @@ const MyPage = () => {
         if (userDocData.exists()) {
           const userData = userDocData.data();
           // profileImage가 없는 경우 기본 이미지 설정
-          setImageUrl(
-            userData.profileImage ||
-              'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
-          );
-          setNickname(userData.nickName);
+          setImageUrl(userData.profileImage || profileImg);
+          setNickname(userData.nickname);
         }
       } else {
         console.log('로그인한 계정 없음.');
@@ -91,10 +121,21 @@ const MyPage = () => {
 
   // 닉네임 업데이트
   const handleNicknameChange = async () => {
+    if (!newNickName.trim()) {
+      alert('변경할 닉네임을 입력해주세요');
+      return;
+    }
+
+    // 변경하는 닉네임이 기존 닉네임이랑 동일할시
+    if (newNickName === nickName) {
+      alert('다른 닉네임을 입력해주세요.');
+      return;
+    }
+
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
-      await updateDoc(userDoc, { nickName: newNickName });
+      await updateDoc(userDoc, { nickname: newNickName });
       setNickname(newNickName);
       setNewNickname('');
       alert('닉네임이 변경되었습니다.');
@@ -115,8 +156,8 @@ const MyPage = () => {
           <StBtn active={activeButton === '북마크한 명산'} onClick={() => setActiveButton('북마크한 명산')}>
             <span>북마크한 명산</span>
           </StBtn>
-          <StBtn active={activeButton === '완주한 명산'} onClick={() => setActiveButton('완주한 명산')}>
-            <span>완주한 명산</span>
+          <StBtn active={activeButton === '가보았던 명산'} onClick={() => setActiveButton('가보았던 명산')}>
+            <span>가보았던 명산</span>
           </StBtn>
           <StBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
             <span>작성한 댓글</span>
@@ -138,29 +179,51 @@ const MyPage = () => {
 
                 <StContext>닉네임 변경</StContext>
                 <StEditNickName>{nickName}</StEditNickName>
-                <StInputNickName
-                  type="text"
-                  value={newNickName}
-                  onChange={(e) => setNewNickname(e.target.value)}
-                  placeholder="변경할 닉네임을 입력해주세요"
-                />
-                <StInputButton onClick={handleNicknameChange}>변경</StInputButton>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleNicknameChange();
+                  }}
+                >
+                  <StInputNickName
+                    type="text"
+                    value={newNickName}
+                    onChange={(e) => setNewNickname(e.target.value)}
+                    placeholder="변경할 닉네임을 입력해주세요"
+                  />
+                  <StInputButton type="submit">변경</StInputButton>
+                </form>
               </StProfileNickNameEditBox>
             </StEditBox>
           </>
         ) : activeButton === '북마크한 명산' ? (
-          <div>{/* 북마크한 명산 목록 */}</div>
-        ) : activeButton === '완주한 명산' ? (
-          <div>{/* 완주한 명산 */}</div>
+          <div>
+            {activeButton === '북마크한 명산' && (
+              <div>
+                {bookmarkedPosts.map((postId) => (
+                  <div key={postId}>{postId}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : activeButton === '가보았던 명산' ? (
+          <div>
+            {activeButton === '가보았던 명산' && (
+              <div>
+                {checkBox.map((postId) => (
+                  <div key={postId}>{postId}</div>
+                ))}
+              </div>
+            )}
+          </div>
         ) : activeButton === '작성한 댓글' ? (
           <StCommentContainer>
             <StCommentList>
               {userComments.map((userComment, index) => (
-                <>
-                  <StCommentLink to={`/detail/${userComment.postId}`}>
+                <React.Fragment key={userComment.id}>
+                  <StCommentLink to={`/detail/${userComment.mountainName}`}>
                     <LiaMountainSolid />
-                    {/* To-do: 산 이름 가져오기 */}
-                    <p>산 이름</p>
+                    <p>{userComment.mountainName}</p>
                   </StCommentLink>
                   <CommentItem
                     currentUser={currentUser}
@@ -170,7 +233,7 @@ const MyPage = () => {
                     index={index}
                   />
                   <hr />
-                </>
+                </React.Fragment>
               ))}
             </StCommentList>
           </StCommentContainer>
@@ -188,7 +251,6 @@ const MyPage = () => {
 
 const StContainer = styled.div`
   display: flex;
-  height: 500px;
   margin-top: 30px;
   background-color: white;
 `;
@@ -200,7 +262,7 @@ const StMenu = styled.div`
   text-align: center;
   justify-content: center;
   margin-top: 20px;
-  margin-left: 50px;
+  margin-left: 20px;
 `;
 
 // Menu : 프로필 이미지
@@ -223,7 +285,7 @@ const StButtons = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 250px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 // Menu : 각 버튼 css
@@ -262,7 +324,7 @@ const StBtn = styled.button`
 // content
 const StContent = styled.div`
   width: 80%;
-  background-color: var(--sub-color2);
+  background-color: var(--sub-color3);
   text-align: center;
   margin: 20px 50px 0px 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -382,9 +444,10 @@ const StInputButton = styled.button`
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 20px 40px;
+  user-select: none;
 `;
+
 const StCommentLink = styled(Link)`
   display: flex;
   align-items: center;
@@ -409,7 +472,7 @@ const StCommentList = styled.ul`
   & hr {
     width: 100%;
     border: none;
-    border-top: 1px solid var(--sub-color2);
+    border-top: 1px solid darkgray;
     margin-top: -5px;
   }
 `;

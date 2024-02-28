@@ -73,7 +73,7 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
                 <li>산높이: {data.명산_높이}m</li>
                 <li>{data.난이도}</li>
               </StCardText>
-              <Link to={'/detail/:postId'}>
+              <Link to={`/detail/${data.명산_이름}`}>
                 <button>자세히 보기</button>
               </Link>
             </StCard>
