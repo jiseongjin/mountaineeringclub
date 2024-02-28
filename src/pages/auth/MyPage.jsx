@@ -95,7 +95,7 @@ const MyPage = () => {
       alert("변경할 닉네임을 입력해주세요");
       return;
     }
-    
+
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
@@ -232,7 +232,7 @@ const StButtons = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 250px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 // Menu : 각 버튼 css

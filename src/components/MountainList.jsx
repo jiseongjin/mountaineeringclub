@@ -21,11 +21,7 @@ const MountainList = ({ mountainLists }) => {
               <li>산높이: {data.명산_높이}m</li>
               <li>{data.난이도}</li>
             </StCardText>
-<<<<<<< HEAD
-            <Link to={'/detail/:id'}>
-=======
             <Link to={`/detail/${data.명산_이름}`}>
->>>>>>> 1e0cc00fa3f4df8e2ed880a075f324f4915b0ce6
               <button>자세히 보기</button>
             </Link>
           </StCard>
