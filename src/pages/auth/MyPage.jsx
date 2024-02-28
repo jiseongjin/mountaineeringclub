@@ -13,6 +13,8 @@ const MyPage = () => {
   const [nickName, setNickname] = useState('');
   const [newNickName, setNewNickname] = useState('');
   const [activeButton, setActiveButton] = useState();
+  const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
+  const [checkBox, setCheckBox] = useState([]);
 
   // 작성한 댓글 목록
   const currentUser = auth.currentUser;
@@ -40,6 +42,36 @@ const MyPage = () => {
   }, [currentUser.uid]);
 
   useEffect(() => {
+    const loadBookmarks = async () => {
+      try {
+        const userBookmarkRef = doc(db, 'bookmarks', currentUser.uid);
+        const userBookmarkDoc = await getDoc(userBookmarkRef);
+        if (userBookmarkDoc.exists()) {
+          setBookmarkedPosts(userBookmarkDoc.data().posts);
+        }
+      } catch (error) {
+        console.error('Error fetching bookmarks: ', error);
+      }
+    };
+    loadBookmarks();
+  }, [currentUser.uid]);
+
+  useEffect(() => {
+    const loadCompleted = async () => {
+      try {
+        const userCheckBoxkRef = doc(db, 'completed', currentUser.uid);
+        const userCheckBoxDoc = await getDoc(userCheckBoxkRef);
+        if (userCheckBoxDoc.exists()) {
+          setCheckBox(userCheckBoxDoc.data().posts);
+        }
+      } catch (error) {
+        console.error('Error fetching bookmarks: ', error);
+      }
+    };
+    loadCompleted();
+  }, [currentUser.uid]);
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userDoc = doc(db, 'users', user.uid);
@@ -49,7 +81,7 @@ const MyPage = () => {
           // profileImage가 없는 경우 기본 이미지 설정
           setImageUrl(
             userData.profileImage ||
-              'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
+            'https://e7.pngegg.com/pngimages/1000/665/png-clipart-computer-icons-profile-s-free-angle-sphere.png'
           );
           setNickname(userData.nickName);
         }
@@ -112,11 +144,13 @@ const MyPage = () => {
           <StBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
             <span>내 정보 수정</span>
           </StBtn>
-          <StBtn active={activeButton === '북마크한 명산'} onClick={() => setActiveButton('북마크한 명산')}>
+          <StBtn
+            active={activeButton === '북마크한 명산'}
+            onClick={() => setActiveButton('북마크한 명산')}>
             <span>북마크한 명산</span>
           </StBtn>
-          <StBtn active={activeButton === '완주한 명산'} onClick={() => setActiveButton('완주한 명산')}>
-            <span>완주한 명산</span>
+          <StBtn active={activeButton === '가보았던 명산'} onClick={() => setActiveButton('가보았던 명산')}>
+            <span>가보았던 명산</span>
           </StBtn>
           <StBtn active={activeButton === '작성한 댓글'} onClick={() => setActiveButton('작성한 댓글')}>
             <span>작성한 댓글</span>
@@ -149,9 +183,25 @@ const MyPage = () => {
             </StEditBox>
           </>
         ) : activeButton === '북마크한 명산' ? (
-          <div>{/* 북마크한 명산 목록 */}</div>
-        ) : activeButton === '완주한 명산' ? (
-          <div>{/* 완주한 명산 */}</div>
+          <div>
+            {activeButton === '북마크한 명산' && (
+              <div>
+                {bookmarkedPosts.map(postId => (
+                  <div key={postId}>{postId}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : activeButton === '가보았던 명산' ? (
+          <div>
+            {activeButton === '가보았던 명산' && (
+              <div>
+                {checkBox.map(postId => (
+                  <div key={postId}>{postId}</div>
+                ))}
+              </div>
+            )}
+          </div>
         ) : activeButton === '작성한 댓글' ? (
           <StCommentContainer>
             <StCommentList>
