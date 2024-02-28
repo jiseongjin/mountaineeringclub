@@ -89,9 +89,21 @@ const LoginPage = () => {
 
   return (
     <StLoginContainer>
-      <StP>로그인</StP>
       <StFormContainer>
         <StForm>
+          <StP>로그인</StP>
+          <StButtonWrapper>
+            <StButtonSet>
+              <p>아직 계정이 없으신가요? &nbsp;</p>
+              <button onClick={handleGoSignup}>회원가입 &gt;</button>
+            </StButtonSet>
+            <StButtonSet>
+              <p>혹시 비밀번호를 잊으셨나요? &nbsp;</p>
+              <button onClick={handleForgotPassword} disabled={isLoading}>
+                비밀번호 재설정 &gt;
+              </button>
+            </StButtonSet>
+          </StButtonWrapper>
           <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
           <StInput
             type="password"
@@ -99,15 +111,11 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
-          <StDivider />
-          <StGoogle onClick={handleGoogleLogin}>구글 로그인</StGoogle>
-          <StButtonWrapper>
-            <button onClick={handleForgotPassword} disabled={isLoading}>
-              비밀번호 재설정
-            </button>
-            <button onClick={handleGoSignup}>회원가입</button>
-          </StButtonWrapper>
+          <StLoginButtonWrapper>
+            <StLoginButton onClick={handleLogin}>로그인</StLoginButton>
+            <StDivider />
+            <StLoginButton onClick={handleGoogleLogin}>구글 로그인</StLoginButton>
+          </StLoginButtonWrapper>
         </StForm>
       </StFormContainer>
     </StLoginContainer>
@@ -117,7 +125,7 @@ const LoginPage = () => {
 const StP = styled.p`
   font-family: 'Dokdo', cursive;
   font-size: 60px;
-  margin: 15px;
+  margin-bottom: -15px;
   user-select: none;
 `;
 const StLoginContainer = styled.div`
@@ -126,7 +134,7 @@ const StLoginContainer = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  background-color: #eef0e5;
+  user-select: none;
 `;
 const StForm = styled.form`
   display: flex;
@@ -134,7 +142,7 @@ const StForm = styled.form`
   align-items: center;
   justify-content: center;
   width: 500px;
-  height: 500px;
+  height: 580px;
   padding: 20px;
   border-radius: 5px;
   gap: 1rem;
@@ -151,25 +159,29 @@ const StInput = styled.input`
   margin: 10px;
   box-shadow: 0px 0px 5px #163020;
 `;
-const StLoginButton = styled.button`
-  width: 100px;
-  border-radius: 5px;
-  border: none;
-  font-size: 15px;
-  padding: 10px;
-  margin: 10px;
-  margin-left: 263px;
-  background-color: #304d30;
-  color: white;
-  cursor: pointer;
-  transition: background-color 2s;
-  user-select: none;
+// const StLoginButton = styled.button`
+//   width: 100px;
+//   border-radius: 5px;
+//   border: none;
+//   font-size: 15px;
+//   padding: 10px;
+//   margin: 10px;
+//   margin-left: 263px;
+//   background-color: #304d30;
+//   color: white;
+//   cursor: pointer;
+//   transition: background-color 2s;
+//   user-select: none;
 
-  &:hover {
-    background-color: #163020;
-  }
+//   &:hover {
+//     background-color: #163020;
+//   }
+// `;
+const StLoginButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
-const StGoogle = styled.button`
+const StLoginButton = styled.button`
   width: 350px;
   border-radius: 30px;
   border: none;
@@ -204,6 +216,18 @@ const StButtonWrapper = styled.div`
     }
   }
 `;
+const StButtonSet = styled.div`
+  display: flex;
+  align-items: center;
+
+  & p {
+    font-size: 14px;
+  }
+
+  & button {
+    font-weight: 600;
+  }
+`;
 const StDivider = styled.div`
   width: 350px;
   height: 0.2px;
@@ -215,7 +239,7 @@ const StFormContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 520px;
-  height: 520px;
+  height: 600px;
   border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
 `;
 

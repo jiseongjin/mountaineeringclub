@@ -23,6 +23,7 @@ const StContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 
 const StBox = styled.div`
@@ -30,9 +31,13 @@ const StBox = styled.div`
   text-align: center;
 
   & svg {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     color: var(--main-color);
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 `;
 

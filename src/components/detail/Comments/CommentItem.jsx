@@ -188,6 +188,7 @@ const StCommentContent = styled.div`
   padding: 20px 15px;
   border: 1px solid lightgray;
   border-radius: 8px;
+  background-color: #ffffffda;
 
   & p {
     padding-left: 5px;
