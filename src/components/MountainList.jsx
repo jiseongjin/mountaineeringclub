@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import mountain from '../assets/mountain.png';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import Img from './Img';
-// import axios from 'axios';
 
 const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelect }) => {
   const mountains = useSelector((state) => state.mountains);
@@ -13,29 +10,6 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
   const loadMoreBtn = () => {
     setPageAdd((prev) => prev + 9);
   };
-  // const [images, setImages] = useState([]);
-  // const REST_API_KEY = '4b5d15ef584fc69216b3bce213e701d9';
-
-  // useEffect(() => {
-  //   const fetchImages = async () => {
-  //     try {
-  //       const query = encodeURIComponent('강천산');
-  //       const { data } = await axios.get(`https://dapi.kakao.com/v2/search/image?query=${query}`, {
-  //         headers: {
-  //           Authorization: `KakaoAK ${REST_API_KEY}`
-  //         }
-  //       });
-  //       // console.log(data.documents[0]);
-  //       if (data.documents.length > 0) {
-  //         setImages(data.documents[0].image_url);
-  //       }
-  //     } catch (error) {
-  //       console.error('불러오기 실패:', error);
-  //     }
-  //   };
-
-  //   fetchImages();
-  // }, [REST_API_KEY]);
 
   return (
     <>
