@@ -1,11 +1,11 @@
 import { auth, db } from '../../../firebase';
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
 
-const Comments = ({ postId }) => {
+const Comments = ({ mountainName }) => {
   const navigate = useNavigate();
   const currentUser = auth.currentUser;
   const [comments, setComments] = useState([]);
@@ -24,7 +24,9 @@ const Comments = ({ postId }) => {
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const commentsSnapshot = await getDocs(query(collection(db, 'comments')));
+        const commentsSnapshot = await getDocs(
+          query(collection(db, 'comments'), where('mountainName', '==', mountainName))
+        );
         const commentsList = commentsSnapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
@@ -42,7 +44,7 @@ const Comments = ({ postId }) => {
     };
 
     loadComments();
-  }, [sortOrder]);
+  }, [mountainName, sortOrder]);
 
   // 댓글 등록하기
   const handleCommentSubmit = async () => {
@@ -68,7 +70,7 @@ const Comments = ({ postId }) => {
 
         // DB에 데이터 저장하기
         const newCommentRef = await addDoc(collection(db, 'comments'), {
-          postId,
+          mountainName,
           userId: currentUser.uid,
           comment: newComment,
           timestamp
@@ -77,7 +79,7 @@ const Comments = ({ postId }) => {
         // DB에 새로운 댓글 추가 후 새로운 댓글로 로컬 상태 업데이트
         const newCommentData = {
           id: newCommentRef.id,
-          postId,
+          mountainName,
           userId: currentUser.uid,
           comment: newComment,
           timestamp
@@ -150,6 +152,7 @@ export default Comments;
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
   padding: 20px 100px;
   user-select: none;
 
@@ -202,14 +205,14 @@ const StCommentInputButtonWrapper = styled.div`
 const StCommentListHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0px 3px 0px;
+  margin: 25px 0px 3px 0px;
   padding: 0px 15px;
 
   & select {
-    padding: 3px;
+    padding: 4px;
     border: 1px solid gray;
     border-radius: 5px;
-    height: 25px;
+    height: 28px;
     font-size: 13px;
   }
 `;
