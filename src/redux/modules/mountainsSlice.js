@@ -1,19 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import datas from 'mountainData.json';
+import mountainData from 'mountainData.json';
 
 const mountainsSlice = createSlice({
   name: 'mountains',
-  initialState: datas,
+  initialState: mountainData,
   reducers: {
     setMountain: (state, action) => {
-      const setMountain = action.payload;
-      return setMountain;
+      return action.payload;
     },
     addMountain: (state, action) => {
       state.mountains.push(action.payload);
-    },
-    removeMountain(state, action) {
-      state.mountains = state.mountains.filter((mountain) => mountain.id !== action.payload.id);
     },
     updateMountain(state, action) {
       const { id, newData } = action.payload;
@@ -25,5 +21,5 @@ const mountainsSlice = createSlice({
   }
 });
 
-export const { setMountain, addMountain, removeMountain, updateMountain } = mountainsSlice.actions;
+export const { setMountain, addMountain, updateMountain } = mountainsSlice.actions;
 export default mountainsSlice.reducer;

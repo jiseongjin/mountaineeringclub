@@ -1,45 +1,46 @@
 import React, { useState } from 'react';
 import MountainList from 'components/MountainList';
 import styled from 'styled-components';
-import Image from 'components/Image';
 // import MapContainer from 'components/MapContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMountain } from '../redux/modules/mountainsSlice';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { setMountain } from '../redux/modules/mountainsSlice';
+import mountainData from 'mountainData.json';
 
 const MainPage = () => {
   const [optionSelect, setOptionSelect] = useState('전체');
-  const [activeTab, setActiveTab] = useState('');
-  const [InputSearch, setInputSearch] = useState([]);
-  const mountains = useSelector((state) => state.mountains);
-  const dispatch = useDispatch();
-  // console.log(mountains);
+  const [activeTab, setActiveTab] = useState([]);
+  const [inputSearch, setInputSearch] = useState('');
+  // const mountains = useSelector((state) => state.mountains);
+  const [mountainLists, setMountainLists] = useState(mountainData);
+
+  // const dispatch = useDispatch();
 
   const selectChangeHandler = (e) => {
     setOptionSelect(e.target.value);
-    setActiveTab('');
+    // setActiveTab('');
   };
 
-  const onClickActiveTabHandler = (tabs) => {
-    setActiveTab(tabs);
+  const onClickActiveTabHandler = (e) => {
+    setActiveTab(e.target.textContent);
   };
 
-  const tabsOption = {
-    전체: [],
-    지역: [
-      '서울특별시',
-      '경기도',
-      '충청북도',
-      '충청남도',
-      '전라북도',
-      '전라남도',
-      '경상북도',
-      '경상남도',
-      '제주특별시'
-    ],
-    난이도: ['쉬움', '보통', '어려움']
-  };
+  // const tabsOption = {
+  //   전체: [],
+  //   지역: [
+  //     '서울특별시',
+  //     '경기도',
+  //     '충청북도',
+  //     '충청남도',
+  //     '전라북도',
+  //     '전라남도',
+  //     '경상북도',
+  //     '경상남도',
+  //     '제주특별시'
+  //   ],
+  //   난이도: ['초급', '중급', '고급']
+  // };
 
-  const filteredTabs = tabsOption[optionSelect] || [];
+  // const filteredTabs = tabsOption[optionSelect] || [];
 
   const onChangeSearchHandler = (e) => {
     setInputSearch(e.target.value);
@@ -47,13 +48,6 @@ const MainPage = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (InputSearch !== '') {
-      alert('검색어를 입력해주세요');
-      const filteredData = mountains.filter((item) => item.name.includes(InputSearch));
-      dispatch(setMountain(filteredData));
-    } else {
-      dispatch(setMountain());
-    }
   };
 
   return (
@@ -62,7 +56,7 @@ const MainPage = () => {
       <p>🔥열정! 열정! 열정!🔥</p>
       <StList>
         <StsSearchForm onSubmit={onSubmitHandler}>
-          <input type="text" placeholder="검색어를 입력해주세요" onChange={onChangeSearchHandler} value={InputSearch} />
+          <input type="text" placeholder="검색어를 입력해주세요" onChange={onChangeSearchHandler} value={inputSearch} />
           <button type="submit">검색</button>
         </StsSearchForm>
         <StOption>
@@ -73,17 +67,15 @@ const MainPage = () => {
           </select>
         </StOption>
         <StActiveTab>
-          {filteredTabs
-            // .filter(
-            //   (data) =>
-            //     (activeTab === '난이도' && data.난이도 === true) || (activeTab === '지역' && data.명산_소재지 === true)
-            // )
-            .map((tabs) => (
-              <StActiveTabList key={tabs} onClick={() => onClickActiveTabHandler(tabs)} $activeTab={activeTab} />
-            ))}
-          {/* {optionSelect === '전체' && ''} */}
-          {/* {optionSelect === '난이도' && (
+          {/* {filteredTabs.map((tabs) => (
+            <StActiveTabList key={tabs.id} onClick={() => onClickActiveTabHandler(tabs)} $activeTab={activeTab} />
+          ))} */}
+          {optionSelect === '전체' && ''}
+          {optionSelect === '난이도' && (
             <>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+                초급
+              </StActiveTabList>
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 중급
               </StActiveTabList>
@@ -91,11 +83,11 @@ const MainPage = () => {
                 고급
               </StActiveTabList>
             </>
-          )} */}
-          {/* {optionSelect === '지역' && (
+          )}
+          {optionSelect === '지역' && (
             <>
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
-                서울
+                서울특별시
               </StActiveTabList>
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 경기도
@@ -107,6 +99,9 @@ const MainPage = () => {
                 충청남도
               </StActiveTabList>
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+                전라북도
+              </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 전라남도
               </StActiveTabList>
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
@@ -115,11 +110,13 @@ const MainPage = () => {
               <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
                 경상남도
               </StActiveTabList>
+              <StActiveTabList onClick={onClickActiveTabHandler} $activeMyTab={activeTab}>
+                제주특별시
+              </StActiveTabList>
             </>
-          )} */}
+          )}
         </StActiveTab>
-        <MountainList />
-        {/* <Image /> */}
+        <MountainList mountainLists={mountainLists} inputSearch={inputSearch} />
       </StList>
     </StContainer>
   );
