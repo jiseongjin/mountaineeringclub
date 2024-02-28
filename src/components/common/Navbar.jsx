@@ -74,8 +74,8 @@ const StNavContainer = styled.div`
 const StLogo = styled.div`
   & a {
     font-family: 'Dokdo', cursive;
-    font-size: 48px;
-    color: var(--sub-color1) !important;
+    font-size: 54px;
+    color: var(--main-color) !important;
   }
 `;
 

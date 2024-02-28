@@ -42,14 +42,16 @@ const KakaoMap = ({ foundMountain }) => {
   }, [foundMountain.X좌표, foundMountain.Y좌표, foundMountain.명산_이름]);
 
   return (
-    <StImgBox id="map"></StImgBox>
-  )
+    <div>
+      <StImgBox id="map"></StImgBox>
+    </div>
+  );
 };
 
 export default KakaoMap;
 
 const StImgBox = styled.div`
-  height: 400px;
-  width: 100%;
+  height: 480px;
+  width: 600px;
   margin-bottom: 10px;
 `;

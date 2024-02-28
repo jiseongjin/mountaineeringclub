@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MountainList from 'components/MountainList';
+import MountainList from 'components/main/MountainList';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { filterMountain, localFilterMountain } from '../redux/modules/mountainsSlice';

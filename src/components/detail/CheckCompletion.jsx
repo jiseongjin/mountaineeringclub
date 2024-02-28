@@ -89,12 +89,12 @@ const CheckBoxContainer = styled.div`
   display: inline-block;
 `;
 const StMdOutlineCheckBox = styled(MdOutlineCheckBox)`
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
 `;
 const StMdOutlineCheckBoxOutlineBlank = styled(MdOutlineCheckBoxOutlineBlank)`
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
 `;
 
 export default CheckCompletion;
