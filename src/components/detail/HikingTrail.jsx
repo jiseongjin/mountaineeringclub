@@ -22,9 +22,7 @@ const HikingTrail = ({ mountainName }) => {
         <StMountainInfoBox>
           <StMountainIntro>
             <h1>{mountainName}</h1>
-            <StIcon>
-              <Bookmark mountainName={mountainName} />
-            </StIcon>
+            <Bookmark mountainName={mountainName} />
           </StMountainIntro>
           <StMountainContent>
             <StMountaunLocation>{foundMountain.명산_소재지}</StMountaunLocation>
@@ -86,16 +84,12 @@ const StMountainIntro = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 25px;
 
   & h1 {
     font-size: 36px;
     font-weight: 600;
   }
-`;
-
-const StIcon = styled.div`
-  display: flex;
 `;
 
 const StMountainContent = styled.div`
@@ -143,5 +137,11 @@ const StMountainPoint = styled.div`
 
 const StCompleted = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 30px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+  }
 `;

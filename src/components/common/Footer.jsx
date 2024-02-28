@@ -16,11 +16,13 @@ function Footer() {
 export default Footer;
 
 const StFooterContainer = styled.div`
+  position: relative;
+  bottom: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-top: 100px;
+  margin-top: 50px;
   padding-bottom: 50px;
   user-select: none;
 

@@ -188,7 +188,7 @@ const StSignupButton = styled.button`
   background-color: #304d30;
   color: white;
   cursor: pointer;
-  transition: background-color 2s;
+  transition: background-color 0.3s;
   user-select: none;
 
   &:hover {
@@ -217,24 +217,6 @@ const StInput = styled.input`
   cursor: pointer;
   box-shadow: 0px 0px 5px #163020;
 `;
-// const StsignupButton = styled.button`
-//   width: 100px;
-//   border-radius: 5px;
-//   border: none;
-//   font-size: 15px;
-//   padding: 10px;
-//   margin: 10px;
-//   margin-left: 263px;
-//   background-color: #304d30;
-//   color: white;
-//   cursor: pointer;
-//   transition: background-color 2s;
-//   user-select: none;
-
-//   &:hover {
-//     background-color: #163020;
-//   }
-// `;
 const StDivider = styled.div`
   width: 350px;
   height: 0.2px;
@@ -253,18 +235,6 @@ const StFormContainer = styled.div`
   width: 520px;
   height: 600px;
   border: 2px solid rgba(48, 77, 48, 0.3); // 띄어진 선의 스타일을 설정합니다.
-`;
-const StLoginButton = styled.button`
-  border: none;
-  background-color: #b6c4b6;
-  transition: color 0.3s;
-  font-size: 15px;
-  user-select: none;
-  margin-top: 10px;
-
-  &:hover {
-    color: #eef0e5;
-  }
 `;
 
 export default SignupPage;
