@@ -211,9 +211,9 @@ const MyPage = () => {
                   return (
                     <StBookmarkBox key={postId}>
                       <StMountain>⛰️{postId}<Link to={`/detail/${postId}`}><StMountainBotton>상세정보</StMountainBotton></Link></StMountain>
-                      <StMountainInformation>- 산높이 : {mountain.명산_높이}m</StMountainInformation>
-                      <StMountainInformation>- 난이도 : {mountain.난이도}</StMountainInformation>
-                      <StMountainInformation>- 소재지 : {mountain.명산_소재지}</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}</StMountainInformation>
                     </StBookmarkBox>
                   );
                 })}
@@ -232,9 +232,9 @@ const MyPage = () => {
                   return (
                     <StBookmarkBox key={postId}>
                       <StMountain>⛰️{postId}<StMountainBotton>상세정보</StMountainBotton></StMountain>
-                      <StMountainInformation>- 산높이: {mountain.명산_높이}m</StMountainInformation>
-                      <StMountainInformation>- 난이도: {mountain.난이도}</StMountainInformation>
-                      <StMountainInformation>- 소재지: {mountain.명산_소재지}</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}</StMountainInformation>
+                      <StMountainInformation><StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}</StMountainInformation>
                     </StBookmarkBox>
                   );
                 })}
@@ -515,11 +515,12 @@ const StBookmarkBox = styled.div`
   align-items: flex-start;
   flex-direction: column;
   width: 80%;
-  height: 100px;
+  height: 130px;
   margin: 20px;
   border-radius: 10px;
   user-select: none;
   box-shadow: 0px 0px 3px #163020;
+  padding: 10px;
 `;
 const StMountain = styled.p`
   font-size: 20px;
@@ -529,7 +530,7 @@ const StMountain = styled.p`
   margin-top: 5px;
 `;
 const StMountainInformation = styled.p`
-  margin-left: 40px;
+  margin-left: 30px;
   margin-bottom: 3px;
 `;
 const StMountainBotton = styled.button`
@@ -539,5 +540,9 @@ const StMountainBotton = styled.button`
   margin-left: 10px;
   border-radius: 20px;
   box-shadow: 0.5px 0.5px 2px black;
+`;
+const StSpan = styled.span`
+  font-weight: 600;
+  color: #163020;
 `;
 export default MyPage;
