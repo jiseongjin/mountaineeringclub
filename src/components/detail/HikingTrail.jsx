@@ -6,7 +6,6 @@ const HikingTrail = ({ mountainName }) => {
   const navigate = useNavigate();
 
   // 산 데이터
-
   const mountainDb = mountainData;
   const foundMountain = [...mountainDb].find((item) => item.명산_이름 === mountainName);
   if (!foundMountain) {
@@ -35,10 +34,12 @@ const HikingTrail = ({ mountainName }) => {
 };
 export default HikingTrail;
 const StHikingTrailInformationBox = styled.section`
+  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
+  background-color: #eef0e5;
   p {
     font-size: 25px;
   }
@@ -53,15 +54,15 @@ const StCourseInformationBox = styled.div`
   flex-direction: column;
   margin-top: 10px;
   gap: 10px;
-  background-color: #b6c4b6;
-  padding: 5px;
 `;
 const StMntinName = styled.h2`
-  font-size: 40px;
-  margin-left: 100px;
+  font-size: 35px;
 `;
 const StMntiDetail = styled.h5`
   font-size: 18px;
+  background-color: #b6c4b6;
+  padding: 5px;
+  border-radius: 10px;
 `;
 const StLowBox = styled.div`
   display: flex;
