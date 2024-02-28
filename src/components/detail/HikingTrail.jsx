@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import KakaoMap from './KakaoMap';
 import mountainData from 'mountainData.json';
 import { useNavigate } from 'react-router-dom';
-import { SlMagnifier } from 'react-icons/sl';
+import Bookmark from './Bookmark';
+import CheckCompletion from './CheckCompletion';
 
 const HikingTrail = ({ mountainName }) => {
   const navigate = useNavigate();
@@ -19,7 +20,12 @@ const HikingTrail = ({ mountainName }) => {
       <article>
         <KakaoMap foundMountain={foundMountain} />
         <StMountainInfoBox>
-          <h1>{mountainName}</h1>
+          <StMountainIntro>
+            <h1>{mountainName}</h1>
+            <StIcon>
+              <Bookmark mountainName={mountainName} />
+            </StIcon>
+          </StMountainIntro>
           <StMountainContent>
             <StMountaunLocation>{foundMountain.명산_소재지}</StMountaunLocation>
             <StMountainDetail>
@@ -45,6 +51,10 @@ const HikingTrail = ({ mountainName }) => {
         &nbsp;
         {foundMountain.산행포인트}
       </StMountainPoint>
+      <StCompleted>
+        <p>혹시 가보셨다면? &nbsp;</p>
+        <CheckCompletion mountainName={mountainName} />
+      </StCompleted>
     </StMountainContainer>
   );
 };
@@ -70,11 +80,22 @@ const StMountainInfoBox = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+`;
+
+const StMountainIntro = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
 
   & h1 {
     font-size: 36px;
     font-weight: 600;
   }
+`;
+
+const StIcon = styled.div`
+  display: flex;
 `;
 
 const StMountainContent = styled.div`
@@ -111,11 +132,16 @@ const StMountainOutline = styled.p`
 
 const StMountainPoint = styled.div`
   line-height: 1.6;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 
   & p {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
   }
+`;
+
+const StCompleted = styled.div`
+  display: flex;
+  margin-bottom: 30px;
 `;
