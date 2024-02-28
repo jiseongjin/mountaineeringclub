@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom/dist';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loading from '../../assets/Loading.gif';
+import Footer from 'components/common/Footer';
 
 const NonAuthLayout = () => {
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,7 @@ const NonAuthLayout = () => {
     <>
       <Navbar />
       <Outlet />
+      <Footer />
     </>
   );
 };
