@@ -3,7 +3,7 @@ import { auth } from '../../firebase';
 import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/dist';
 
-const CheckCompletion = ({ postId }) => {
+const CheckCompletion = ({ mountainName }) => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
 

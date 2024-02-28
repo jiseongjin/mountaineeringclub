@@ -5,14 +5,15 @@ import Bookmark from 'components/detail/Bookmark';
 import CheckCompletion from 'components/detail/CheckCompletion';
 
 const DetailPage = () => {
-  const { postId } = useParams();
+  // useParams 이용하기
+  const { id } = useParams();
 
   return (
     <>
-      <HikingTrail />
-      <Bookmark postId={postId} />
-      <CheckCompletion postId={postId} />
-      <Comments postId={postId} />
+      <HikingTrail mountainName={id} />
+      <Bookmark mountainName={id} />
+      <CheckCompletion mountainName={id} />
+      <Comments mountainName={id} />
     </>
   );
 };
