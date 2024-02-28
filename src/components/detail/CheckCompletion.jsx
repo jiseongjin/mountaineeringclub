@@ -79,19 +79,11 @@ const CheckCompletion = ({ postId }) => {
   }, [postId, userId]);
 
   return <ConfletionContainer onClick={handleCheckCompletion}>
-    {isChecked ? <StMdOutlineCheckBox /> : <StMdOutlineCheckBoxOutlineBlank />} </ConfletionContainer>;
+    {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />} </ConfletionContainer>;
 };
 
 const ConfletionContainer = styled.div`
   display: inline-block;
-`;
-const StMdOutlineCheckBox = styled(MdOutlineCheckBox)`
-  width: 1rem;
-  height: 1rem;
-`;
-const StMdOutlineCheckBoxOutlineBlank = styled(MdOutlineCheckBoxOutlineBlank)`
-  width: 1rem;
-  height: 1rem;
 `;
 
 

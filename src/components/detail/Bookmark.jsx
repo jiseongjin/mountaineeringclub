@@ -79,19 +79,11 @@ const Bookmark = ({ postId }) => {
   }, [postId, userId]);
 
   return <BookmarkContainer onClick={handleBookmark}>
-    {isBookmarked ? <StFaBookmark /> : <StFaRegBookmark />} </BookmarkContainer>;
+    {isBookmarked ? <FaBookmark /> : <FaRegBookmark />} </BookmarkContainer>;
 };
 
 const BookmarkContainer = styled.div`
   display: inline-block;
-`;
-const StFaBookmark = styled(FaBookmark)`
-  width: 1rem;
-  height: 1rem;
-`;
-const StFaRegBookmark = styled(FaRegBookmark)`
-  width: 1rem;
-  height: 1rem;
 `;
 
 export default Bookmark;
