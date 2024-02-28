@@ -22,7 +22,7 @@ const HikingTrail = ({ mountainName }) => {
           <StCourseInformationBox>
             <StMntiDetail>개요 : {foundMountain.산_개요}</StMntiDetail>
             <StLowBox>
-              <p>{foundMountain.난이도}</p>
+              <p>{foundMountain.난이도}</p>adada
               <p>높이 : {foundMountain.명산_높이} M</p>
             </StLowBox>
             <StMntiDetail>산행포인트 : {foundMountain.산행포인트}</StMntiDetail>
