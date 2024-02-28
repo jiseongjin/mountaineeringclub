@@ -15,7 +15,9 @@ const Image = () => {
           }
         });
         // console.log(data.documents[0]);
-        setImages(data.documents);
+        if (data.documents.length > 0) {
+          setImages(data.documents[0].thumbnail_url);
+        }
       } catch (error) {
         console.error('Error:', error);
       }
@@ -27,11 +29,7 @@ const Image = () => {
   return (
     <div>
       {/* <div>{data.documents[0]}</div> */}
-      <div>
-        {images.map((data, img) => (
-          <img key={img} src={data.thumbnail_url} />
-        ))}
-      </div>
+      <div>{images && <img src={images} />}</div>
     </div>
   );
 };

@@ -3,13 +3,16 @@ import MountainList from 'components/MountainList';
 import styled from 'styled-components';
 import Image from 'components/Image';
 // import MapContainer from 'components/MapContainer';
-import data from 'mountainData.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMountain } from '../redux/modules/mountainsSlice';
 
 const MainPage = () => {
   const [optionSelect, setOptionSelect] = useState('전체');
   const [activeTab, setActiveTab] = useState('');
-  const [InputSearch, setInputSearch] = useState('');
-  const [mountainLists, setMountainLists] = useState(data);
+  const [InputSearch, setInputSearch] = useState([]);
+  const mountains = useSelector((state) => state.mountains);
+  const dispatch = useDispatch();
+  // console.log(mountains);
 
   const selectChangeHandler = (e) => {
     setOptionSelect(e.target.value);
@@ -37,7 +40,6 @@ const MainPage = () => {
   };
 
   const filteredTabs = tabsOption[optionSelect] || [];
-  console.log(filteredTabs);
 
   const onChangeSearchHandler = (e) => {
     setInputSearch(e.target.value);
@@ -47,11 +49,11 @@ const MainPage = () => {
     e.preventDefault();
     if (!InputSearch) {
       alert('검색어를 입력해주세요');
+      const filteredData = mountains.filter((item) => item.name.includes(InputSearch));
+      dispatch(setMountain(filteredData));
+    } else {
+      dispatch(setMountain());
     }
-    const filteredData = mountainLists.data.filter((item) =>
-      item.name.toLowerCase().includes(InputSearch.toLowerCase())
-    );
-    setMountainLists(filteredData);
   };
 
   return (
@@ -63,7 +65,6 @@ const MainPage = () => {
           <input type="text" placeholder="검색어를 입력해주세요" onChange={onChangeSearchHandler} value={InputSearch} />
           <button type="submit">검색</button>
         </StsSearchForm>
-
         <StOption>
           <select onChange={selectChangeHandler} value={optionSelect}>
             <option>전체</option>
@@ -117,9 +118,8 @@ const MainPage = () => {
             </>
           )} */}
         </StActiveTab>
-
+        <MountainList />
         {/* <Image /> */}
-        <MountainList mountainLists={mountainLists} />
       </StList>
     </StContainer>
   );
@@ -185,7 +185,8 @@ const StActiveTabList = styled.li`
   padding: 1rem;
   font-size: 14px;
   border-radius: 8px;
-  ${(props) => (props.$activeTab === props.children ? 'border-bottom: 3px solid blue;' : 'none')};
+  border: 1px solid red;
+  /* ${(props) => (props.$activeTab === props.children ? 'border-bottom: 3px solid blue;' : 'none')}; */
   /* ${(props) => (props.$activeTab === props.children ? 'color:black' : 'none')}; */
   cursor: pointer;
   /* border: 1px solid red; */
