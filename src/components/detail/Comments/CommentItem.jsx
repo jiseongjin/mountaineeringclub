@@ -158,6 +158,8 @@ const StCommentItem = styled.li`
   gap: 18px;
   margin-top: 10px;
   padding: 20px 40px;
+  background-color: var(--sub-color2);
+  border-radius: 10px;
 
   & textarea {
     width: 100%;
@@ -186,8 +188,8 @@ const StCommentInfoNickname = styled.span`
 const StCommentContent = styled.div`
   display: flex;
   padding: 20px 15px;
-  border: 1px solid lightgray;
   border-radius: 8px;
+  background-color: white;
 
   & p {
     padding-left: 5px;
@@ -209,7 +211,8 @@ const StCommentButtonWrapper = styled.div`
 
 const StCommentEditButton = styled.button`
   border: 1px solid transparent;
-  background-color: transparent;
+  background-color: white;
+  border-radius: 5px;
   color: var(--sub-color1);
   transition: background-color 0.3s ease;
 
@@ -220,41 +223,12 @@ const StCommentEditButton = styled.button`
 
 const StCommentDeleteButton = styled.button`
   border: 1px solid transparent;
-  background-color: transparent;
+  background-color: var(--sub-color3);
+  border-radius: 5px;
   color: red;
   transition: background-color 0.3s ease;
 
   &:hover {
     transform: scale(1.1);
-  }
-`;
-
-const Overlay = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.541);
-`;
-
-const StOverlayCommentItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 10px;
-  padding: 20px 40px;
-
-  & textarea {
-    width: 600px;
-    resize: none;
-    outline: none;
-    border: 1px solid darkgray;
-    font-size: 16px;
-    padding: 10px;
   }
 `;

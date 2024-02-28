@@ -121,11 +121,11 @@ const Comments = ({ mountainName }) => {
             <StCommentCountNumber>{comments.length}</StCommentCountNumber>
           </StCommentCount>
 
-          <select value={sortOrder} onChange={handleSortOrderChange}>
+          <StSelect value={sortOrder} onChange={handleSortOrderChange}>
             <option value={''}>정렬 기준</option>
             <option value="asc">오래된 순</option>
             <option value="desc">최신 순</option>
-          </select>
+          </StSelect>
         </StCommentListHeader>
 
         <StCommentList>
@@ -155,6 +155,8 @@ const StCommentContainer = styled.div`
   margin-bottom: 30px;
   padding: 20px 100px;
   user-select: none;
+  background-color: var(--sub-color3);
+  border-radius: 10px;
 
   & hr {
     width: 100%;
@@ -167,9 +169,12 @@ const StCommentInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 30px auto 20px auto;
+  margin: 20px auto 20px auto;
   padding: 0px 30px;
   width: 100%;
+  background-color: var(--sub-color2);
+  padding: 10px;
+  border-radius: 10px;
 
   & textarea {
     padding: 15px;
@@ -237,4 +242,9 @@ const StCommentList = styled.ul`
   flex-direction: column;
   gap: 5px;
   margin-top: 5px;
+`;
+
+const StSelect = styled.select`
+  background-color: var(--sub-color1);
+  color: white;
 `;

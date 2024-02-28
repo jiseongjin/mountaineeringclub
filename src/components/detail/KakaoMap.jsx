@@ -49,4 +49,5 @@ export default KakaoMap;
 const StImgBox = styled.div`
   height: 400px;
   width: 100%;
+  margin-bottom: 10px;
 `;
