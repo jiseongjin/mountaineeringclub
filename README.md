@@ -15,7 +15,7 @@
 
 ## 🖇️ 배포 링크
 
-mountaineeringclub-xi.vercel.app
+http://mountaineeringclub-xi.vercel.app
 
 <br>
 
@@ -78,8 +78,6 @@ mountaineeringclub-xi.vercel.app
 - 비밀번호 재설정
   - 이메일을 입력하지 않은 경우 경고 메시지를 보여줍니다.
   - 올바른 이메일을 입력한 경우 비밀번호 재설정 링크가 담긴 이메일을 전송하고 성공적으로 전송한 경우 알림 메시지를 보여줍니다.
-
-# - 비밀번호 재설정
 
 <br>
 
