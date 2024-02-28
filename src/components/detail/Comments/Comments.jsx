@@ -100,8 +100,12 @@ const Comments = ({ mountainName }) => {
 
   return (
     <>
+      <StCommentCount>
+        <p>댓글</p>
+        <StCommentCountNumber>{comments.length}</StCommentCountNumber>
+      </StCommentCount>
+      <hr />
       <StCommentContainer>
-        <hr />
         <StCommentInputContainer>
           <textarea
             type="text"
@@ -116,16 +120,11 @@ const Comments = ({ mountainName }) => {
         </StCommentInputContainer>
 
         <StCommentListHeader>
-          <StCommentCount>
-            <p>댓글</p>
-            <StCommentCountNumber>{comments.length}</StCommentCountNumber>
-          </StCommentCount>
-
-          <StSelect value={sortOrder} onChange={handleSortOrderChange}>
+          <select value={sortOrder} onChange={handleSortOrderChange}>
             <option value={''}>정렬 기준</option>
             <option value="asc">오래된 순</option>
             <option value="desc">최신 순</option>
-          </StSelect>
+          </select>
         </StCommentListHeader>
 
         <StCommentList>
@@ -149,14 +148,26 @@ const Comments = ({ mountainName }) => {
 
 export default Comments;
 
+const StCommentCount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 30px;
+  margin-bottom: 20px;
+
+  & p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
+
 const StCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin: 30px auto;
+
   padding: 20px 100px;
   user-select: none;
-  background-color: var(--sub-color3);
-  border-radius: 10px;
 
   & hr {
     width: 100%;
@@ -172,9 +183,6 @@ const StCommentInputContainer = styled.div`
   margin: 20px auto 20px auto;
   padding: 0px 30px;
   width: 100%;
-  background-color: var(--sub-color2);
-  padding: 10px;
-  border-radius: 10px;
 
   & textarea {
     padding: 15px;
@@ -222,17 +230,6 @@ const StCommentListHeader = styled.div`
   }
 `;
 
-const StCommentCount = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  & p {
-    font-size: 20px;
-    font-weight: 600;
-  }
-`;
-
 const StCommentCountNumber = styled.p`
   color: var(--sub-color2);
 `;
@@ -242,9 +239,5 @@ const StCommentList = styled.ul`
   flex-direction: column;
   gap: 5px;
   margin-top: 5px;
-`;
-
-const StSelect = styled.select`
-  background-color: var(--sub-color1);
-  color: white;
+  margin-bottom: -40px;
 `;

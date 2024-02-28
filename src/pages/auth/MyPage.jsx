@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDoc, updateDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
-import { LiaMountainSolid } from 'react-icons/lia';
+import { FaMountain } from 'react-icons/fa';
 import CommentItem from 'components/detail/Comments/CommentItem';
 import profileImg from '../../assets/profileImg.png';
 import { useSelector } from 'react-redux';
@@ -247,7 +247,7 @@ const MyPage = () => {
               {userComments.map((userComment, index) => (
                 <React.Fragment key={userComment.id}>
                   <StCommentLink to={`/detail/${userComment.mountainName}`}>
-                    <LiaMountainSolid />
+                    <FaMountain />
                     <p>{userComment.mountainName}</p>
                   </StCommentLink>
                   <CommentItem
@@ -484,6 +484,10 @@ const StCommentLink = styled(Link)`
   & p {
     font-size: 20px;
     font-weight: 600;
+  }
+
+  & svg {
+    color: var(--main-color);
   }
 `;
 
