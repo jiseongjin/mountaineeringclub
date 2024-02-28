@@ -11,8 +11,8 @@ const DetailPage = () => {
   return (
     <>
       <HikingTrail mountainName={id} />
-      <Bookmark mountainName={id} />
-      <CheckCompletion mountainName={id} />
+      {/* <Bookmark mountainName={id} />
+      <CheckCompletion mountainName={id} /> */}
       <Comments mountainName={id} />
     </>
   );
