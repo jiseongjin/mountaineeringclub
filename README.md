@@ -67,6 +67,8 @@ http://mountaineeringclub-xi.vercel.app
   - 비밀번호 유효성 검사 : 비밀번호의 길이가 조건에 부합하는지 검사 후 비밀번호 재확인을 통해 처음 입력한 비밀번호에 대해 확인합니다.
   - 입력창 유효성 검사 : 빈 입력창이 있을 경우 경고창을 띄워줍니다.
 
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/b22455b0-3492-4f1d-be89-c4dd480399ff)
+
 <br>
 
 ### 🔽 로그인 페이지
@@ -78,6 +80,8 @@ http://mountaineeringclub-xi.vercel.app
 - 비밀번호 재설정
   - 이메일을 입력하지 않은 경우 경고 메시지를 보여줍니다.
   - 올바른 이메일을 입력한 경우 비밀번호 재설정 링크가 담긴 이메일을 전송하고 성공적으로 전송한 경우 알림 메시지를 보여줍니다.
+
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/c3e59195-df17-4514-a2fd-d7e695a6c2f2)
 
 <br>
 
@@ -96,6 +100,9 @@ http://mountaineeringclub-xi.vercel.app
   - 닉네임 유효성 검사 : 닉네임 변경 시, 변경 여부를 확인 후 변경되지 않았다면 알림창을 띄워줍니다.
   - 공백 유효성 검사 : 닉네임 입력 시, 공백 입력 여부를 확인합니다.
 
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/3d6401e0-afa9-4586-a740-e33d08e28644)
+
+
 <br>
 
 ### 🔽 상세 페이지
@@ -108,10 +115,16 @@ http://mountaineeringclub-xi.vercel.app
   - 사용자가 북마크 버튼을 클릭하면 해당 게시물이 마이 페이지의 북마크한 명산 목록에 추가되어 자신이 북마크한 명산들의 목록을 볼 수 있습니다.
 - 완주한 명산 체크 기능
   - 사용자가 체크 버튼을 클릭하면 해당 게시물이 마이 페이지의 가보았던 명산 목록에 추가되어 자신이 완주한 명산들의 목록을 볼 수 있습니다.
+ 
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/b1e14366-8628-4948-8664-66dea8612a9c)
+
 - 댓글창
   - 댓글 등록을 통해 서로의 등산 경험을 공유합니다.
   - 정렬 기능 : 댓글 목록을 최신 순, 오래된 순으로 선택하여 볼 수 있습니다.
   - 수정 및 삭제 기능 : 사용자 본인이 작성한 댓글에 대하여 수정 및 삭제가 가능합니다.
+
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/d1856fe1-a07c-4ed2-998a-82429dd3b837)
+
 
 <br>
 
