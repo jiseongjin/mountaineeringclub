@@ -126,6 +126,12 @@ const MyPage = () => {
       return;
     }
 
+    // 변경하는 닉네임이 기존 닉네임이랑 동일할시
+    if (newNickName === nickName) {
+      alert('다른 닉네임을 입력해주세요.');
+      return;
+    }
+
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
