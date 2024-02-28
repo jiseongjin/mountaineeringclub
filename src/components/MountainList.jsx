@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import mountain from '../assets/mountain.png';
 import axios from 'axios';
 
-const MountainList = ({ InputSearch }) => {
+const MountainList = () => {
   const mountains = useSelector((state) => state.mountains);
   const [pageAdd, setPageAdd] = useState(9);
 
@@ -18,15 +18,15 @@ const MountainList = ({ InputSearch }) => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const query = encodeURIComponent('가리산');
+        const query = encodeURIComponent(mountains.명산_이름);
+        console.log(mountains.명산_이름);
         const { data } = await axios.get(`https://dapi.kakao.com/v2/search/image?query=${query}`, {
           headers: {
             Authorization: `KakaoAK ${REST_API_KEY}`
           }
         });
-        // console.log(data.documents[0]);
         if (data.documents.length > 0) {
-          setImages(data.documents[0].thumbnail_url);
+          setImages(data.documents.map((doc) => doc.thumbnail_url));
         }
       } catch (error) {
         console.error('Error:', error);
@@ -34,7 +34,7 @@ const MountainList = ({ InputSearch }) => {
     };
 
     fetchImages();
-  }, [REST_API_KEY]);
+  }, []);
 
   return (
     <>

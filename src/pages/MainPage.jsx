@@ -47,7 +47,7 @@ const MainPage = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (!InputSearch) {
+    if (InputSearch !== '') {
       alert('검색어를 입력해주세요');
       const filteredData = mountains.filter((item) => item.name.includes(InputSearch));
       dispatch(setMountain(filteredData));
