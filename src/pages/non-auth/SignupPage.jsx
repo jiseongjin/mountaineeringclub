@@ -227,7 +227,7 @@ const StFormContainer = styled.div`
 const StSignupButton = styled.button`
   border: none;
   background-color: #b6c4b6;
-  transition: backgroud-color 2s;
+  transition: color 0.3s;
   font-size: 15px;
   user-select: none;
   margin-top: 10px;
