@@ -54,15 +54,17 @@ const StCourseInformationBox = styled.div`
   flex-direction: column;
   margin-top: 10px;
   gap: 10px;
-  background-color: #b6c4b6;
-  padding: 5px;
 `;
 const StMntinName = styled.h2`
   font-size: 40px;
   margin-left: 100px;
 `;
 const StMntiDetail = styled.h5`
+  width: 1150px;
   font-size: 18px;
+  background-color: #b6c4b6;
+  padding: 5px;
+  border-radius: 10px;
 `;
 const StLowBox = styled.div`
   display: flex;
