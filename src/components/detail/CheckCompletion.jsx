@@ -3,11 +3,20 @@ import { auth, db } from '../../firebase';
 import { MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/dist';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { onAuthStateChanged } from '@firebase/auth';
 
 const CheckCompletion = ({ postId }) => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
+  const [userId, setUserId] = useState(null);
+
+  // 현재 로그인한 사용자의 상태를 실시간으로 확인
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserId(user ? user.uid : null);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleCheckCompletion = async () => {
     // 로그인이 되어 있지 않은 경우
