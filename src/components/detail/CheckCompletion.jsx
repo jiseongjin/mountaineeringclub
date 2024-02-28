@@ -78,13 +78,12 @@ const CheckCompletion = ({ postId }) => {
     fetchCompletions();
   }, [postId, userId]);
 
-  return <ConfletionContainer onClick={handleCheckCompletion}>
-    {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />} </ConfletionContainer>;
+  return <CheckBoxContainer onClick={handleCheckCompletion}>
+    {isChecked ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />} </CheckBoxContainer>;
 };
 
-const ConfletionContainer = styled.div`
+const CheckBoxContainer = styled.div`
   display: inline-block;
 `;
-
 
 export default CheckCompletion;

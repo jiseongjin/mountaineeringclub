@@ -10,7 +10,7 @@ const Bookmark = ({ postId }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [userId, setUserId] = useState(null);
-
+  
   // 현재 로그인한 사용자의 상태를 실시간으로 확인
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -20,6 +20,7 @@ const Bookmark = ({ postId }) => {
   }, []);
 
   const handleBookmark = async () => {
+    console.log('postId:', postId);
     // 로그인이 되어 있지 않은 경우
     if (!userId) {
       const checkLogin = window.confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
@@ -87,3 +88,4 @@ const BookmarkContainer = styled.div`
 `;
 
 export default Bookmark;
+
