@@ -10,6 +10,7 @@ function Img({ data }) {
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        console.log(data.명산_이름);
         const query = encodeURIComponent(data.명산_이름);
         const img = await axios.get(`https://dapi.kakao.com/v2/search/image?query=${query}`, {
           headers: {
@@ -23,9 +24,10 @@ function Img({ data }) {
       }
     };
     fetchImages();
-  }, [REST_API_KEY]);
+  }, [REST_API_KEY, data]);
+  // REST_API_KEY or data 가 변경될때 안에 함수를 실행시켜준다!
 
-  return <div>{images.length === 0 ? <img src={mountain} /> : <img src={images.image_url} />}</div>;
+  return <div>{images.length === 0 ? <img src={mountain} /> : <img src={images.thumbnail_url} />}</div>;
 }
 
 export default Img;
