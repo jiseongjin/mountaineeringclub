@@ -47,7 +47,6 @@ const KakaoMap = ({ foundMountain }) => {
 export default KakaoMap;
 
 const StImgBox = styled.div`
-  margin-top: 10px;
   height: 400px;
   width: 100%;
 `;
