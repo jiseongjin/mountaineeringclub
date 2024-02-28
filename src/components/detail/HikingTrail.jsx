@@ -36,10 +36,12 @@ const HikingTrail = () => {
 };
 export default HikingTrail;
 const StHikingTrailInformationBox = styled.section`
+  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
+  background-color: #eef0e5;
   p {
     font-size: 25px;
   }
@@ -56,11 +58,9 @@ const StCourseInformationBox = styled.div`
   gap: 10px;
 `;
 const StMntinName = styled.h2`
-  font-size: 40px;
-  margin-left: 100px;
+  font-size: 35px;
 `;
 const StMntiDetail = styled.h5`
-  width: 1150px;
   font-size: 18px;
   background-color: #b6c4b6;
   padding: 5px;
