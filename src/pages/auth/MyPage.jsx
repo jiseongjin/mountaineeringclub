@@ -91,6 +91,11 @@ const MyPage = () => {
 
   // 닉네임 업데이트
   const handleNicknameChange = async () => {
+    if(!newNickName.trim()) {
+      alert("변경할 닉네임을 입력해주세요");
+      return;
+    }
+    
     const user = auth.currentUser;
     const userDoc = doc(db, 'users', user.uid);
     try {
