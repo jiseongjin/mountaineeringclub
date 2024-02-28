@@ -74,31 +74,6 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
 
   return (
     <>
-      {/* {editingCommentIndex === index && (
-        <Overlay
-          onClick={() => {
-            alert('댓글 수정을 완료해주세요.');
-          }}
-        >
-          <StOverlayCommentItem onClick={(e) => e.stopPropagation()}>
-            <StCommentContent>
-              <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
-            </StCommentContent>
-            {currentUser && currentUser.uid === comment.userId && (
-              <StCommentButtonWrapper>
-                <StCommentEditButton onClick={() => handleCommentEditCompleteButton(index)}>완료</StCommentEditButton>
-                <StCommentDeleteButton
-                  onClick={() => {
-                    setEditingCommentIndex(null);
-                  }}
-                >
-                  취소
-                </StCommentDeleteButton>
-              </StCommentButtonWrapper>
-            )}
-          </StOverlayCommentItem>
-        </Overlay>
-      )} */}
       <StCommentItem>
         <StCommentInfo>
           <div>

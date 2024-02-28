@@ -58,7 +58,7 @@ const MyPage = () => {
     loadBookmarks();
   }, [currentUser.uid]);
 
-  const mountains = useSelector((state) => state.mountains);
+  const mountains = useSelector((state) => state.mountains.mountainData);
 
   useEffect(() => {
     const loadCompleted = async () => {
@@ -210,10 +210,21 @@ const MyPage = () => {
                   }
                   return (
                     <StBookmarkBox key={postId}>
-                      <StMountain>⛰️{postId}<Link to={`/detail/${postId}`}><StMountainBotton>상세정보</StMountainBotton></Link></StMountain>
-                      <StMountainInformation><StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m</StMountainInformation>
-                      <StMountainInformation><StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}</StMountainInformation>
-                      <StMountainInformation><StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}</StMountainInformation>
+                      <StMountain>
+                        ⛰️{postId}
+                        <Link to={`/detail/${postId}`}>
+                          <StMountainBotton>상세정보</StMountainBotton>
+                        </Link>
+                      </StMountain>
+                      <StMountainInformation>
+                        <StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m
+                      </StMountainInformation>
+                      <StMountainInformation>
+                        <StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}
+                      </StMountainInformation>
+                      <StMountainInformation>
+                        <StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}
+                      </StMountainInformation>
                     </StBookmarkBox>
                   );
                 })}
@@ -231,10 +242,19 @@ const MyPage = () => {
                   }
                   return (
                     <StBookmarkBox key={postId}>
-                      <StMountain>⛰️{postId}<StMountainBotton>상세정보</StMountainBotton></StMountain>
-                      <StMountainInformation><StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m</StMountainInformation>
-                      <StMountainInformation><StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}</StMountainInformation>
-                      <StMountainInformation><StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}</StMountainInformation>
+                      <StMountain>
+                        ⛰️{postId}
+                        <StMountainBotton>상세정보</StMountainBotton>
+                      </StMountain>
+                      <StMountainInformation>
+                        <StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m
+                      </StMountainInformation>
+                      <StMountainInformation>
+                        <StSpan>ㅤ난이도ㅤ</StSpan> {mountain.난이도}
+                      </StMountainInformation>
+                      <StMountainInformation>
+                        <StSpan>ㅤ소재지ㅤ</StSpan> {mountain.명산_소재지}
+                      </StMountainInformation>
                     </StBookmarkBox>
                   );
                 })}
@@ -531,11 +551,11 @@ const StMountain = styled.p`
   font-weight: bold;
   margin-bottom: 10px;
   margin-left: 10px;
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 const StMountainInformation = styled.p`
   margin-left: 30px;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
 `;
 const StMountainBotton = styled.button`
   border: none;
