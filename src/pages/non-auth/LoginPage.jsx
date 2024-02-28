@@ -163,7 +163,7 @@ const StLoginButton = styled.button`
   background-color: #304d30;
   color: white;
   cursor: pointer;
-  transition: backgroud-color 2s;
+  transition: background-color 2s;
   user-select: none;
 
   &:hover {
@@ -179,7 +179,7 @@ const StGoogle = styled.button`
   background-color: #304d30;
   color: white;
   cursor: pointer;
-  transition: backgroud-color 2s;
+  transition: background-color 2s;
   user-select: none;
   margin: 10px;
 
