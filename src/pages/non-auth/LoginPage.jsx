@@ -12,10 +12,10 @@ import { auth } from '../../firebase';
 import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const isLogin = useSelector((state) => state.auth.isLogin);
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
       navigate('/');
     } catch (error) {
       console.error('로그인 실패:', error);
-      alert('로그인 또는 비밀번호가 일치하지 않습니다.');
+      alert('이메일 주소 또는 비밀번호가 일치하지 않습니다.');
     }
   };
 
@@ -69,14 +69,7 @@ const LoginPage = () => {
         return;
       }
 
-      // 해당 이메일로 가입된 사용자의 정보 가져오기
-      const signInMethod = await fetchSignInMethodsForEmail(auth, email);
-
-      // 가입된 정보가 없는 경우 에러 메시지 표시
-      if (signInMethod.length === 0) {
-        alert('존재하지 않는 이메일 주소입니다. 다시 확인해주세요.');
-        return;
-      }
+      setIsLoading(true);
 
       await sendPasswordResetEmail(auth, email);
       alert('비밀번호 재설정 이메일이 전송되었습니다. 이메일을 확인해주세요.');
@@ -89,6 +82,8 @@ const LoginPage = () => {
       } else {
         alert('비밀번호 재설정 이메일을 전송하는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,7 +103,9 @@ const LoginPage = () => {
           <StDivider />
           <StGoogle onClick={handleGoogleLogin}>구글 로그인</StGoogle>
           <StButtonWrapper>
-            <button onClick={handleForgotPassword}>비밀번호 재설정</button>
+            <button onClick={handleForgotPassword} disabled={isLoading}>
+              비밀번호 재설정
+            </button>
             <button onClick={handleGoSignup}>회원가입</button>
           </StButtonWrapper>
         </StForm>
