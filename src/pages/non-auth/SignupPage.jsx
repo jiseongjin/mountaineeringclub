@@ -101,7 +101,9 @@ const SignupPage = () => {
           <StP>회원가입</StP>
           <StButtonSet>
             <p>이미 계정이 있으신가요? &nbsp;</p>
-            <button onClick={handleGoLogin}>로그인 &gt;</button>
+            <button type="button" onClick={handleGoLogin}>
+              로그인 &gt;
+            </button>
           </StButtonSet>
           <StInput type="text" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
           <StInput
