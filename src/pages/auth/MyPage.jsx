@@ -58,7 +58,7 @@ const MyPage = () => {
     loadBookmarks();
   }, [currentUser.uid]);
 
-  const mountains = useSelector((state) => state.mountains);
+  const mountains = useSelector((state) => state.mountains.mountainData);
 
   useEffect(() => {
     const loadCompleted = async () => {
