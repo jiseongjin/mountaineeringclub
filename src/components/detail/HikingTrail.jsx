@@ -109,6 +109,9 @@ const StMountainDetail = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  p {
+    font-size: 20px;
+  }
 `;
 
 const StMountainInfo = styled.div`
