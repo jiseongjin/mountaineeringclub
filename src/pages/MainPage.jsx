@@ -131,9 +131,6 @@ const StContainer = styled.div`
     color: var(--main-color);
     font-family: '궁서체';
   }
-  & p {
-    color: red;
-  }
 `;
 
 const StsSearchForm = styled.form`
@@ -148,13 +145,28 @@ const StsSearchForm = styled.form`
     outline: none;
     border: 1px solid #cfcfcf;
     width: 500px;
+    &:focus {
+      border-color: var(--main-color);
+    }
   }
 
   & button {
+    border-radius: 15px;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-height: 3rem;
     padding: 0.3rem 0.6rem;
-    border-radius: 10px;
     border: none;
     cursor: pointer;
+    &:hover {
+      border: 1px solid var(--main-color);
+
+      background-color: white;
+      color: var(--main-color);
+      transition: all 0.2s ease 0s;
+    }
   }
 `;
 
@@ -164,7 +176,7 @@ const StList = styled.div`
 `;
 const StOption = styled.div`
   display: flex;
-  margin-top: 20px;
+  margin-top: 30px;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -180,18 +192,20 @@ const StActiveTabList = styled.li`
   margin-top: 10px;
   padding: 1rem;
   font-size: 14px;
-  border-radius: 8px;
+
   cursor: pointer;
-  ${(props) => (props.$levelActiveTab === props.children ? 'color:#ffffff' : 'color: black')};
-  ${(props) => (props.$levelActiveTab === props.children ? 'background-color: var(--main-color)' : 'none')};
+  ${(props) => (props.$levelActiveTab === props.children ? 'color: black' : 'color: gray')};
+  ${(props) => (props.$levelActiveTab === props.children ? 'border-bottom: 3px solid var(--main-color)' : 'none')};
+  ${(props) => (props.$levelActiveTab === props.children ? 'font-weight: bold' : 'none')};
 `;
 
 const StActiveTabLists = styled.li`
   margin-top: 10px;
   padding: 1rem;
   font-size: 14px;
-  border-radius: 8px;
+
   cursor: pointer;
-  ${(props) => (props.$localActiveTab === props.children ? 'color:#ffffff' : 'color: black')};
-  ${(props) => (props.$localActiveTab === props.children ? 'background-color: var(--main-color)' : 'none')};
+  ${(props) => (props.$localActiveTab === props.children ? 'color: black' : 'color: gray')};
+  ${(props) => (props.$localActiveTab === props.children ? 'border-bottom: 3px solid var(--main-color)' : 'none')};
+  ${(props) => (props.$localActiveTab === props.children ? 'font-weight: bold' : 'none')};
 `;
