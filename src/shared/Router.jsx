@@ -30,7 +30,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
         </Route>
 
-        {/* 404 NotFound */}
+        {/* NotFound */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

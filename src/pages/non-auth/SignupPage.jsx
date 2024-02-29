@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -15,8 +14,6 @@ const SignupPage = () => {
   const auth = getAuth();
 
   const navigate = useNavigate();
-
-  const isLogin = useSelector((state) => state.auth.isLogin);
 
   const handleEmailSignUp = async (event) => {
     event.preventDefault();
@@ -91,13 +88,6 @@ const SignupPage = () => {
         console.log('Eorror', error);
       });
   };
-
-  useEffect(() => {
-    if (isLogin) {
-      alert('이미 로그인되어 있습니다.');
-      navigate('/');
-    }
-  }, [isLogin, navigate]);
 
   const handleGoLogin = (event) => {
     event.preventDefault();

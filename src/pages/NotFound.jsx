@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styled from 'styled-components';
 import { LiaMountainSolid } from 'react-icons/lia';
 import { Link } from 'react-router-dom';

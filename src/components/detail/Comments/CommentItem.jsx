@@ -74,31 +74,6 @@ const CommentItem = ({ currentUser, comments, setComments, comment, index }) => 
 
   return (
     <>
-      {/* {editingCommentIndex === index && (
-        <Overlay
-          onClick={() => {
-            alert('댓글 수정을 완료해주세요.');
-          }}
-        >
-          <StOverlayCommentItem onClick={(e) => e.stopPropagation()}>
-            <StCommentContent>
-              <textarea defaultValue={comment.comment} onChange={handleEditingComment} autoFocus />
-            </StCommentContent>
-            {currentUser && currentUser.uid === comment.userId && (
-              <StCommentButtonWrapper>
-                <StCommentEditButton onClick={() => handleCommentEditCompleteButton(index)}>완료</StCommentEditButton>
-                <StCommentDeleteButton
-                  onClick={() => {
-                    setEditingCommentIndex(null);
-                  }}
-                >
-                  취소
-                </StCommentDeleteButton>
-              </StCommentButtonWrapper>
-            )}
-          </StOverlayCommentItem>
-        </Overlay>
-      )} */}
       <StCommentItem>
         <StCommentInfo>
           <div>
@@ -227,35 +202,5 @@ const StCommentDeleteButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
-  }
-`;
-
-const Overlay = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.541);
-`;
-
-const StOverlayCommentItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 10px;
-  padding: 20px 40px;
-
-  & textarea {
-    width: 600px;
-    resize: none;
-    outline: none;
-    border: 1px solid darkgray;
-    font-size: 16px;
-    padding: 10px;
   }
 `;

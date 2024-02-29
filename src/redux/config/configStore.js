@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import auth from '../modules/mountainsSlice';
 import mountains from '../modules/mountainsSlice';
+import auth from '../modules/authSlice';
 
 const rootReducer = combineReducers({ auth, mountains });
 
