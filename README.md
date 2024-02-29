@@ -137,11 +137,84 @@ http://mountaineeringclub-xi.vercel.app
 ## 🌟 트러블 슈팅
 
 > 문제 1
+- **문제점**<br>
+사용자가 비밀번호나 이메일을 잘못 입력하거나 입력하지 않은 경우, 이를 검사하여 오류 메시지를 표시해야 하는 과정에서 어떤 유효성을 검사해야 하는지에 대한 문제가 발생했습니다.
+
+- **원인**<br>
+사용자의 입력이 요구 사항을 충족시키지 않을 때, 자릿수, 빈 칸, 이메일 형식 등을 검사해야 하지만, 이에 대한 명확한 기준이 부족합니다.
+
+- **해결**<br>
+사용자의 입력 유효성을 검사하기 위해 자릿수, 빈 칸 여부, 이메일 형식 여부 등을 체크하여 형식에 맞는 데이터를 입력할 수 있도록 조치했습니다. 유효성 검사가 실패할 경우, 사용자에게 어떤 요구 사항을 충족하지 않았는지를 메시지로 표시하여 명확한 안내를 제공합니다.
 
 <br>
 
 > 문제 2
+- **문제점**<br>
+초반에 AuthLayout의 로그인 상태를 확인하는 로직에서 isLogin 상태를 true로 초기화해 두어서 실제로 로그인 상태를 확인하지 못하는 문제가 발생했습니다. Firebase Authentication과 연동하여 현재 사용자의 로그인 상태를 반영하도록 수정했더니 적용이 되었습니다.
 
--
+- **원인**<br>
+isLogin 상태를 초기화할 때 Firebase Authentication의 로그인 상태와의 동기화가 이루어지지 않아서 실제 로그인 상태를 정확히 확인하지 못했습니다.
+
+- **해결**<br>
+useEffect 훅을 활용하여 컴포넌트가 마운트될 때 onAuthStateChanged를 구독하고, 컴포넌트가 언마운트될 때 구독을 해지하도록 구현했습니다. onAuthStateChanged는 로그인 상태가 변경될 때마다 호출되기 때문에 이를 통해 실시간으로 사용자의 로그인 상태를 확인할 수 있도록 조치했습니다. 이로써 초기화와 동시에 실제 로그인 상태를 반영하여 문제를 해결하였습니다.
+
+```
+const AuthLayout = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  if (!isLogin) {
+    alert('로그인이 필요한 페이지입니다.');
+    return <Navigate to="/login" replace />;
+  }
+```
+```
+const AuthLayout = () => {
+  const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+      setLoading(false);
+    });
+    return () => unsubscribe(); // cleanup 함수
+  }, []);
+  if (loading) {
+    return (
+      <StLoading>
+        <img src={Loading} alt="Loading" />
+        잠시만 기다려 주세요.
+      </StLoading>
+    );
+  }
+  if (!isLoggedIn) {
+    alert('로그인이 필요한 페이지입니다.');
+    return <Navigate to="/login" replace />;
+  }
+```
 
 <br>
+
+> 문제 3
+- **문제점**<br>
+마이페이지에서 새로고침을 하면 로그인이 된 상태임에도 불구하고 "로그인이 필요한 페이지입니다." 경고창이 뜨고 로그인 페이지로 이동한 후 "이미 로그인 상태입니다." 경고창이 뜨는 문제가 발생했습니다.
+
+- **원인**<br>
+이 문제는 초기 로그인 상태를 체크하는 AuthLayout 컴포넌트에서 비동기적으로 사용자 정보를 가져오는 onAuthStateChanged 함수의 동작이 마이페이지가 렌더링되기 전에 완료되지 않아 발생한 것입니다. 이로 인해 초기에 로그인 상태를 올바르게 판단하지 못하여 로그인이 필요한 페이지로 이동하게 되었습니다.
+
+- **해결**<br>
+AuthLayout 컴포넌트에서 onAuthStateChanged 함수를 사용하여 사용자 정보를 가져올 때, 로딩 상태를 추가하여 해당 동작이 완료될 때까지 대기하도록 하였습니다. 이를 통해, 초기 로그인 상태를 정확하게 확인하고, 마이페이지에서 새로고침을 할 때에도 사용자 정보가 올바르게 유지되도록 수정하였습니다.
+문제점
+
+<br>
+
+> 문제 4
+- **문제점**<br>
+
+
+- **원인**<br>
+
+
+- **해결**<br>
+
+
+<br>
+
