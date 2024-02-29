@@ -213,7 +213,7 @@ const MyPage = () => {
                       <StMountain>
                         ⛰️{postId}
                         <Link to={`/detail/${postId}`}>
-                          <StMountainBotton>상세정보</StMountainBotton>
+                          <StMountainButton>상세정보</StMountainButton>
                         </Link>
                       </StMountain>
                       <StMountainInformation>
@@ -244,7 +244,7 @@ const MyPage = () => {
                     <StBookmarkBox key={postId}>
                       <StMountain>
                         ⛰️{postId}
-                        <StMountainBotton>상세정보</StMountainBotton>
+                        <StMountainButton>상세정보</StMountainButton>
                       </StMountain>
                       <StMountainInformation>
                         <StSpan>ㅤ고ㅤ도ㅤ</StSpan> {mountain.명산_높이}m
@@ -525,6 +525,8 @@ const StCommentList = styled.ul`
     margin-top: -5px;
   }
 `;
+
+// 북마크 & 체크 박스
 const StBookmarkContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -532,6 +534,7 @@ const StBookmarkContainer = styled.div`
   flex-direction: column;
   padding: 10px;
 `;
+
 const StBookmarkBox = styled.div`
   background-color: #dce7db;
   justify-content: center;
@@ -546,6 +549,7 @@ const StBookmarkBox = styled.div`
   box-shadow: 0px 0px 3px #163020;
   padding: 10px;
 `;
+
 const StMountain = styled.p`
   font-size: 20px;
   font-weight: bold;
@@ -553,11 +557,13 @@ const StMountain = styled.p`
   margin-left: 10px;
   margin-top: 10px;
 `;
+
 const StMountainInformation = styled.p`
   margin-left: 30px;
   margin-bottom: 8px;
 `;
-const StMountainBotton = styled.button`
+
+const StMountainButton = styled.button`
   border: none;
   user-select: none;
   cursor: pointer;
@@ -565,6 +571,7 @@ const StMountainBotton = styled.button`
   border-radius: 20px;
   box-shadow: 0.5px 0.5px 2px black;
 `;
+
 const StSpan = styled.span`
   font-weight: 600;
   color: #163020;

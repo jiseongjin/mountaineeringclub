@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import MountainList from 'components/main/MountainList';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';

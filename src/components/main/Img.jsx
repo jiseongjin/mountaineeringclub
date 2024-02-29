@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import mountain from '../../assets/mountain.png';
 
 function Img({ data }) {
@@ -27,7 +27,15 @@ function Img({ data }) {
   }, [REST_API_KEY, data]);
   // REST_API_KEY or data 가 변경될때 안에 함수를 실행시켜준다!
 
-  return <div>{images.length === 0 ? <img src={mountain} /> : <img src={images.thumbnail_url} />}</div>;
+  return (
+    <div>
+      {images.length === 0 ? (
+        <img src={mountain} alt="default mountain img" />
+      ) : (
+        <img src={images.thumbnail_url} alt="mountain img" />
+      )}
+    </div>
+  );
 }
 
 export default Img;
