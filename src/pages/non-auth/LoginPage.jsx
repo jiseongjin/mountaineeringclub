@@ -1,17 +1,14 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const isLogin = useSelector((state) => state.auth.isLogin);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -44,13 +41,6 @@ const LoginPage = () => {
     event.preventDefault();
     navigate('/signup');
   };
-
-  useEffect(() => {
-    if (isLogin) {
-      alert('이미 로그인되어 있습니다.');
-      navigate('/');
-    }
-  }, [isLogin, navigate]);
 
   // 비밀번호 재설정
   const handleForgotPassword = async (event) => {
