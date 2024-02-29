@@ -214,19 +214,23 @@ const StTextboxLocation = styled.span`
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin: 30px 0 30px 0;
+  margin: 50px 0 30px 0;
 `;
 
 const StAddBtn = styled.button`
-  width: 500px;
-  border-radius: 6px;
-  border: solid 2px #a3a3a3;
-  background-color: white;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 0.5rem;
+  width: 200px;
+  border-radius: 15px;
+  border: solid 1px var(--main-color);
+  background-color: var(--main-color);
+  color: white;
 
-  & :hover {
-    background-color: #a3a3a3;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0.7rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--sub-color3);
+    color: var(--main-color);
   }
 `;
