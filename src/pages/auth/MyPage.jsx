@@ -150,8 +150,10 @@ const MyPage = () => {
   return (
     <StContainer>
       <StMenu>
-        <StProfile src={imageUrl} alt="프로필 사진" />
-        <StprofileNickName>{nickName}님</StprofileNickName>
+        <StProfile src={imageUrl} alt="프로필 사진" onClick={() => setActiveButton('')}/>
+        <StprofileNickName onClick={() => setActiveButton('')}>
+          {nickName}님
+        </StprofileNickName>
         <StButtons>
           <StBtn active={activeButton === '내 정보 수정'} onClick={() => setActiveButton('내 정보 수정')}>
             <span>내 정보 수정</span>
@@ -317,11 +319,13 @@ const StProfile = styled.img`
   border-radius: 50%;
   margin-top: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 // Menu : 현재 로그인한 계정의 닉네임
 const StprofileNickName = styled.p`
   font-weight: bold;
+  cursor: pointer;
 `;
 
 // Menu buttons
