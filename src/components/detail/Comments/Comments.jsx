@@ -154,6 +154,7 @@ const StCommentCount = styled.div`
   gap: 10px;
   margin-left: 30px;
   margin-bottom: 20px;
+  user-select: none;
 
   & p {
     font-size: 20px;

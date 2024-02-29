@@ -122,12 +122,13 @@ const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  user-select: none;
 
   & h1 {
     font-weight: bold;
     font-size: 40px;
     margin-bottom: 30px;
-    margin-top: 80px;
+    margin-top: 70px;
     color: var(--main-color);
     font-family: '궁서체';
   }

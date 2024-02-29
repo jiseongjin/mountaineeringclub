@@ -122,7 +122,7 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
 export default MountainList;
 
 const StCardContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 50px;
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
