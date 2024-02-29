@@ -53,6 +53,12 @@ http://mountaineeringclub-xi.vercel.app
   - 산에 대한 간략한 소개를 카드 형식으로 보여줍니다. 각 게시물을 클릭하면 해당 게시물의 상세 페이지로 이동합니다.
 - 더 보기
   - 최초로 9개의 게시물을 카드 형식으로 보여주고 더 보기 버튼을 클릭하면 볼 수 있는 게시물의 수가 추가됩니다.
+ 
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/e05eec16-d0e4-4adf-bcba-bd400e0ec94e)
+
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/277efdff-4074-463c-80ee-c33c34c7b03b)
+
+![image](https://github.com/jiseongjin/mountaineeringclub/assets/154482077/b4847bdf-3fe8-4cc6-a330-9d0cbfd4195b)
 
 <br>
 
