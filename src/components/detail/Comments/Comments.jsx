@@ -227,6 +227,7 @@ const StCommentListHeader = styled.div`
     border-radius: 5px;
     height: 28px;
     font-size: 13px;
+    cursor: pointer;
   }
 `;
 

@@ -126,10 +126,14 @@ const StContainer = styled.div`
   & h1 {
     font-weight: bold;
     font-size: 40px;
-    margin-bottom: 20px;
-    margin-top: 50px;
+    margin-bottom: 30px;
+    margin-top: 80px;
     color: var(--main-color);
     font-family: '궁서체';
+  }
+
+  & p {
+    font-weight: 600;
   }
 `;
 
@@ -137,10 +141,11 @@ const StsSearchForm = styled.form`
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 50px;
+  margin-bottom: 30px;
 
   & input {
-    padding: 1rem 0.6rem;
+    padding: 15px 18px;
     border-radius: 20px;
     outline: none;
     border: 1px solid #cfcfcf;
@@ -154,18 +159,17 @@ const StsSearchForm = styled.form`
     border-radius: 15px;
     background-color: var(--main-color);
     color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
     min-height: 3rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 1rem;
     border: none;
-    cursor: pointer;
-    &:hover {
-      border: 1px solid var(--main-color);
+    transition: all 0.3s ease;
 
-      background-color: white;
+    &:hover {
+      border: 1px solid var(--sub-color2);
+      background-color: var(--sub-color3);
       color: var(--main-color);
-      transition: all 0.2s ease 0s;
     }
   }
 `;
@@ -176,10 +180,17 @@ const StList = styled.div`
 `;
 const StOption = styled.div`
   display: flex;
-  margin-top: 30px;
+  margin-top: 10px;
   gap: 10px;
   align-items: center;
   justify-content: center;
+
+  & select {
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 `;
 
 const StActiveTab = styled.ul`
