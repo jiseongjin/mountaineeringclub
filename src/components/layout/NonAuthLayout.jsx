@@ -30,10 +30,6 @@ const NonAuthLayout = () => {
     );
   }
 
-  if (isLoggedIn) {
-    alert('이미 로그인 상태입니다.');
-    return <Navigate to="/" replace />;
-  }
 
   return (
     <>
