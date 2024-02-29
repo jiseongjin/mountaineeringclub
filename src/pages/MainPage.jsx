@@ -46,7 +46,7 @@ const MainPage = () => {
             onChange={onChangeSearchHandler}
             value={inputSearch}
           />
-          <button type="submit">검색</button>
+          {/* <button type="submit">검색</button> */}
         </StsSearchForm>
         <StOption>
           <select onChange={selectChangeHandler} value={optionSelect}>
