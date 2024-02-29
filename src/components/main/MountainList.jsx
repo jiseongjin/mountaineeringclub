@@ -8,7 +8,6 @@ const MountainList = ({ inputSearch, LevelActiveTab, localActiveTab, optionSelec
   const mountains = useSelector((state) => state.mountains.mountainData);
   const filteredMountains = useSelector((state) => state.mountains.filteredLevelData);
   const localFilterMountain = useSelector((state) => state.mountains.filteredLocalData);
-  // console.log(localFilterMountain);
   const [pageAdd, setPageAdd] = useState(9);
   const loadMoreBtn = () => {
     setPageAdd((prev) => prev + 9);

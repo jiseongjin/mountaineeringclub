@@ -10,14 +10,12 @@ function Img({ data }) {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        console.log(data.명산_이름);
         const query = encodeURIComponent(data.명산_이름);
         const img = await axios.get(`https://dapi.kakao.com/v2/search/image?query=${query}`, {
           headers: {
             Authorization: `KakaoAK ${REST_API_KEY}`
           }
         });
-        // console.log('뭐가뜰까:', img);
         setImages(img.data.documents[0]);
       } catch (error) {
         console.error('불러오기 실패:', error);

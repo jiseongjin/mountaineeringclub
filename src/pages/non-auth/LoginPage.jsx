@@ -79,11 +79,13 @@ const LoginPage = () => {
           <StButtonWrapper>
             <StButtonSet>
               <p>아직 계정이 없으신가요? &nbsp;</p>
-              <button onClick={handleGoSignup}>회원가입 &gt;</button>
+              <button type="button" onClick={handleGoSignup}>
+                회원가입 &gt;
+              </button>
             </StButtonSet>
             <StButtonSet>
               <p>혹시 비밀번호를 잊으셨나요? &nbsp;</p>
-              <button onClick={handleForgotPassword} disabled={isLoading}>
+              <button type="button" onClick={handleForgotPassword} disabled={isLoading}>
                 비밀번호 재설정 &gt;
               </button>
             </StButtonSet>
